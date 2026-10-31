@@ -33,7 +33,9 @@
    git config user.email "<你的 GitHub noreply 邮箱>"
    ```
 
-4. 改完提交，用 `git format-patch -<提交数>` 导出。把 `.patch` 附在 issue 里，或者开一个只加 `incoming/<主题>/*.patch` 的 PR。这类 PR 不合并：补丁收进下一版后关闭，并写明是哪一版。
+4. 改完提交，用 `git format-patch -<提交数>` 导出。把 `.patch` 附在 issue 里，或者开一个只加 `incoming/<主题>/*.patch` 的 PR。
+   - 补丁直接就是要收的样子：基于当前系列，作者是你的 noreply 邮箱，没有 `Co-authored-by`；测试脚本别放进补丁本身，写在 PR 说明里或放 `incoming/<主题>/tests/`。CI 会检查这几条。
+   - 要改的地方维护者会在 PR 里说，请你自己更新。审过就合并，合并即收录：维护者用 `git am` 原样收进下一版，署名保留；发版时补丁并进 `patches/` 的新系列，`incoming/` 里的这一份随之删掉。
 5. 不要求你会编译或跑回归。维护者审完会在自己的电脑上编、测。
 
 只回放补丁不需要编译环境；要编出能跑的模拟器，照[从源码构建](./build)。
