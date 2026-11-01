@@ -1,6 +1,6 @@
 # AUTO-MAS 对接
 
-**改什么**：[AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 里管理 ModAVD 实例的部分，正在从它自己的 Python 实现改成调用 `modavd` 命令行。
+**对接状态**：ModAVD 提供 `modavd` 命令行和 MCP 服务，能够独立管理实例；[AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 是独立的自动化项目。两边兼容部分实例格式和运行约定，但 AUTO-MAS 是否以及何时改用 `modavd`，以 AUTO-MAS 自己的代码和 Release 为准。本页描述对接方向，不表示已经完成迁移、正式合作或共同维护。
 
 ## 环境
 

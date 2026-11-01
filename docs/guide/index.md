@@ -1,11 +1,15 @@
 # 这是什么
 
-ModAVD（魔改 AVD）是给 Windows 上的挂机脚本用的安卓模拟器。基于 AOSP Android Emulator 37.2.10，加了一批补丁后自己编译。
+ModAVD（魔改 AVD）是面向 Windows、重点优化无人值守自动化的安卓模拟器，也可以由随包的管理器或命令行独立管理。基于 AOSP Android Emulator 37.2.10，加了一批补丁后自己编译。
 
-现在配合 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 使用：建实例、开关机、接截图和点击都由 AUTO-MAS 完成。0.36.0 起包里另带管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe`，也可以不经 AUTO-MAS 自己管实例。
+可以与独立的 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 项目集成，由它负责自己的实例编排、脚本和任务流程。0.36.0 起包里另带管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe`，也可以不经 AUTO-MAS 自己管理实例。
 
 ::: info 非官方项目
 这是非官方项目，与 Google 没有关联。
+:::
+
+::: warning 版本范围
+本页的普通用户说明以最新已发布整包 `v0.36.0` 为准；各组件的 `main` 可能包含尚未随整包发布的后续实现，下载包的行为以对应 Release 说明和包内版本为准。
 :::
 
 - 一个跑在 Windows 上的安卓模拟器，用 Windows 虚拟机监控程序平台（WHPX）做硬件加速。
