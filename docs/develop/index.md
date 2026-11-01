@@ -4,6 +4,8 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 
 想知道各部分要什么环境和硬件、用 AI 工具时选什么模型，见[分区一览和通用要求](./overview)。
 
+四个仓库的职责和问题入口见[项目组成与协作边界](./overview#项目组成与协作边界)。ModAVD 负责模拟器补丁、执行桥、随包脚本和整包；ModAVDManager 负责管理器、CLI、MCP 和实例生命周期；ModAVDHostIME 负责客体输入法；AUTO-MAS 是独立的自动化集成方。技术兼容和接口对接不表示正式合作或共同维护。
+
 ## 最需要的：在你的电脑上试
 
 维护者只在一台 Windows 11、AMD CPU、NVIDIA 独显的电脑上测过。最缺这些配置的实测：Intel CPU，AMD 或 Intel 显卡，笔记本双显卡，Windows 10，16 GB 内存。

@@ -2,7 +2,7 @@
 
 下面是当前版本（`0.36.0`，构建号 mas-36，基于 Google AOSP Android Emulator 37.2.10）里对使用者有影响的改动。逐个补丁见 ModAVD 仓库的 [`patches/`](https://github.com/ModAVD/ModAVD/tree/main/patches)，每一版的改动见 [Release 说明](https://github.com/ModAVD/ModAVD/releases)。
 
-## 不往外发东西
+## 宿主侧联网和隐私行为
 
 - 不上传使用统计（`-metrics-collection` 按 `-no-metrics` 处理）。
 - 不上传崩溃报告，也不弹窗询问；崩溃转储只存在本机，保留最新 5 份。
@@ -12,7 +12,7 @@
 
 ## 扛得住强行结束
 
-- 数据盘以直写（write-through）方式交给安卓，强行结束模拟器进程不会弄坏虚拟磁盘（qcow2）的元数据，我们的硬杀测试里没有出现过损坏。关机前最后几秒还没写到盘上的文件仍可能丢失。
+- 数据盘以直写（write-through）方式交给安卓，降低强行结束模拟器进程时 qcow2 元数据损坏的风险；仍应先执行 `adb shell sync`，关机前最后几秒还没写到盘上的数据、客体文件或应用层状态仍可能丢失或不一致。
 - 修了崩溃处理程序（crashpad_handler）随机退出的问题。原来它退出以后，模拟器再崩溃时会一直卡住、也不留转储。
 
 ## 少占资源
