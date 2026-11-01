@@ -26,6 +26,8 @@
 
 1. 先开 issue，写清要改什么、为什么。
 2. 拿源码：在 ModAVD 仓库目录里运行 `python scripts/checks.py patches --work <一个还不存在的目录>`。它从 android.googlesource.com 浅取 AOSP 基准，回放 `patches/` 里当前版本的补丁，每条补丁系列生成一个仓库，如 `qemu-mas36`。
+
+   也可以直接克隆打好补丁的仓库 [ModAVDQemu](https://github.com/ModAVD/ModAVDQemu)、[ModAVDGfxstream](https://github.com/ModAVD/ModAVDGfxstream)、[ModAVDCrashpad](https://github.com/ModAVD/ModAVDCrashpad)，当前版本在 `release/0.36` 分支，源码树和回放出来的一样，比如 `git clone -b release/0.36 https://github.com/ModAVD/ModAVDQemu.git`。完整历史约 400 MB，只要最近的提交可以加 `--depth 100`。
 3. 进要改的仓库，**先把提交身份改成你自己的**，因为脚本给这几个仓库设的是维护者的身份：
 
    ```
