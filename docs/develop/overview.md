@@ -8,11 +8,12 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
 
 | 分区 | 仓库 / 目录 | 主要语言 | 难度 | GitHub CI 能验证到哪 | 建议模型（Claude / GPT） |
 |---|---|---|---|---|---|
-| [模拟器本体](./emulator)（qemu / gfxstream / crashpad 补丁） | [ModAVD](https://github.com/ModAVD/ModAVD) 的 `patches/`、`manifests/` | C / C++ | 高 | 只回放补丁、比对源码树；不编译 | Opus 5.5 / GPT-6 Astra，推理开高 |
+| [模拟器本体](./emulator)（qemu / gfxstream / crashpad 补丁） | [ModAVD](https://github.com/ModAVD/ModAVD) 的 `patches/`、`manifests/`；打好补丁的源码在 [ModAVDQemu](https://github.com/ModAVD/ModAVDQemu)、[ModAVDGfxstream](https://github.com/ModAVD/ModAVDGfxstream)、[ModAVDCrashpad](https://github.com/ModAVD/ModAVDCrashpad)（`release/0.36`） | C / C++ | 高 | 只回放补丁、比对源码树；不编译 | Opus 5.5 / GPT-6 Astra，推理开高 |
 | [arm64 执行桥](./bridge) | ModAVD 的 `bridge/` | C++（NDK） | 高 | 不能 | Opus 5.5 / GPT-6 Astra |
-| [管理器和命令行](./manager) | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) | Go，页面是原生 JS / CSS | 中 | 单元测试、构建、可复现核对 | Sonnet 5.5 / GPT-6.1 Sol；开机流程、并发、自更新用 Opus 5.5 / GPT-6 Astra |
+| [管理器和命令行](./manager) | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) | Go，页面是原生 JS / CSS | 中 | 单元测试、构建、可复现核对 | Sonnet 5.5 / GPT-6.1 Sol；开机流程、并发、整包更新用 Opus 5.5 / GPT-6 Astra |
 | [宿主输入法](./ime) | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) | Java（Android） | 中低 | 协议自测、APK 构建、发布核对 | Sonnet 5.5 / GPT-6.1 Sol |
 | [随包脚本](./package) | ModAVD 的 `package/` | PowerShell、批处理 | 中低 | 隐私扫描 | Sonnet 5.5 / GPT-6.1 Sol |
+| 发版前回归（端到端测试） | [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E) | PowerShell、Python | 中 | 语法解析、隐私扫描；回归本身不跑 | Sonnet 5.5 / GPT-6.1 Sol |
 | [文档和本站](./docs) | 本站仓库 [modavd.github.io](https://github.com/ModAVD/modavd.github.io)，各仓库的 README | Markdown | 低 | 编译站点、查死链、隐私扫描 | Sonnet 5.5 / GPT-6.1 Terra；机械改动用 Haiku 5.5 / GPT-6 Luna |
 | [AUTO-MAS 对接](./automas) | [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) | Python、前端 | 中 | 按 AUTO-MAS 自己的 CI | Sonnet 5.5 / GPT-6.1 Sol；审查用 Opus 5.5 / GPT-6 Astra |
 | [游戏实测、兼容性报告](./testing) | 置顶的「兼容性报告」issue | — | 低到中 | 不能 | 看日志 Sonnet 5.5 / GPT-6.1 Terra；整理 Haiku 5.5 / GPT-6 Luna |
@@ -34,7 +35,7 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
   - 从自己的 fork 开 PR；
   - 署自己的名字或化名；
   - 外部 PR 的 CI 要维护者批准后才会跑。
-- **用 AI 工具**：可以用。改动要让 AI 自己测过：编译、跑单元测试，能开实例的就开实例看结果，在 PR 里写明测了什么、结果如何。不要把账号、密钥、私人路径交给 AI 工具。见[用 AI 工具协助](./ai)。
+- **用 AI 工具**：可以用。改动要让 AI 自己测过：编译、跑单元测试，能开实例的就开实例看结果，在 PR 里写明测了什么、结果如何。不要把账号、密钥、私人路径交给 AI 工具。给 AI 工具看的规矩在 ModAVD 仓库根目录的 [AGENTS.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.md)，Codex、Claude Code 等会自己读。见[用 AI 工具协助](./ai)。
 
 ### 开一台实例要什么
 
@@ -48,8 +49,8 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
 
 动手前先看，免得撞车：
 
-- AUTO-MAS 改用 `modavd` 命令行管理实例；
-- ModAVDManager：补 CI、发第一个独立版本 v0.1.0，0.2.0 准备加自更新和「新建时把初始化一次做完」，并修几个已知问题；
-- ModAVDHostIME：补 CI、发第一个独立版本 v1.0.0。
+- AUTO-MAS 计划改用 `modavd` 命令行管实例、更新整包（改动提到 AUTO-MAS 仓库）；
+- ModAVDManager：v0.1.0 已发布，v0.2.0（新建时在后台做完初始化、`modavd update`）待发布，main 上在做 0.3.0（组件与问题反馈、平台层）；
+- ModAVDHostIME：v1.0.0 已发布。
 
 想做的事和这些有交集，先在对应仓库开 issue 说一声。

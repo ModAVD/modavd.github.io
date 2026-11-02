@@ -2,7 +2,7 @@
 
 这里说的「模拟器」指 Release 包里 `sdk\emulator\` 下的程序，运行在你的 Windows 上。安卓系统和里面的应用另说，见后文。
 
-## 模拟器自己不联网
+## 模拟器不在后台访问 Google
 
 官方 Android Emulator 会在后台访问 Google 的服务器。ModAVD 把这些都去掉了：
 

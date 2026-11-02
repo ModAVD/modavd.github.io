@@ -27,8 +27,9 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 - 本站和各仓库 README 里写错、写得不清楚的地方：直接提 PR，见[文档和本站](./docs)。
 - 随包脚本 `package/`：可以提 PR，合进来后随下一版发出。要守的写法见[随包脚本](./package)。
 - arm64 执行桥 `bridge/`：改动先开 issue 商量。它直接影响游戏能不能启动，每一版都要在装了桥的实例上实跑游戏回归。
-- 管理器和命令行在 [ModAVDManager](https://github.com/ModAVD/ModAVDManager)，宿主输入法在 [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME)：代码问题和 PR 提到那边，署名和许可规矩与本页相同。
-- ModAVD 仓库的 `patches/`、`manifests/`、`release/` 是发版工具导出的，`scripts/` 和维护者本地的发版工具逐字节一致：PR 不直接改这些，有问题先开 issue。
+- 管理器和命令行在 [ModAVDManager](https://github.com/ModAVD/ModAVDManager)，宿主输入法在 [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME)，发版前回归（端到端测试）在 [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E)：代码问题和 PR 提到那边，署名和许可规矩与本页相同。
+- ModAVD 仓库的 `patches/`、`manifests/`、`release/` 是发版工具（`tools/pubrel/`）导出的：PR 不直接改这些，有问题先开 issue。
+- ModAVD 仓库的发版和编译工具 `tools/`、CI 检查 `scripts/`（发版工具也用这一份）：改动先开 issue 商量。
 - 新加或修改 workflow：第三方 action 钉到 40 位提交 SHA，不用 `pull_request_target`，不用自托管 runner。`mirrorchyan_*.yml` 由 Mirror 酱官方维护，照原样保留。
 - 不收编译 CI：源码加编译产物约 124 GB，16 核的机器全量编一次要 1.5 小时左右，GitHub 的免费机器跑不了；自托管 runner 又会让外部 PR 在那台机器上执行任意命令。想帮忙验证构建，照[从源码构建](./build)在自己的电脑上编，把结果贴到 issue。
 
@@ -38,7 +39,7 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 
 - 署你自己的名字或化名，邮箱用 GitHub 的 noreply 地址（`<编号>+<登录名>@users.noreply.github.com`，在 GitHub 的邮箱设置里能看到）；不写 `Co-authored-by`。收进来后保留你的署名，发版说明里会致谢。
 - 你的改动按所改文件的许可证进来，见[许可证与源码](../guide/license)；新文件的版权行写你的名字或化名。不用签 CLA，`Signed-off-by` 可加可不加。
-- 可以用 AI 工具，但改动要让 AI 自己测过，你为它负责。见[用 AI 工具协助](./ai)。
+- 可以用 AI 工具，但改动要让 AI 自己测过，你为它负责。给 AI 工具看的规矩在 ModAVD 仓库根目录的 [AGENTS.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.md)，Codex、Claude Code 等会自己读。见[用 AI 工具协助](./ai)。
 - 通用的修复以后可能投到 Google 上游（AOSP、google/gfxstream），上游要求作者本人签 Google CLA。到时会先问你，不愿意就只留在 ModAVD。
 - 图片、图标类改动先开 issue，写明来源和许可证；同人图和来源说不清的图不收。
 
