@@ -54,5 +54,4 @@ adb 和系统镜像不在 Release 里，由「补全组件.bat」从官方渠道
 
 - ModAVD 仓库 `assets/` 下的图片（横幅、头像、社交预览图），以及编进程序里的图标（`emulator.exe`、`emulator-check.exe`、`qemu-system-x86_64*.exe`、`ModAVD.exe` 的程序图标和窗口图标，管理器页面里的图片），都是同人创作，**不在任何代码或文档许可证的授权范围内**。
 - 画中角色是《明日方舟》的艾雅法拉，角色版权归上海鹰角网络所有。
-- 本项目与鹰角网络无关，也未获其认可。
 - 如有版权问题，请通过 [Issues](https://github.com/ModAVD/ModAVD/issues) 或邮件 qiyinxi@foxmail.com 联系，我们会立即处理。
