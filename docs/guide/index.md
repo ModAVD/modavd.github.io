@@ -1,15 +1,11 @@
 # 这是什么
 
-ModAVD（魔改 AVD）是给 Windows 上的挂机脚本用的安卓模拟器。基于 AOSP Android Emulator 37.2.10，加了一批补丁后自己编译。
+ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器，加了一批补丁后自己编译。目前支持 Windows，以后计划支持更多平台（见 [#27](https://github.com/ModAVD/ModAVD/issues/27)）。
 
-现在配合 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 使用：建实例、开关机、接截图和点击都由 AUTO-MAS 完成。0.36.0 起包里另带管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe`，也可以不经 AUTO-MAS 自己管实例。
+包里带管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe`，用来建实例、开机关机；也可以接入 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 这类自动化工具，由它们负责实例编排和任务流程。
 
-::: info 非官方项目
-这是非官方项目，与 Google 没有关联。
-:::
-
-- 一个跑在 Windows 上的安卓模拟器，用 Windows 虚拟机监控程序平台（WHPX）做硬件加速。
-- 面向无人值守的挂机：通常不开窗口（无头）运行，由脚本拉起、跑完关掉；需要看画面或手动登录游戏时，也可以带窗口启动。
+- 一个安卓模拟器，现在跑在 Windows 上，用 Windows 虚拟机监控程序平台（WHPX）做硬件加速；以后计划支持更多平台。
+- 可以开窗口当普通模拟器用，也可以不开窗口（无头）运行，由管理器、命令行或脚本拉起、用完关掉。
 - 模拟器本体来自 Google 开源的 [Android Emulator](https://android.googlesource.com/platform/external/qemu/)。我们改了其中的 QEMU、gfxstream（图形转发）和 Crashpad（崩溃处理），改动以补丁形式公开。
 - adb 和安卓系统镜像属于 Google，受《Android 软件开发套件许可协议》约束，不能由我们分发，所以不在 Release 里，由包里的「补全组件.bat」在你的电脑上从官方渠道下载。
 
@@ -45,7 +41,6 @@ ModAVD（魔改 AVD）是给 Windows 上的挂机脚本用的安卓模拟器。�
 
 ## 免责声明
 
-- 本项目是非官方项目，与 Google LLC 没有关联，也没有得到 Google 的认可或支持。
 - Android 是 Google LLC 的商标。
 - 软件按「现状」提供，不提供任何担保，详见各许可证。
 - 用模拟器和脚本运行游戏是否符合游戏的用户协议，请自行判断。

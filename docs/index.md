@@ -4,7 +4,7 @@ layout: home
 hero:
   name: ModAVD
   text: 魔改 AVD
-  tagline: 给 Windows 上的挂机脚本用的安卓模拟器。基于 AOSP Android Emulator，加了一批补丁后自己编译。
+  tagline: 基于 AOSP Android Emulator 的安卓模拟器，加了一批补丁后自己编译。目前支持 Windows，以后计划支持更多平台。
   actions:
     - theme: brand
       text: 安装
@@ -17,8 +17,8 @@ hero:
       link: /develop/
 
 features:
-  - title: 面向无人值守
-    details: 通常不开窗口运行，由 AUTO-MAS 等脚本拉起、跑完关掉；需要看画面或手动登录时也能带窗口启动。
+  - title: 开窗口用，也能无头跑
+    details: 可以开窗口当普通模拟器用，也可以不开窗口运行，由自带的管理器、命令行或 AUTO-MAS 这类自动化工具拉起、用完关掉。
   - title: 扛得住强行结束
     details: 数据盘以直写方式交给安卓，强行结束模拟器不会弄坏虚拟磁盘的元数据；崩溃处理不再随机退出。
   - title: 少占资源
