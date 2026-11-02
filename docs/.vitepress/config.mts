@@ -5,7 +5,7 @@ const repo = 'https://github.com/ModAVD/modavd.github.io'
 export default defineConfig({
   lang: 'zh-CN',
   title: 'ModAVD',
-  description: '给 Windows 上的挂机脚本用的安卓模拟器',
+  description: '基于 AOSP Android Emulator 的安卓模拟器',
   cleanUrls: true,
   lastUpdated: true,
   // 不往外取字体、统计脚本，页面只用本站自己的文件
@@ -16,7 +16,7 @@ export default defineConfig({
     en: {
       label: 'English',
       lang: 'en-US',
-      description: 'An Android emulator for unattended automation scripts on Windows',
+      description: 'An Android emulator built from the AOSP Android Emulator',
       themeConfig: {
         nav: [{ text: 'GitHub', link: 'https://github.com/ModAVD/ModAVD' }],
         sidebar: { '/en/': [{ text: 'English', items: [{ text: 'Overview', link: '/en/' }] }] },
@@ -124,7 +124,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: '非官方项目，与 Google 没有关联。Android 是 Google LLC 的商标。',
+      message: 'Android 是 Google LLC 的商标。',
       copyright: '文档按 Apache License 2.0 发布',
     },
 

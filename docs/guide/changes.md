@@ -70,7 +70,7 @@
 
 ## 拿掉的文件
 
-和官方构建装出来的文件相比，Release 包里没有这些（挂机用不到）：
+和官方构建装出来的文件相比，Release 包里没有这些（运行模拟器用不到）：
 
 - `bin64\`（Cygwin 版 e2fsprogs）、`drivers\`（USB 直通驱动）；
 - 虚拟相机场景、宏示例和 Pixel 10 皮肤、FlatBuffers 开发文件；

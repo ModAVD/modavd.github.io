@@ -11,7 +11,7 @@
 |---|---|---|
 | 模拟器本体、执行桥、崩溃根因 | Opus 5.5，推理开高 | GPT-6 Astra，High 或 Extra High |
 | 管理器的普通功能和界面、输入法、CI、脚本 | Sonnet 5.5 | GPT-6.1 Sol，Medium |
-| 自更新、签名、发版 workflow、权限这类涉及安全的 | Sonnet 5.5 写，Opus 5.5 审，最后由人审 | GPT-6.1 Sol 写，GPT-6 Astra 审，最后由人审 |
+| 整包更新、签名、发版 workflow、权限这类涉及安全的 | Sonnet 5.5 写，Opus 5.5 审，最后由人审 | GPT-6.1 Sol 写，GPT-6 Astra 审，最后由人审 |
 | 跑测试、看日志、盯进度、写文档 | Sonnet 5.5 | GPT-6.1 Terra |
 | 整理日志、批量改格式、核对清单 | Haiku 5.5 | GPT-6 Luna |
 | 合 PR 前的审查 | Opus 5.5，不要和写代码的是同一个会话 | GPT-6 Astra，同样不要和写代码的是同一个会话 |
