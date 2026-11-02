@@ -1,12 +1,32 @@
-# ModAVD
+---
+layout: home
 
-ModAVD is an Android emulator built from the AOSP Android Emulator (37.2.10) with its own patches. It currently runs on Windows; support for more platforms is planned ([#27](https://github.com/ModAVD/ModAVD/issues/27)). The package includes a manager and a CLI for creating and running instances, and automation tools such as [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) can drive it as well. Most of this site is in Chinese; this page is a short summary.
+hero:
+  name: ModAVD
+  text: An Android emulator for Windows
+  tagline: Built from the AOSP Android Emulator plus a set of patches, and compiled by the project itself. It runs on Windows today; more platforms are planned.
+  actions:
+    - theme: brand
+      text: Install
+      link: /en/guide/install
+    - theme: alt
+      text: What is ModAVD
+      link: /en/guide/
+    - theme: alt
+      text: Contribute
+      link: /en/develop/
 
-- **Privacy**: the emulator does not upload usage metrics or crash reports to Google, does not check Google for updates, and does not download feature flags from Google. Crash dumps stay on your machine. The Location page of the extended controls still loads Google Maps if you open it in windowed mode. The Android system and its apps use the network as usual.
-- **Requirements**: Windows 10/11 64-bit, an x86_64 CPU with virtualization enabled, the Windows Hypervisor Platform (WHPX) feature, and a GPU with Vulkan drivers.
-- **Install**: download the release zip from [Releases](https://github.com/ModAVD/ModAVD/releases), extract it to a path with ASCII characters only, run `补全组件.bat` (it shows the Android SDK License Agreement and downloads adb and the Android 14 system image from Google's official channels after you accept), then manage instances with the bundled manager (`ModAVD.exe`) or CLI (`tools\modavd.exe`, which also has an MCP server), or add the folder in AUTO-MAS.
-- **Components**: the emulator patches, the arm64 execution bridge and the bundled scripts live in [ModAVD/ModAVD](https://github.com/ModAVD/ModAVD); the manager and CLI in [ModAVD/ModAVDManager](https://github.com/ModAVD/ModAVDManager); the host IME in [ModAVD/ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME).
-- **Licenses**: documents (including this site) are Apache-2.0. ModAVD's own programs (bundled scripts, arm64 bridge, manager and CLI, host IME) are AGPL-3.0-or-later. Each emulator patch is licensed like the files it changes (QEMU patches are mostly GPL-2.0; gfxstream and Crashpad patches are Apache-2.0). The binaries contain third-party components listed in `LICENSES\NOTICE.txt`; the complete corresponding source code is attached to each release.
-- **Icon and artwork**: the program icons and the images in the repositories are fan art of Eyjafjalla from Arknights (character © Shanghai Hypergryph). They are not covered by any code or document license.
-- **Feedback**: open an issue in [ModAVD/ModAVD](https://github.com/ModAVD/ModAVD/issues). Do not attach crash dumps (the `crash` folder of the problem report) to public issues; send them by e-mail to qiyinxi@foxmail.com with the issue number.
-- Android is a trademark of Google LLC.
+features:
+  - title: Windowed or headless
+    details: Run it with a window as an ordinary emulator, or without one. The bundled manager, the CLI or an automation tool such as AUTO-MAS starts it and shuts it down when you are done.
+  - title: Survives a force-kill
+    details: The data disk is handed to Android write-through, so force-killing the emulator does not corrupt the virtual disk's metadata. Crash handling no longer exits at random.
+  - title: Uses fewer resources
+    details: Memory that Android frees goes back to Windows. A new instance no longer takes up the full data disk limit on its first boot. The graphics staging buffer grows on demand.
+  - title: No data sent to Google
+    details: The emulator does not upload usage statistics or crash reports to Google, does not check Google for updates, and does not download feature flags from Google. Android and its apps use the network as usual.
+  - title: arm64-only games run too
+    details: The bundled arm64 execution bridge lets games that only have an arm64 build and use app hardening (the Onmyoji channel builds) run on an x86_64 system image.
+  - title: All patches are public
+    details: The changes to QEMU, gfxstream and Crashpad are published as patches, and every release comes with the full matching source.
+---
