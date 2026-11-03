@@ -39,7 +39,7 @@ It uses `-trimpath -buildvcs=false` and does not write the version number with `
 - Some tests run AUTO-MAS's original logic with Python 3 and compare it with Go's output byte by byte, so Python 3 must be installed;
 - Testing on a real instance needs a ModAVD root folder: extract the release package, then fetch the Google components;
 - Use newly created instances and a private adb port for these tests;
-- Give root folders for development and testing their own port range: when the same computer also has a root folder in daily use (for example the one AUTO-MAS uses), write `"portBase": 21000` in the `mas-avd.json` of the development root folder. Its instances then count their ports from 21000 and do not fight with the instances of the same number over there. This needs a manager with [ModAVDManager#20](https://github.com/ModAVD/ModAVDManager/issues/20).
+- Give root folders for development and testing their own port range: when the same computer also has a root folder in daily use (for example the one AUTO-MAS uses), write `"portBase": 21000` in the `mas-avd.json` of the development root folder. Its instances then count their ports from 21000 and do not fight with the instances of the same number over there. This needs a manager with [ModAVD/ModAVD#75](https://github.com/ModAVD/ModAVD/issues/75).
   - Ports: console = `portBase` + 10 × index, adb is 1 more, gRPC 2 more; the index is still 0–9 without 5. `portBase` can only be 20000 (the default) or a multiple of 100 between 1100 and 65400. With two development root folders open at the same time, give the second another range, for example 23000. Before you pick one, check that no other program uses that range (Syncthing, for example, takes 22000 by default).
   - Also set `adbServerPort` and `scriptAdbServerPort`. They cannot be 20049 or 20050, nor fall on the ports of an instance in the 20000 range; otherwise the manager does not start the instance.
   - Shut down every instance of the root folder before you change it. AUTO-MAS does not know `portBase` yet, so do not add a root folder that sets it to AUTO-MAS.
@@ -51,7 +51,7 @@ CI runs the format check, `go vet`, `go test`, `build.ps1`, the privacy scan and
 
 The envelope of the `--json` output, the error codes and the `protocol` version are what AUTO-MAS depends on. Adding fields is fine. To change a meaning or remove a field, add one to `Protocol` in `internal/buildinfo` and open an issue first.
 
-When a script needs the ports of an instance, take them from `ports` and `serial` in `list` / `info` instead of computing 20000 + 10 × index: a root folder that sets `portBase` is not in the 20000 range.
+When a script needs the ports of an instance, take them from `ports` and `serial` in `list` / `info` / `status` instead of computing 20000 + 10 × index: a root folder that sets `portBase` is not in the 20000 range. `port_base` in `list` is the port range the root folder actually uses; older managers do not have it (they only use the 20000 range).
 
 ## Versioning
 
