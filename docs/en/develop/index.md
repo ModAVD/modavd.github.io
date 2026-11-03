@@ -15,7 +15,8 @@ This output does not contain your user name, computer name, full paths or game a
 
 ## Reporting problems
 
-- Open an issue and attach the problem report made by `收集问题信息.bat` (collects a problem report). For what you can post publicly and how to send crash dumps privately, see [Reporting problems](../guide/feedback).
+- Problems with every component go to the [Issues](https://github.com/ModAVD/ModAVD/issues) of the ModAVD repository: the emulator itself, and also the manager and CLI, the host IME, this site and the pre-release regression tests. Pick the component when you open the issue.
+- Attach the problem report made by `收集问题信息.bat` (collects a problem report). For what you can post publicly and how to send crash dumps privately, see [Reporting problems](../guide/feedback).
 - Before you paste logs, replace `C:\Users\<your user name>` in paths with `%USERPROFILE%`.
 - Problems with AUTO-MAS's interface, tasks or scheduling belong to [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues).
 - Do not report security problems publicly. Send an e-mail to qiyinxi@foxmail.com.
@@ -27,7 +28,7 @@ This output does not contain your user name, computer name, full paths or game a
 - If something on this site or in the READMEs of the repositories is wrong or unclear, send a PR directly. See [Documentation and this site](./docs).
 - Bundled scripts, `package/`: you can send PRs, and once merged they ship with the next release. For the rules to follow, see [Bundled scripts](./package).
 - The arm64 execution bridge, `bridge/`: open an issue to discuss changes first. It directly affects whether games can start, so every release needs real game regression runs on an instance with the bridge installed.
-- The manager and CLI are in [ModAVDManager](https://github.com/ModAVD/ModAVDManager), the host IME is in [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME), and the pre-release regression tests (end-to-end tests) are in [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E). Take code issues and PRs there. The rules for credit and licensing are the same as on this page.
+- The manager and CLI are in [ModAVDManager](https://github.com/ModAVD/ModAVDManager), the host IME is in [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME), and the pre-release regression tests (end-to-end tests) are in [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E). Take PRs there, but issues still go to the ModAVD repository. The rules for credit and licensing are the same as on this page.
 - `patches/`, `manifests/` and `release/` in the ModAVD repository are exported by the release tool (`tools/pubrel/`). PRs do not change them directly. If you find a problem, open an issue first.
 - The release and build tools `tools/` and the CI checks `scripts/` in the ModAVD repository (the release tool uses this copy too): open an issue to discuss changes first.
 - New or changed workflows: pin third-party actions to a full 40-character commit SHA, do not use `pull_request_target`, and do not use self-hosted runners. `mirrorchyan_*.yml` is maintained by MirrorChyan itself, so keep it as it is.
