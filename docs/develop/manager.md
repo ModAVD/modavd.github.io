@@ -41,7 +41,7 @@ pwsh -NoProfile -File build.ps1 -Test    # 先跑 go vet 和 go test
 - 实测用新建的实例、私有 adb 端口；
 - 开发、测试用的根目录换一段端口：同一台电脑上还有日常在用的根目录（比如 AUTO-MAS 用的那个）时，在开发根目录的 `mas-avd.json` 里写 `"portBase": 21000`，这个根目录的实例就从 21000 起算端口，不和那边同编号的实例抢。要带 [ModAVD/ModAVD#75](https://github.com/ModAVD/ModAVD/issues/75) 的管理器。
   - 端口：控制台 = `portBase` + 10 × 编号，adb 加 1，gRPC 加 2；编号还是 0–9，不含 5。`portBase` 只能是 20000（缺省），或者 1100–65400 之间 100 的整数倍；同时开两个开发根目录，第二个换一段，比如 23000。选之前先看一眼这一段有没有别的程序在用（比如 Syncthing 默认占着 22000）。
-  - `adbServerPort`、`scriptAdbServerPort` 也要配，不能是 20049、20050，也不能落在 20000 段实例的端口上，否则管理器不开机。
+  - `adbServerPort`、`scriptAdbServerPort` 也要配，不能是 20049、20050，也不能落在 20000 段实例的端口上。否则管理器不开机、不新建，也不去起或连 adb server。
   - 改之前先关掉这个根目录的所有实例。AUTO-MAS 还不认 `portBase`，设了的根目录不要加进 AUTO-MAS。
 - 不要对放着重要实例的根目录开实机测试开关（`MODAVD_TEST_LIVE=1`）。
 

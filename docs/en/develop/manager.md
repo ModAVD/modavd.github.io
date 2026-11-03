@@ -41,7 +41,7 @@ It uses `-trimpath -buildvcs=false` and does not write the version number with `
 - Use newly created instances and a private adb port for these tests;
 - Give root folders for development and testing their own port range: when the same computer also has a root folder in daily use (for example the one AUTO-MAS uses), write `"portBase": 21000` in the `mas-avd.json` of the development root folder. Its instances then count their ports from 21000 and do not fight with the instances of the same number over there. This needs a manager with [ModAVD/ModAVD#75](https://github.com/ModAVD/ModAVD/issues/75).
   - Ports: console = `portBase` + 10 × index, adb is 1 more, gRPC 2 more; the index is still 0–9 without 5. `portBase` can only be 20000 (the default) or a multiple of 100 between 1100 and 65400. With two development root folders open at the same time, give the second another range, for example 23000. Before you pick one, check that no other program uses that range (Syncthing, for example, takes 22000 by default).
-  - Also set `adbServerPort` and `scriptAdbServerPort`. They cannot be 20049 or 20050, nor fall on the ports of an instance in the 20000 range; otherwise the manager does not start the instance.
+  - Also set `adbServerPort` and `scriptAdbServerPort`. They cannot be 20049 or 20050, nor fall on the ports of an instance in the 20000 range. Otherwise the manager does not start or create instances, and does not start or connect to an adb server.
   - Shut down every instance of the root folder before you change it. AUTO-MAS does not know `portBase` yet, so do not add a root folder that sets it to AUTO-MAS.
 - Do not turn on the live-test switch (`MODAVD_TEST_LIVE=1`) against a root folder that holds important instances.
 
