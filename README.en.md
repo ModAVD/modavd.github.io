@@ -9,6 +9,7 @@ The source of the documentation site for [ModAVD](https://github.com/ModAVD/ModA
 - Pages are Markdown files under `docs/`, and Chinese is the primary language. English pages are under `docs/en/`, at the same paths as the Chinese pages. The navigation and sidebar are in `docs/.vitepress/config.mts`, and both languages use one table of pages.
 - Every page has an "Edit this page on GitHub" link at the bottom; make your change and open a PR. How to write pages is described on the site under "Contributing → Documentation and this site".
 - If you change a page in one language, change the other language in the same PR. If you only write one of the two, say so in the PR and the maintainer will add the other.
+- If you find a mistake but would rather not fix it yourself, report it in the [Issues](https://github.com/ModAVD/ModAVD/issues) of the ModAVD repository and pick "Docs site"; this repository only takes PRs.
 
 ## Preview locally
 
