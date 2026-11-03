@@ -1,6 +1,6 @@
 # Report a problem
 
-Open an issue in the [Issues](https://github.com/ModAVD/ModAVD/issues) of the ModAVD repository. Before you do, search for whether someone has already reported the same problem.
+Open an issue in the [Issues](https://github.com/ModAVD/ModAVD/issues) of the ModAVD repository. Problems with the manager, the host IME and this site go there too; pick the component when you open the issue. Before you do, search for whether someone has already reported the same problem.
 
 - For problems with AUTO-MAS's interface, tasks or scheduling, please go to [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues).
 - Do not post security problems publicly. Send an email to qiyinxi@foxmail.com.

@@ -53,4 +53,4 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
 - ModAVDManager：v0.1.0 已发布，v0.2.0（新建时在后台做完初始化、`modavd update`）待发布，main 上在做 0.3.0（组件与问题反馈、平台层）；
 - ModAVDHostIME：v1.0.0 已发布。
 
-想做的事和这些有交集，先在对应仓库开 issue 说一声。
+想做的事和这些有交集，先在 ModAVD 仓库开 issue 说一声（各组件的 issue 都在那里）。

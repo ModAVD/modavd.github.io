@@ -15,7 +15,8 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 
 ## 报问题
 
-- 开 issue，附「收集问题信息.bat」生成的问题包。哪些能公开贴、崩溃转储怎么私下发，见[反馈问题](../guide/feedback)。
+- 各组件的问题都在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 提：模拟器本体，也包括管理器和命令行、宿主输入法、本站、发版前回归。开 issue 时选上是哪个组件。
+- 附「收集问题信息.bat」生成的问题包。哪些能公开贴、崩溃转储怎么私下发，见[反馈问题](../guide/feedback)。
 - 贴日志前，把路径里的 `C:\Users\<你的用户名>` 换成 `%USERPROFILE%`。
 - AUTO-MAS 的界面、任务、调度问题，请到 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues) 提。
 - 安全问题不要公开发，请发邮件到 qiyinxi@foxmail.com。
@@ -27,7 +28,7 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 - 本站和各仓库 README 里写错、写得不清楚的地方：直接提 PR，见[文档和本站](./docs)。
 - 随包脚本 `package/`：可以提 PR，合进来后随下一版发出。要守的写法见[随包脚本](./package)。
 - arm64 执行桥 `bridge/`：改动先开 issue 商量。它直接影响游戏能不能启动，每一版都要在装了桥的实例上实跑游戏回归。
-- 管理器和命令行在 [ModAVDManager](https://github.com/ModAVD/ModAVDManager)，宿主输入法在 [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME)，发版前回归（端到端测试）在 [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E)：代码问题和 PR 提到那边，署名和许可规矩与本页相同。
+- 管理器和命令行在 [ModAVDManager](https://github.com/ModAVD/ModAVDManager)，宿主输入法在 [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME)，发版前回归（端到端测试）在 [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E)：PR 提到那边，issue 还是在 ModAVD 仓库提；署名和许可规矩与本页相同。
 - ModAVD 仓库的 `patches/`、`manifests/`、`release/` 是发版工具（`tools/pubrel/`）导出的：PR 不直接改这些，有问题先开 issue。
 - ModAVD 仓库的发版和编译工具 `tools/`、CI 检查 `scripts/`（发版工具也用这一份）：改动先开 issue 商量。
 - 新加或修改 workflow：第三方 action 钉到 40 位提交 SHA，不用 `pull_request_target`，不用自托管 runner。`mirrorchyan_*.yml` 由 Mirror 酱官方维护，照原样保留。

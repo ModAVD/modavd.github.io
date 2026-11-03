@@ -1,6 +1,6 @@
 # 反馈问题
 
-在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 里提。提之前先搜一下有没有人报过同样的问题。
+在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 里提。管理器、宿主输入法、本站的问题也在这里提，开 issue 时选上是哪个组件。提之前先搜一下有没有人报过同样的问题。
 
 - AUTO-MAS 的界面、任务、调度问题，请到 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues) 提。
 - 安全问题不要公开发，请发邮件到 qiyinxi@foxmail.com。
