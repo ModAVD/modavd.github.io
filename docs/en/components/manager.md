@@ -13,7 +13,7 @@ Instance files and `mas-avd.json` are written the same way as in AUTO-MAS, so in
 
 Double-click `ModAVD.exe` in the package root. It starts a local server that listens only on 127.0.0.1, then opens a window in Edge app mode (Edge comes with Windows 10 / 11); if Edge is not found, it uses the default browser. The page is embedded in the program and does not use the network.
 
-- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system.
+- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
 - One server runs per root folder; double-clicking again only reopens the window. The log is at `<root>\logs\modavd-ui.log`.
 - After you close the window, it waits for the running tasks to finish before it exits.
 
@@ -34,6 +34,7 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | `stop <i> [--force]`, `stop --all` | Shut down: first ask Android for a clean shutdown; if that fails, sync + kill. `--force` is sync + force-kill |
 | `restart <i> [--window] [--timeout 300] [--force] [--no-bridge]` | Shut down, then start |
 | `bridge <i> install\|uninstall\|verify` | Install, uninstall or check the arm64 execution bridge |
+| `proxy <i> [on\|off\|test] [--server URL\|auto] [--add pkg] [--remove pkg] [--apps pkg]` | Since manager 0.4.0: the [per-app proxy](./app-proxy); the listed apps use the proxy, the others go direct |
 | `check [--memory M]` | PC check before starting |
 | `window <i> show\|hide`, `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Window, install an APK, guest command, adb passthrough |
 | `servers`, `version`, `mcp`, `help [command]` | |
@@ -51,7 +52,7 @@ For machine-readable output (`--json`), exit codes and the full option reference
 modavd mcp --root D:\ModAVD
 ```
 
-Tools: `list_instances`, `get_instance`, `check_host`, `create_instance`, `update_instance`, `delete_instance`, `start_instance` (with progress), `stop_instance`, `set_window_visible`, `shell`, `install_apk`.
+Tools: `list_instances`, `get_instance`, `check_host`, `create_instance`, `update_instance`, `delete_instance`, `start_instance` (with progress), `stop_instance`, `set_window_visible`, `shell`, `install_apk`. Since manager 0.4.0 also `get_app_proxy` and `set_app_proxy` (the [per-app proxy](./app-proxy)).
 
 To register it in Claude Code (in PowerShell, `--` must be quoted, or it gets swallowed):
 
