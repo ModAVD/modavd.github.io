@@ -47,7 +47,7 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 
 分辨率在管理器的新建和实例设置中选择，CLI 用 `--resolution 1080|720`，MCP 的 `create_instance`、`update_instance` 用 `resolution`。新建默认 1080p（1920×1080 / DPI 280）；720p（1280×720 / DPI 240）更省资源。换档联动宽、高、DPI，保留横竖屏，下次开机生效。已有横屏或竖屏 1920×1080 配置保持 1080p；其余配置及缺字段的旧配置保持 720p，不会自动升级。DPI 不单独设置。自动化工具里的分辨率也要跟着改。
 
-AUTO-MAS 当前优先调用包内 CLI，开机后不会再写回 720p。无可用 CLI 的旧根目录会回退到固定 720p 的 Python 启动路径，使用 1080p 前须更新包内 CLI。AUTO-MAS 的新建和显示设置仍待配套支持两档，可先在 ModAVD 管理器中换档。
+AUTO-MAS 的两档配套见 [AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/AUTO-MAS/pull/1837)，覆盖新建、实例设置和没有包内 CLI 时的 Python 启动，重启保留所选档位。使用 1080p 前须更新 AUTO-MAS 及包内 CLI；不支持两档的旧 CLI 会在写盘前提示升级。旧版 AUTO-MAS 的 Python 回退仍会固定写回 720p。
 
 ## MCP
 

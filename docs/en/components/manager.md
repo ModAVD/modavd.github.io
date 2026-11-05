@@ -47,7 +47,7 @@ For machine-readable output (`--json`), exit codes and the full option reference
 
 Choose the display preset in the manager’s create or instance settings form, with CLI `--resolution 1080|720`, or with MCP `resolution` in `create_instance` and `update_instance`. New instances default to 1080p (1920×1080 / DPI 280). 720p (1280×720 / DPI 240) uses fewer resources. Changing the preset updates width, height and DPI together, preserves orientation, and takes effect at the next boot. Existing landscape or portrait 1920×1080 configurations stay at 1080p; other configurations, including missing dimensions, stay at 720p. DPI is not a separate option. Update your automation tool’s resolution as well.
 
-AUTO-MAS currently prefers the packaged CLI and does not rewrite the display to 720p after it starts. Old roots without a usable CLI fall back to the Python launch path, which still forces 720p. Update the packaged CLI before using 1080p there. AUTO-MAS creation and display settings still need two-preset support; use the ModAVD manager to switch meanwhile.
+[AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/AUTO-MAS/pull/1837) adds both presets to creation, instance settings and the Python launch path used when no packaged CLI is present. The selected preset survives restarts. Update AUTO-MAS and the packaged CLI before using 1080p; a CLI without preset support reports that an update is needed before it can change the configuration. Older AUTO-MAS versions still force 720p in the Python launch path.
 
 ## MCP
 
