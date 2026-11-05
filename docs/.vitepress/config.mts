@@ -15,6 +15,7 @@ const guide: Page[] = [
   ['/guide/upgrade', '升级', 'Upgrade'],
   ['/guide/changes', '和官方模拟器有什么不同', 'How ModAVD differs from the official emulator'],
   ['/guide/feedback', '反馈问题', 'Report a problem'],
+  ['/guide/false-positive', '杀毒软件误报怎么办', 'What to do when antivirus software flags ModAVD'],
   ['/guide/privacy', '隐私', 'Privacy'],
   ['/guide/license', '许可证与源码', 'Licenses and source code'],
 ]
