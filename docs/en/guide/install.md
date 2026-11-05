@@ -43,12 +43,14 @@ The extracted folder contains:
 
 Double-click `补全组件.bat`.
 
-1. The script first gets the full text of Google's Android Software Development Kit License Agreement from the download mirror and shows it. It also saves a copy to `downloads\android-sdk-license.txt`.
+On the first run it asks where to download from: press Enter for automatic (Google's China download site first, then the Tencent Cloud mirror and Google's official site), or type a number to use only one of them. The choice is kept in `downloads\source.txt` and not asked again; to change it, delete that file and run it again. (Packages 0.38.0 and earlier do not have this step.)
+
+1. It first gets the full text of Google's Android Software Development Kit License Agreement from the download mirror and shows it. It also saves a copy to `downloads\android-sdk-license.txt`.
 2. Type `y` and press Enter to agree. If you just press Enter or type anything else, it exits without downloading anything.
 3. After you agree, it downloads two things and installs them into `sdk\`:
    - Platform tools (adb) 37.0.1, about 8 MB;
    - System image Android 14 (API 34) Google APIs x86_64 r14, about 1.5 GB, about 4.2 GB after extraction.
-4. It tries the mirrors in order: googledownloads.cn → Tencent Cloud mirror → dl.google.com. If one is unreachable or fails the check, it moves on to the next.
+4. With the automatic choice it tries the mirrors in order: googledownloads.cn → Tencent Cloud mirror → dl.google.com. If one is unreachable or fails the check, it moves on to the next.
 5. After each file is downloaded, the script checks its size and SHA-1 and extracts it only if they match. If the download is interrupted, run the script again and it resumes.
 6. When you see 完成，可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now add this folder in AUTO-MAS.), it is finished.
 
@@ -62,8 +64,9 @@ Components that are already installed are skipped, so running it again has no si
 | 这里没有 sdk\emulator\emulator.exe (there is no sdk\emulator\emulator.exe here) | The Release zip was not fully extracted. Extract it again and run the script in the extracted folder |
 | 磁盘空间不够 (not enough disk space) | Use a drive with more space |
 | 取不到许可协议全文 / 所有镜像都没下成 (cannot get the license text / no mirror worked) | Check your network and try again. The parts already downloaded are kept |
+| 解压后的关键文件或版本校验失败 (the key files or version check failed after extraction) for the system image, with a 0.37.0–0.38.0 package | `补全组件.bat` in these versions has a bug and always fails on the system image. Type `cmd` in the folder's address bar and press Enter, run `tools\modavd.exe components fetch`, and type `y` after reading the license agreement; the zip already downloaded is used as it is |
 
-If downloads are too slow or keep failing, you can download the two files below by hand with a browser or a download tool, put them in the folder's `downloads\` **without renaming them**, and run `补全组件.bat` again. The script still needs the network once to get the license text. It then checks the two files and uses them if they pass. After installing, the script deletes these two zip files from `downloads\`.
+If downloads are too slow or keep failing, you can download the two files below by hand with a browser or a download tool, put them in the folder's `downloads\` **without renaming them**, and run `补全组件.bat` again. It still needs the network once to get the license text. It then checks the two files and uses them if they pass. After installing, it deletes these two zip files from `downloads\`.
 
 | File | URL | SHA-1 |
 |---|---|---|

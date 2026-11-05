@@ -19,7 +19,7 @@ A Release package is made of several parts, each developed in its own repository
 |---|---|---|
 | The emulator itself (the patched AOSP Emulator) | `sdk\emulator\` | `patches/` in [ModAVD](https://github.com/ModAVD/ModAVD) |
 | The arm64 execution bridge | `sdk\emulator\resources\modavd\` | `bridge/` in ModAVD |
-| Bundled scripts (fetch the Google components, collect a problem report, copy system and game info, install the bridge) | the `.bat` files in the package root, `tools\*.ps1` | `package/` in ModAVD |
+| Bundled scripts (fetch the Google components, collect a problem report, copy system and game info, install the bridge) | the `.bat` files in the package root (they call `tools\modavd.exe`), `tools\modavd-bridge.ps1` | `package/` in ModAVD; what the three `.bat` files do is in ModAVDManager |
 | The manager and the CLI | `ModAVD.exe`, `tools\modavd.exe` | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
 | The host IME | `components\modavd-ime.apk` | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) |
 

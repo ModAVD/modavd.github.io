@@ -10,7 +10,7 @@ From 0.36.0 the package root also has `ModAVD.exe` (the manager), `tools\` has `
 |---|---|
 | `sdk\emulator\` | The emulator itself. Overwrite it with the one in the new package. Overwriting does not delete files that the new version dropped. To clear those too, delete the old folder before extracting (see step 3) |
 | `ModAVD.exe` (the manager, from 0.36.0) | Overwrite with the one in the new package |
-| `tools\`: `fetch-components.ps1`, `collect-info.ps1`, `report-config.ps1`; from 0.36.0 also `modavd.exe` (the CLI) and `modavd-bridge.ps1` (installs, uninstalls and checks the arm64 execution bridge) | Overwrite with the ones in the new package |
+| `tools\`: from 0.36.0 `modavd.exe` (the CLI) and `modavd-bridge.ps1` (installs, uninstalls and checks the arm64 execution bridge); 0.38.0 and earlier also had `fetch-components.ps1`, `collect-info.ps1` and `report-config.ps1`, which later packages replace with `components-sources.txt` (the download-source menu of 补全组件.bat), the three `.bat` files calling `modavd.exe` instead | Overwrite with the ones in the new package. The three `.ps1` files an older package left are no longer used and can be deleted |
 | `components\`: `de.jrpie.android.launcher_57.apk` (µLauncher); from 0.36.0 also `modavd-ime.apk` (the host IME) | Overwrite with the ones in the new package |
 | `补全组件.bat` (fetches the Google components), `收集问题信息.bat` (collects a problem report), `复制配置信息.bat` (copies your system and game info), `说明.txt`, `LICENSES\`, `modavd-manifest.json` | Overwrite with the ones in the new package |
 | `avd\` | **Left alone**, the new package does not have this folder. Instances, games and login state are all here |

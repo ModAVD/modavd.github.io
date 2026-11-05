@@ -38,7 +38,7 @@
 
 ## 随包的脚本和程序
 
-- **补全组件.bat**：只在你运行它时联网，依次访问 googledownloads.cn、mirrors.cloud.tencent.com、dl.google.com，下载许可协议清单、adb 和系统镜像。请求里只有普通的下载信息（用户代理是 `ModAVD-fetch-components/1.0`），不带任何标识。过程记在文件夹里的 `logs\fetch-components.log`。
+- **补全组件.bat**：只在你运行它时联网，访问你选的下载源（自动时依次是 googledownloads.cn、mirrors.cloud.tencent.com、dl.google.com），下载许可协议清单、adb 和系统镜像。请求里只有普通的下载信息（用户代理是 `ModAVDManager/<版本>`；0.38.0 及更早的包是 `ModAVD-fetch-components/1.0`），不带任何标识。过程记在文件夹里的 `logs\fetch-components.log`。
 - **收集问题信息.bat**：只在本机读文件、打包，不联网，也不上传。它会读模拟器和 AUTO-MAS 的日志、崩溃转储，开着的实例还会截一张图；不碰实例的磁盘镜像，也不碰 AUTO-MAS 存账号密码的 `config`、`data` 文件夹。生成的 zip 要不要发由你决定；崩溃转储不要公开上传，要发就发邮件，见[反馈问题](./feedback)。
 - **管理器 `ModAVD.exe`**：起一个只听 127.0.0.1 的本地服务，页面内嵌在程序里，不联网。
 - **宿主输入法**：不申请任何权限，不存任何数据，日志里不记打出的文字。

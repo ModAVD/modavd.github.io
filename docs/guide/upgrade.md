@@ -10,7 +10,7 @@
 |---|---|
 | `sdk\emulator\` | 模拟器本体，用新包里的覆盖。覆盖不会删掉新版拿掉的文件；想顺便清掉，解压前先删掉旧的这个文件夹（见步骤 3） |
 | `ModAVD.exe`（管理器，0.36.0 起） | 用新包里的覆盖 |
-| `tools\`：`fetch-components.ps1`、`collect-info.ps1`、`report-config.ps1`；0.36.0 起还有 `modavd.exe`（命令行）、`modavd-bridge.ps1`（arm64 执行桥的安装 / 卸载 / 检查） | 用新包里的覆盖 |
+| `tools\`：0.36.0 起有 `modavd.exe`（命令行）、`modavd-bridge.ps1`（arm64 执行桥的安装 / 卸载 / 检查）；0.38.0 及更早还有 `fetch-components.ps1`、`collect-info.ps1`、`report-config.ps1`，之后的包里换成了 `components-sources.txt`（补全组件的下载源菜单），三个 `.bat` 改调 `modavd.exe` | 用新包里的覆盖。旧包留下的三个 `.ps1` 不再用到，可以删掉 |
 | `components\`：`de.jrpie.android.launcher_57.apk`（µLauncher）；0.36.0 起还有 `modavd-ime.apk`（宿主输入法） | 用新包里的覆盖 |
 | `补全组件.bat`、`收集问题信息.bat`、`复制配置信息.bat`、`说明.txt`、`LICENSES\`、`modavd-manifest.json` | 用新包里的覆盖 |
 | `avd\` | **不动**，新包里没有这个文件夹。实例、游戏和登录状态都在这里 |

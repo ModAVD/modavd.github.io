@@ -19,7 +19,7 @@ ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器
 |---|---|---|
 | 模拟器本体（打过补丁的 AOSP Emulator） | `sdk\emulator\` | [ModAVD](https://github.com/ModAVD/ModAVD) 的 `patches/` |
 | arm64 执行桥 | `sdk\emulator\resources\modavd\` | ModAVD 的 `bridge/` |
-| 随包脚本（补全组件、收集问题信息、复制配置信息、装执行桥） | 包根的 `.bat`、`tools\*.ps1` | ModAVD 的 `package/` |
+| 随包脚本（补全组件、收集问题信息、复制配置信息、装执行桥） | 包根的 `.bat`（调 `tools\modavd.exe`）、`tools\modavd-bridge.ps1` | ModAVD 的 `package/`；三个 `.bat` 做的事在 ModAVDManager |
 | 管理器和命令行 | `ModAVD.exe`、`tools\modavd.exe` | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
 | 宿主输入法 | `components\modavd-ime.apk` | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) |
 

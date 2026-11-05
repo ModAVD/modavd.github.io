@@ -1,19 +1,21 @@
 # 随包脚本
 
-**改什么**：随 ModAVD 包发的脚本，在 ModAVD 仓库的 [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package)。三个 `.bat` 放在包的根目录，四个 `.ps1` 放在包的 `tools\` 里，和包里发出的文件逐字节相同。
+**改什么**：随 ModAVD 包发的脚本，在 ModAVD 仓库的 [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package)。三个 `.bat` 放在包的根目录，`modavd-bridge.ps1` 和 `components-sources.txt` 放在包的 `tools\` 里，和包里发出的文件逐字节相同。
+
+三个 `.bat` 只调包里的命令行 `tools\modavd.exe`：补全组件、收集问题信息、复制配置信息的做法在 [ModAVDManager](https://github.com/ModAVD/ModAVDManager) 里改，见[管理器和命令行](./manager)。0.38.0 及更早的包里这三件事由 `tools\` 下的三个 `.ps1` 做，以后的包里不再有。
 
 | 文件 | 做什么 | 从哪一版起在包里 |
 | --- | --- | --- |
-| `补全组件.bat` → `fetch-components.ps1` | 先显示 Google《Android 软件开发套件许可协议》，同意后从官方渠道下载 adb 和系统镜像，校验 SHA-1 后装进 `sdk\`；能断点续传，镜像按顺序回落 | 37.2.10-mas30 |
-| `收集问题信息.bat` → `collect-info.ps1` | 在桌面生成问题包，见[反馈问题](../guide/feedback) | 37.2.10-mas30 |
-| `复制配置信息.bat` → `report-config.ps1` | 把电脑配置和各实例装的游戏包整理成一段文字，复制到剪贴板，在 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue 反馈时附上 | 0.35.0 |
+| `补全组件.bat` → `modavd components fetch` | 第一次运行先问从哪里下载（菜单是 `tools\components-sources.txt`，选的记在 `downloads\source.txt`）；再显示 Google《Android 软件开发套件许可协议》，同意后下载 adb 和系统镜像，校验 SHA-1 后装进 `sdk\`；能断点续传 | 37.2.10-mas30 |
+| `收集问题信息.bat` → `modavd collect-info` | 在桌面生成问题包，见[反馈问题](../guide/feedback) | 37.2.10-mas30 |
+| `复制配置信息.bat` → `modavd report-config` | 把电脑配置和各实例装的游戏包整理成一段文字，复制到剪贴板，在 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue 反馈时附上 | 0.35.0 |
 | `modavd-bridge.ps1` | 给一台实例装上、卸掉或核对 arm64 执行桥，见[开发：arm64 执行桥](./bridge#怎么装进实例) | 0.36.0 |
 
 ## 写法上的规矩
 
 - 要在 Windows 自带的 PowerShell 5.1 上也能跑，用户机器上默认是它：
   - `.ps1` 存成 UTF-8 带 BOM；
-  - `.bat` 里只用 ASCII，换行用 CRLF；
+  - `.bat` 里只用 ASCII，换行用 CRLF；要给用户看的中文放在 UTF-8 的 `.txt` 里，显示时临时切到代码页 65001，读输入前切回来；
   - `.gitattributes` 让这个目录原样保存，不做换行转换。提 PR 时请保持文件原来的换行和 BOM，仓库里的字节就是发布包里的字节。
 - 不硬编码本机路径；adb 只走 ModAVD 根目录 `mas-avd.json` 里的私有端口，不碰 5037。
 - 重启、关机前先 `adb shell sync`，再结束模拟器。
