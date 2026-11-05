@@ -16,7 +16,7 @@ For how to take part (credit, licensing, how to submit), [Contributing to ModAVD
 | Pre-release regression tests (end-to-end tests) | [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E) | PowerShell, Python | Medium | Syntax parsing, privacy scan; the regression run itself is not run | Sonnet 5.5 / GPT-6.1 Sol |
 | [Documentation and this site](./docs) | This site's repository [modavd.github.io](https://github.com/ModAVD/modavd.github.io), and the READMEs of the repositories | Markdown | Low | Builds the site, checks dead links, privacy scan | Sonnet 5.5 / GPT-6.1 Terra; Haiku 5.5 / GPT-6 Luna for mechanical changes |
 | [AUTO-MAS integration](./automas) | [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) | Python, front end | Medium | AUTO-MAS's own CI | Sonnet 5.5 / GPT-6.1 Sol; Opus 5.5 / GPT-6 Astra for review |
-| [Testing on real games, compatibility reports](./testing) | The pinned "兼容性报告" (compatibility report) issue | — | Low to medium | Nothing | Sonnet 5.5 / GPT-6.1 Terra for reading logs; Haiku 5.5 / GPT-6 Luna for tidying up |
+| [Testing on real games, compatibility reports](./testing) | [Open an issue](https://github.com/ModAVD/ModAVD/issues) with the configuration output | — | Low to medium | Nothing | Sonnet 5.5 / GPT-6.1 Terra for reading logs; Haiku 5.5 / GPT-6 Luna for tidying up |
 | [Making a new game work](./adapt-game) (won't start, runs poorly) | Once the cause is found, it ends up in the bridge, the emulator itself or the automation scripts | Depends on the cause | Medium to high | Nothing | Sonnet 5.5 / GPT-6.1 Sol for sorting logs; Opus 5.5 / GPT-6 Astra for root causes in the translation layer and graphics |
 
 ## Requirements for all areas

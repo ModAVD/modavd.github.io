@@ -54,7 +54,7 @@ Try approaches that need no recompiling first, and settle the direction before y
 
 ## Step 5: After it works {#after}
 
-- Add a note in the pinned "兼容性报告" (compatibility report) issue: the game, channel, version, how you got it running, and roughly what frame rate it gets.
+- Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues). Include the output of `复制配置信息.bat`, the game, channel, version, how you got it running, and roughly what frame rate it gets.
 - If the game has an automation script and tasks that do not use many resources, the maintainer will add it to the pre-release regression tests and record a frame-rate baseline.
 
 ## Rules
