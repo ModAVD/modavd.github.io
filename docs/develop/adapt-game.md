@@ -34,7 +34,7 @@
 | 原因 | 先试（不用重新编译） | 真要改的话改哪 |
 |---|---|---|
 | 只有 arm64，崩在转译层或刚启动就退 | 让执行桥临时对它生效：先确认实例装好了桥，再 `shell su 0 setprop modavd.gate.target <包名>`，然后冷启动游戏。这个属性会整体替换名单，不持久，客体重启就没了。看 logcat 里有没有 `shim-ctor OK`、游戏能不能过 | 能过：PR 把包名加进 `bridge/companion/jni/native_to_guest_companion.cc` 的 `kDefaultGateTargets`。还是不行：这是转译层和执行桥的深水区，开 issue 附上 tombstone 和启动 logcat |
-| 图形：黑屏、花屏、Vulkan 报错、设备丢失 | 两个默认关闭的环境变量开关（`ANDROID_EMU_VK_HIDE_REBAR=1`、`ANDROID_EMU_VK_ASTC_BC3=1`，见[和官方模拟器有什么不同](../guide/changes#graphics)）；换分辨率（720p / 1080p 两档）；排查时可以用 `modavd bridge <编号> uninstall` 卸桥对比，卸桥会把 GL 传输恢复成原来的 | 模拟器本体的 gfxstream 补丁，见[模拟器本体](./emulator) |
+| 图形：黑屏、花屏、Vulkan 报错、设备丢失 | 两个默认关闭的环境变量开关（`ANDROID_EMU_VK_HIDE_REBAR=1`、`ANDROID_EMU_VK_ASTC_BC3=1`，见[和官方模拟器有什么不同](../guide/changes#graphics)）；在实例设置里换分辨率（1080p / DPI 280、720p / DPI 240 两档，下次开机生效）；排查时可以用 `modavd bridge <编号> uninstall` 卸桥对比，卸桥会把 GL 传输恢复成原来的 | 模拟器本体的 gfxstream 补丁，见[模拟器本体](./emulator) |
 | 卡顿、掉帧 | 按[卡顿、掉帧怎么查](./performance)先找到瓶颈在哪条线程、哪一段；再对比几个现成的开关：GL 传输 asg / pipe、`ANDROID_EMU_VK_HIDE_REBAR=1`、Vulkan 特性开关 | 瓶颈在图形往返：改本体的 gfxstream；在转译：开 issue 讨论；在游戏主线程本身：先接受，或调低画质 |
 | 检测到模拟器、root，或进游戏后被踢 | — | 不做。ModAVD 不绕过游戏的保护，也不改游戏文件。记下提示原文，开 issue 说明情况就行 |
 | 网络请求超时、热更新失败 | 换网络；查游戏数据目录里有没有 0 字节的文件（硬杀留下的） | 一般不在 ModAVD 里改 |

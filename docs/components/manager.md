@@ -27,8 +27,8 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 | --- | --- |
 | `list` | 全部实例和状态 |
 | `info <i>` / `status <i>` | 一台实例的详细信息 / 状态 |
-| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--no-bridge]` | 新建。默认带 arm64 执行桥，第一次开机时装上 |
-| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--data-gb N]` | 修改，下次开机生效。`--data-gb` 只能改大，游戏数据不动 |
+| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | 新建。默认带 arm64 执行桥，第一次开机时装上 |
+| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | 修改，下次开机生效。`--data-gb` 只能改大，游戏数据不动 |
 | `delete <i> --yes` | 删除已关机的实例，连同游戏数据 |
 | `start <i> [--window] [--timeout 300] [--no-bridge]` | 开机，等开完并做完开机后的设置 |
 | `stop <i> [--force]`、`stop --all` | 关机：先让安卓正常关机，不成再 sync + kill；`--force` 是 sync + 强杀 |
@@ -44,6 +44,10 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 - 关机先 sync 再关，不会弄出 0 字节的文件。
 
 机读输出（`--json`）、退出码和完整的选项说明见 [ModAVDManager 的 README](https://github.com/ModAVD/ModAVDManager#命令行)。
+
+分辨率在管理器的新建和实例设置中选择，CLI 用 `--resolution 1080|720`，MCP 的 `create_instance`、`update_instance` 用 `resolution`。新建默认 1080p（1920×1080 / DPI 280）；720p（1280×720 / DPI 240）更省资源。换档联动宽、高、DPI，保留横竖屏，下次开机生效。已有横屏或竖屏 1920×1080 配置保持 1080p；其余配置及缺字段的旧配置保持 720p，不会自动升级。DPI 不单独设置。自动化工具里的分辨率也要跟着改。
+
+AUTO-MAS 的两档配套见 [AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/AUTO-MAS/pull/1837)，覆盖新建、实例设置和没有包内 CLI 时的 Python 启动，重启保留所选档位。使用 1080p 前须更新 AUTO-MAS 及包内 CLI；不支持两档的旧 CLI 会在写盘前提示升级。旧版 AUTO-MAS 的 Python 回退仍会固定写回 720p。
 
 ## MCP
 
