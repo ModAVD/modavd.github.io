@@ -27,8 +27,8 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | --- | --- |
 | `list` | All instances and their status |
 | `info <i>` / `status <i>` | Detailed information / status of one instance |
-| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
-| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--data-gb N]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched |
+| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
+| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched |
 | `delete <i> --yes` | Delete a shut-down instance together with its game data |
 | `start <i> [--window] [--timeout 300] [--no-bridge]` | Start, then wait until boot is complete and the post-boot setup is done |
 | `stop <i> [--force]`, `stop --all` | Shut down: first ask Android for a clean shutdown; if that fails, sync + kill. `--force` is sync + force-kill |
@@ -44,6 +44,10 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 - Shutdown syncs first and then stops, so it does not leave 0-byte files behind.
 
 For machine-readable output (`--json`), exit codes and the full option reference, see [the ModAVDManager README](https://github.com/ModAVD/ModAVDManager/blob/main/README.en.md#command-line).
+
+Choose the display preset in the manager’s create or instance settings form, with CLI `--resolution 1080|720`, or with MCP `resolution` in `create_instance` and `update_instance`. New instances default to 1080p (1920×1080 / DPI 280). 720p (1280×720 / DPI 240) uses fewer resources. Changing the preset updates width, height and DPI together, preserves orientation, and takes effect at the next boot. Existing landscape or portrait 1920×1080 configurations stay at 1080p; other configurations, including missing dimensions, stay at 720p. DPI is not a separate option. Update your automation tool’s resolution as well.
+
+AUTO-MAS currently prefers the packaged CLI and does not rewrite the display to 720p after it starts. Old roots without a usable CLI fall back to the Python launch path, which still forces 720p. Update the packaged CLI before using 1080p there. AUTO-MAS creation and display settings still need two-preset support; use the ModAVD manager to switch meanwhile.
 
 ## MCP
 
