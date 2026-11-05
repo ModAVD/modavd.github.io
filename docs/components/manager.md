@@ -13,7 +13,7 @@ ModAVD 0.36.0 起包里带两个管理程序，源码在 [ModAVDManager](https:/
 
 双击包根的 `ModAVD.exe`：起一个只听 127.0.0.1 的本地服务，再用 Edge 的应用模式开一个窗口（Windows 10 / 11 自带 Edge）；找不到 Edge 时用默认浏览器。页面内嵌在程序里，不联网。
 
-- 功能：实例卡片（在线时有画面缩略图）、开关机（带进度）、新建、设置、删除、电脑检查、活动面板、画面查看（点击即点按，返回 / 主页 / 最近任务）、日志、安装 APK、打开目录；浅色 / 深色 / 跟随系统。
+- 功能：实例卡片（在线时有画面缩略图）、开关机（带进度）、新建、设置、删除、电脑检查、活动面板、画面查看（点击即点按，返回 / 主页 / 最近任务）、日志、安装 APK、打开目录；浅色 / 深色 / 跟随系统。管理器 0.4.0 起还有[按应用走代理](./app-proxy)。
 - 一个根目录只开一个服务，再双击只是把窗口重新打开；日志在 `<根>\logs\modavd-ui.log`。
 - 关掉窗口后，等正在跑的任务做完再退出。
 
@@ -34,6 +34,7 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 | `stop <i> [--force]`、`stop --all` | 关机：先让安卓正常关机，不成再 sync + kill；`--force` 是 sync + 强杀 |
 | `restart <i> [--window] [--timeout 300] [--force] [--no-bridge]` | 关机再开机 |
 | `bridge <i> install\|uninstall\|verify` | 装、卸、检查 arm64 执行桥 |
+| `proxy <i> [on\|off\|test] [--server URL\|auto] [--add 包名] [--remove 包名] [--apps 包名]` | 管理器 0.4.0 起：[按应用走代理](./app-proxy)，名单里的应用走代理，其余直连 |
 | `check [--memory M]` | 开机前的电脑检查 |
 | `window <i> show\|hide`、`install <i> <apk>`、`shell <i> <命令>`、`adb <i> -- <参数>` | 窗口、装 APK、客体命令、adb 透传 |
 | `servers`、`version`、`mcp`、`help [命令]` | |
@@ -55,7 +56,7 @@ AUTO-MAS 的两档配套见 [AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/
 modavd mcp --root D:\ModAVD
 ```
 
-工具：`list_instances`、`get_instance`、`check_host`、`create_instance`、`update_instance`、`delete_instance`、`start_instance`（带进度）、`stop_instance`、`set_window_visible`、`shell`、`install_apk`。
+工具：`list_instances`、`get_instance`、`check_host`、`create_instance`、`update_instance`、`delete_instance`、`start_instance`（带进度）、`stop_instance`、`set_window_visible`、`shell`、`install_apk`。管理器 0.4.0 起还有 `get_app_proxy`、`set_app_proxy`（[按应用走代理](./app-proxy)）。
 
 在 Claude Code 里注册（PowerShell 里 `--` 要加引号，否则会被吞掉）：
 

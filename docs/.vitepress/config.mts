@@ -21,6 +21,7 @@ const guide: Page[] = [
 
 const components: Page[] = [
   ['/components/manager', '管理器和命令行', 'The manager and CLI'],
+  ['/components/app-proxy', '按应用走代理', 'Per-app proxy'],
   ['/components/bridge', 'arm64 执行桥', 'The arm64 execution bridge'],
   ['/components/ime', '宿主输入法', 'The host IME'],
 ]
