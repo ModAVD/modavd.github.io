@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | `补全组件.bat` → `fetch-components.ps1` | 先显示 Google《Android 软件开发套件许可协议》，同意后从官方渠道下载 adb 和系统镜像，校验 SHA-1 后装进 `sdk\`；能断点续传，镜像按顺序回落 | 37.2.10-mas30 |
 | `收集问题信息.bat` → `collect-info.ps1` | 在桌面生成问题包，见[反馈问题](../guide/feedback) | 37.2.10-mas30 |
-| `复制配置信息.bat` → `report-config.ps1` | 把电脑配置和各实例装的游戏包整理成一段文字，复制到剪贴板，贴到「兼容性报告」帖 | 0.35.0 |
+| `复制配置信息.bat` → `report-config.ps1` | 把电脑配置和各实例装的游戏包整理成一段文字，复制到剪贴板，在 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue 反馈时附上 | 0.35.0 |
 | `modavd-bridge.ps1` | 给一台实例装上、卸掉或核对 arm64 执行桥，见[开发：arm64 执行桥](./bridge#怎么装进实例) | 0.36.0 |
 
 ## 写法上的规矩

@@ -16,7 +16,7 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
 | 发版前回归（端到端测试） | [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E) | PowerShell、Python | 中 | 语法解析、隐私扫描；回归本身不跑 | Sonnet 5.5 / GPT-6.1 Sol |
 | [文档和本站](./docs) | 本站仓库 [modavd.github.io](https://github.com/ModAVD/modavd.github.io)，各仓库的 README | Markdown | 低 | 编译站点、查死链、隐私扫描 | Sonnet 5.5 / GPT-6.1 Terra；机械改动用 Haiku 5.5 / GPT-6 Luna |
 | [AUTO-MAS 对接](./automas) | [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) | Python、前端 | 中 | 按 AUTO-MAS 自己的 CI | Sonnet 5.5 / GPT-6.1 Sol；审查用 Opus 5.5 / GPT-6 Astra |
-| [游戏实测、兼容性报告](./testing) | 置顶的「兼容性报告」issue | — | 低到中 | 不能 | 看日志 Sonnet 5.5 / GPT-6.1 Terra；整理 Haiku 5.5 / GPT-6 Luna |
+| [游戏实测、兼容性报告](./testing) | [新开 issue](https://github.com/ModAVD/ModAVD/issues)，附配置信息 | — | 低到中 | 不能 | 看日志 Sonnet 5.5 / GPT-6.1 Terra；整理 Haiku 5.5 / GPT-6 Luna |
 | [适配新游戏](./adapt-game)（起不来、跑不好） | 查清原因后落在执行桥、本体或自动化脚本 | 看原因 | 中到高 | 不能 | 分类看日志 Sonnet 5.5 / GPT-6.1 Sol；查转译层、图形的根因 Opus 5.5 / GPT-6 Astra |
 
 ## 所有分区都适用的要求

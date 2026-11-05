@@ -9,7 +9,7 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 维护者只在一台 Windows 11、AMD CPU、NVIDIA 独显的电脑上测过。最缺这些配置的实测：Intel CPU，AMD 或 Intel 显卡，笔记本双显卡，Windows 10，16 GB 内存。
 
 1. 照[安装](../guide/install)装好，在 AUTO-MAS 里添加，开机后跑一轮日常任务。
-2. 双击文件夹里的「复制配置信息.bat」（0.35.0 起包里有），把输出贴到 Issues 里置顶的「兼容性报告」帖，补完最后三行，再写一句能不能跑。
+2. 双击文件夹里的「复制配置信息.bat」（0.35.0 起包里有），在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，附上输出，补完最后三行，再写一句能不能跑。
 
 这份输出不带用户名、电脑名、完整路径和游戏账号，可以直接公开贴。详见[游戏实测和兼容性报告](./testing)。
 

@@ -9,7 +9,7 @@ To see what environment and hardware each area needs, and which models to pick w
 The maintainer has tested on only one computer: Windows 11, AMD CPU, NVIDIA discrete GPU. What is missing most is testing on these configurations: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM.
 
 1. Install by following [Installation](../guide/install), add the instance in AUTO-MAS, start it, and run one round of daily tasks.
-2. Double-click `复制配置信息.bat` (copies your system and game info) in the folder (it is in the package from 0.35.0). Paste the output into the pinned "兼容性报告" (compatibility report) issue in Issues, fill in the last three lines, and add one sentence on whether it runs.
+2. Double-click `复制配置信息.bat` (copies your system and game info) in the folder (it is in the package from 0.35.0). Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and include the output. Fill in the last three lines and add one sentence on whether it runs.
 
 This output does not contain your user name, computer name, full paths or game accounts, so you can post it publicly as it is. For details, see [Testing on real games and compatibility reports](./testing).
 

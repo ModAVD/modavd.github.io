@@ -5,7 +5,7 @@
 Install on your own computer by following [Installation](../guide/install), run one round of daily tasks in AUTO-MAS, and then:
 
 1. Double-click `复制配置信息.bat` (copies your system and game info);
-2. Paste the output into the pinned "兼容性报告" (compatibility report) issue in the Issues of the ModAVD repository, and fill in the last three lines;
+2. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues), include the output, and fill in the last three lines;
 3. Add one sentence on whether it runs.
 
 These configurations are missing most: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM. For compatibility reports, low-end machines are in fact the most wanted. As long as you meet the [requirements](../guide/#requirements), you are welcome to test.

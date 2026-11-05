@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | `补全组件.bat` (fetches the Google components) → `fetch-components.ps1` | First shows Google's Android Software Development Kit License Agreement. After you agree, it downloads adb and the system image from the official channels, checks the SHA-1 and installs them into `sdk\`. It can resume downloads and falls back to the next mirror in order | 37.2.10-mas30 |
 | `收集问题信息.bat` (collects a problem report) → `collect-info.ps1` | Makes a problem report on the desktop; see [Reporting problems](../guide/feedback) | 37.2.10-mas30 |
-| `复制配置信息.bat` (copies your system and game info) → `report-config.ps1` | Puts the computer's configuration and the game packages installed in each instance into one block of text and copies it to the clipboard, to paste into the compatibility report issue | 0.35.0 |
+| `复制配置信息.bat` (copies your system and game info) → `report-config.ps1` | Puts the computer's configuration and the game packages installed in each instance into one block of text and copies it to the clipboard, to include in a new issue in [Issues](https://github.com/ModAVD/ModAVD/issues) | 0.35.0 |
 | `modavd-bridge.ps1` | Installs, removes or checks the arm64 execution bridge on an instance; see [Development: arm64 execution bridge](./bridge#installing-into-an-instance) | 0.36.0 |
 
 ## Writing rules
