@@ -13,7 +13,7 @@ ModAVD 0.36.0 起包里带两个管理程序，源码在 [ModAVDManager](https:/
 
 双击包根的 `ModAVD.exe`：起一个只听 127.0.0.1 的本地服务，再用 Edge 的应用模式开一个窗口（Windows 10 / 11 自带 Edge）；找不到 Edge 时用默认浏览器。页面内嵌在程序里，不联网。
 
-- 功能：实例卡片（在线时有画面缩略图）、开关机（带进度）、新建、设置、删除、电脑检查、活动面板、画面查看（点击即点按，返回 / 主页 / 最近任务）、日志、安装 APK、打开目录；浅色 / 深色 / 跟随系统。
+- 功能：实例卡片（在线时有画面缩略图）、开关机（带进度）、新建、设置、删除、电脑检查、活动面板、画面查看（点击即点按，返回 / 主页 / 最近任务）、日志、安装 APK、打开目录；浅色 / 深色 / 跟随系统。管理器 0.4.0 起还有[按应用走代理](./app-proxy)。
 - 一个根目录只开一个服务，再双击只是把窗口重新打开；日志在 `<根>\logs\modavd-ui.log`。
 - 关掉窗口后，等正在跑的任务做完再退出。
 
@@ -27,13 +27,14 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 | --- | --- |
 | `list` | 全部实例和状态 |
 | `info <i>` / `status <i>` | 一台实例的详细信息 / 状态 |
-| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--no-bridge]` | 新建。默认带 arm64 执行桥，第一次开机时装上 |
-| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--data-gb N]` | 修改，下次开机生效。`--data-gb` 只能改大，游戏数据不动 |
+| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | 新建。默认带 arm64 执行桥，第一次开机时装上 |
+| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | 修改，下次开机生效。`--data-gb` 只能改大，游戏数据不动 |
 | `delete <i> --yes` | 删除已关机的实例，连同游戏数据 |
 | `start <i> [--window] [--timeout 300] [--no-bridge]` | 开机，等开完并做完开机后的设置 |
 | `stop <i> [--force]`、`stop --all` | 关机：先让安卓正常关机，不成再 sync + kill；`--force` 是 sync + 强杀 |
 | `restart <i> [--window] [--timeout 300] [--force] [--no-bridge]` | 关机再开机 |
 | `bridge <i> install\|uninstall\|verify` | 装、卸、检查 arm64 执行桥 |
+| `proxy <i> [on\|off\|test] [--server URL\|auto] [--add 包名] [--remove 包名] [--apps 包名]` | 管理器 0.4.0 起：[按应用走代理](./app-proxy)，名单里的应用走代理，其余直连 |
 | `check [--memory M]` | 开机前的电脑检查 |
 | `window <i> show\|hide`、`install <i> <apk>`、`shell <i> <命令>`、`adb <i> -- <参数>` | 窗口、装 APK、客体命令、adb 透传 |
 | `servers`、`version`、`mcp`、`help [命令]` | |
@@ -45,13 +46,17 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 
 机读输出（`--json`）、退出码和完整的选项说明见 [ModAVDManager 的 README](https://github.com/ModAVD/ModAVDManager#命令行)。
 
+分辨率在管理器的新建和实例设置中选择，CLI 用 `--resolution 1080|720`，MCP 的 `create_instance`、`update_instance` 用 `resolution`。新建默认 1080p（1920×1080 / DPI 280）；720p（1280×720 / DPI 240）更省资源。换档联动宽、高、DPI，保留横竖屏，下次开机生效。已有横屏或竖屏 1920×1080 配置保持 1080p；其余配置及缺字段的旧配置保持 720p，不会自动升级。DPI 不单独设置。自动化工具里的分辨率也要跟着改。
+
+AUTO-MAS 的两档配套见 [AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/AUTO-MAS/pull/1837)，覆盖新建、实例设置和没有包内 CLI 时的 Python 启动，重启保留所选档位。使用 1080p 前须更新 AUTO-MAS 及包内 CLI；不支持两档的旧 CLI 会在写盘前提示升级。旧版 AUTO-MAS 的 Python 回退仍会固定写回 720p。
+
 ## MCP
 
 ```
 modavd mcp --root D:\ModAVD
 ```
 
-工具：`list_instances`、`get_instance`、`check_host`、`create_instance`、`update_instance`、`delete_instance`、`start_instance`（带进度）、`stop_instance`、`set_window_visible`、`shell`、`install_apk`。
+工具：`list_instances`、`get_instance`、`check_host`、`create_instance`、`update_instance`、`delete_instance`、`start_instance`（带进度）、`stop_instance`、`set_window_visible`、`shell`、`install_apk`。管理器 0.4.0 起还有 `get_app_proxy`、`set_app_proxy`（[按应用走代理](./app-proxy)）。
 
 在 Claude Code 里注册（PowerShell 里 `--` 要加引号，否则会被吞掉）：
 

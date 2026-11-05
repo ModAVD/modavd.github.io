@@ -13,7 +13,7 @@ Instance files and `mas-avd.json` are written the same way as in AUTO-MAS, so in
 
 Double-click `ModAVD.exe` in the package root. It starts a local server that listens only on 127.0.0.1, then opens a window in Edge app mode (Edge comes with Windows 10 / 11); if Edge is not found, it uses the default browser. The page is embedded in the program and does not use the network.
 
-- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system.
+- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
 - One server runs per root folder; double-clicking again only reopens the window. The log is at `<root>\logs\modavd-ui.log`.
 - After you close the window, it waits for the running tasks to finish before it exits.
 
@@ -27,13 +27,14 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | --- | --- |
 | `list` | All instances and their status |
 | `info <i>` / `status <i>` | Detailed information / status of one instance |
-| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
-| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--data-gb N]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched |
+| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
+| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched |
 | `delete <i> --yes` | Delete a shut-down instance together with its game data |
 | `start <i> [--window] [--timeout 300] [--no-bridge]` | Start, then wait until boot is complete and the post-boot setup is done |
 | `stop <i> [--force]`, `stop --all` | Shut down: first ask Android for a clean shutdown; if that fails, sync + kill. `--force` is sync + force-kill |
 | `restart <i> [--window] [--timeout 300] [--force] [--no-bridge]` | Shut down, then start |
 | `bridge <i> install\|uninstall\|verify` | Install, uninstall or check the arm64 execution bridge |
+| `proxy <i> [on\|off\|test] [--server URL\|auto] [--add pkg] [--remove pkg] [--apps pkg]` | Since manager 0.4.0: the [per-app proxy](./app-proxy); the listed apps use the proxy, the others go direct |
 | `check [--memory M]` | PC check before starting |
 | `window <i> show\|hide`, `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Window, install an APK, guest command, adb passthrough |
 | `servers`, `version`, `mcp`, `help [command]` | |
@@ -45,13 +46,17 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 
 For machine-readable output (`--json`), exit codes and the full option reference, see [the ModAVDManager README](https://github.com/ModAVD/ModAVDManager/blob/main/README.en.md#command-line).
 
+Choose the display preset in the manager’s create or instance settings form, with CLI `--resolution 1080|720`, or with MCP `resolution` in `create_instance` and `update_instance`. New instances default to 1080p (1920×1080 / DPI 280). 720p (1280×720 / DPI 240) uses fewer resources. Changing the preset updates width, height and DPI together, preserves orientation, and takes effect at the next boot. Existing landscape or portrait 1920×1080 configurations stay at 1080p; other configurations, including missing dimensions, stay at 720p. DPI is not a separate option. Update your automation tool’s resolution as well.
+
+[AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/AUTO-MAS/pull/1837) adds both presets to creation, instance settings and the Python launch path used when no packaged CLI is present. The selected preset survives restarts. Update AUTO-MAS and the packaged CLI before using 1080p; a CLI without preset support reports that an update is needed before it can change the configuration. Older AUTO-MAS versions still force 720p in the Python launch path.
+
 ## MCP
 
 ```
 modavd mcp --root D:\ModAVD
 ```
 
-Tools: `list_instances`, `get_instance`, `check_host`, `create_instance`, `update_instance`, `delete_instance`, `start_instance` (with progress), `stop_instance`, `set_window_visible`, `shell`, `install_apk`.
+Tools: `list_instances`, `get_instance`, `check_host`, `create_instance`, `update_instance`, `delete_instance`, `start_instance` (with progress), `stop_instance`, `set_window_visible`, `shell`, `install_apk`. Since manager 0.4.0 also `get_app_proxy` and `set_app_proxy` (the [per-app proxy](./app-proxy)).
 
 To register it in Claude Code (in PowerShell, `--` must be quoted, or it gets swallowed):
 
