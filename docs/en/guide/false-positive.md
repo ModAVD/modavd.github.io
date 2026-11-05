@@ -8,14 +8,14 @@ ModAVD programs do not have commercial code signing. Machine-learning rules in s
 
 ## Verify that the download is genuine
 
-1. Download the archive only from [ModAVD Releases](https://github.com/ModAVD/ModAVD/releases), and download `SHA256SUMS` from the same release page.
+1. ModAVD is distributed through two channels only: the [ModAVD Releases](https://github.com/ModAVD/ModAVD/releases) page on GitHub and MirrorChyan. Download the archive from one of them. The checksum list to check against is always `SHA256SUMS.txt` on the GitHub release page; use it for a download from MirrorChyan too.
 2. Open PowerShell in the folder where you saved the archive and run the following command, replacing the file name with the one you downloaded:
 
    ```powershell
    Get-FileHash .\ModAVD-<version>-win-x64.zip -Algorithm SHA256
    ```
 
-3. Compare the `Hash` in the command output with the hash for that file in `SHA256SUMS`. Continue only when they match exactly. If they do not match, delete the archive and download it again from the release page.
+3. Compare the `Hash` in the command output with the hash for that file in `SHA256SUMS.txt`. `Get-FileHash` prints uppercase letters while `SHA256SUMS.txt` uses lowercase, so ignore case when you compare; every character must otherwise be the same. Continue only when they match. If they do not, delete the archive and download it again from the GitHub release page.
 
 ## Allowing a file in Windows Defender
 
@@ -48,4 +48,4 @@ Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues
 - the antivirus product and version;
 - the detection name (for example, the reported trojan name);
 - the blocked file name and the release version;
-- if possible, the `SHA256SUMS` result and a screenshot of the detection.
+- if possible, the `SHA256SUMS.txt` result and a screenshot of the detection.

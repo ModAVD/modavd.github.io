@@ -8,14 +8,14 @@ ModAVD 的程序没有商业代码签名。个别杀毒软件的机器学习规�
 
 ## 先确认下载的是正版
 
-1. 只从 [ModAVD Releases](https://github.com/ModAVD/ModAVD/releases) 下载压缩包，同时下载同一发布页上的 `SHA256SUMS`。
+1. ModAVD 只通过两个渠道分发：GitHub 上的 [ModAVD Releases](https://github.com/ModAVD/ModAVD/releases) 发布页和 Mirror 酱。压缩包从这两处下载。核对用的哈希清单统一以 GitHub 发布页上的 `SHA256SUMS.txt` 为准，从 Mirror 酱下载的也拿它核对。
 2. 在保存压缩包的文件夹里打开 PowerShell，运行下面的命令，把文件名换成实际下载的文件名：
 
    ```powershell
    Get-FileHash .\ModAVD-<版本>-win-x64.zip -Algorithm SHA256
    ```
 
-3. 把命令输出的 `Hash` 和 `SHA256SUMS` 里对应文件的哈希对照。两边完全一致，才继续解压和使用；不一致就删除压缩包，重新从发布页下载。
+3. 把命令输出的 `Hash` 和 `SHA256SUMS.txt` 里对应文件的哈希对照。`Get-FileHash` 输出的是大写字母，`SHA256SUMS.txt` 里是小写，比对时不分大小写，其余每一位都要相同。一致才继续解压和使用；不一致就删除压缩包，重新从 GitHub 发布页下载。
 
 ## Windows Defender 怎么放行
 
@@ -48,4 +48,4 @@ ModAVD 的程序没有商业代码签名。个别杀毒软件的机器学习规�
 - 杀毒软件名称和版本；
 - 检测到的名称（例如木马名称）；
 - 被拦截的文件名，以及对应发布版本；
-- 如果方便，附上 `SHA256SUMS` 的核对结果和检测截图。
+- 如果方便，附上 `SHA256SUMS.txt` 的核对结果和检测截图。
