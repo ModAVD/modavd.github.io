@@ -14,6 +14,7 @@ ModAVD 0.36.0 起包里带两个管理程序，源码在 [ModAVDManager](https:/
 双击包根的 `ModAVD.exe`：起一个只听 127.0.0.1 的本地服务，再用 Edge 的应用模式开一个窗口（Windows 10 / 11 自带 Edge）；找不到 Edge 时用默认浏览器。页面内嵌在程序里，不联网。
 
 - 功能：实例卡片（在线时有画面缩略图）、开关机（带进度）、新建、设置、删除、电脑检查、活动面板、画面查看（点击即点按，返回 / 主页 / 最近任务）、日志、安装 APK、打开目录；浅色 / 深色 / 跟随系统。管理器 0.4.0 起还有[按应用走代理](./app-proxy)。
+- 管理器开机一律带窗口；无头开机用命令行或 MCP。无头运行的实例也能在这里关机。
 - 一个根目录只开一个服务，再双击只是把窗口重新打开；日志在 `<根>\logs\modavd-ui.log`。
 - 关掉窗口后，等正在跑的任务做完再退出。
 
@@ -30,17 +31,18 @@ modavd [--root <目录>] [--json] [--quiet] [--verbose] <命令> [参数]
 | `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | 新建。默认带 arm64 执行桥，第一次开机时装上 |
 | `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | 修改，下次开机生效。`--data-gb` 只能改大，游戏数据不动 |
 | `delete <i> --yes` | 删除已关机的实例，连同游戏数据 |
-| `start <i> [--window] [--timeout 300] [--no-bridge]` | 开机，等开完并做完开机后的设置 |
+| `start <i> [--window \| --headless] [--timeout 300] [--no-bridge]` | 开机，默认无头；`--window` 带窗口，`--headless` 明确要求无头。等开完并做完开机后的设置 |
 | `stop <i> [--force]`、`stop --all` | 关机：先让安卓正常关机，不成再 sync + kill；`--force` 是 sync + 强杀 |
-| `restart <i> [--window] [--timeout 300] [--force] [--no-bridge]` | 关机再开机 |
 | `bridge <i> install\|uninstall\|verify` | 装、卸、检查 arm64 执行桥 |
 | `proxy <i> [on\|off\|test] [--server URL\|auto] [--add 包名] [--remove 包名] [--apps 包名]` | 管理器 0.4.0 起：[按应用走代理](./app-proxy)，名单里的应用走代理，其余直连 |
 | `check [--memory M]` | 开机前的电脑检查 |
-| `window <i> show\|hide`、`install <i> <apk>`、`shell <i> <命令>`、`adb <i> -- <参数>` | 窗口、装 APK、客体命令、adb 透传 |
+| `window <i> show\|hide` | 显示 / 隐藏带窗口开机的实例；无头实例没有窗口 |
+| `install <i> <apk>`、`shell <i> <命令>`、`adb <i> -- <参数>` | 装 APK、客体命令、adb 透传 |
 | `servers`、`version`、`mcp`、`help [命令]` | |
 
 - `<i>` 写成 `3` 或 `mas_3`（0–9，5 除外）；内存写成 `6144`、`6144M` 或 `6G`，只有 3 / 4 / 5 / 6 GB 四档，核数 2 / 4 / 6，帧率 30 / 60。
 - 根目录：`--root`，没给就用环境变量 `MODAVD_ROOT`，再没有就用 `modavd.exe` 所在目录或它的上一级。
+- 运行中不能切换带窗口 / 无头；先关机，再按需要的方式开机。`--window` 和 `--headless` 不能同时给。0.3.0 起没有 `restart` 命令，要重启就先 `stop` 再 `start`。
 - adb 只走根目录的私有 server（`mas-avd.json` 的 `adbServerPort`），不碰默认的 5037。
 - 关机先 sync 再关，不会弄出 0 字节的文件。
 
