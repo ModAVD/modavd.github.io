@@ -51,7 +51,7 @@ The steps below are the same for both ways. Only the interface differs.
 
 1. Choose the download source: automatic (tries googledownloads_cn → tencent → google in order), only one of them, or a custom address.
    - In the manager, choose it in the dialog. The choice is saved when you click **同意并下载** (Agree and download).
-   - On the command line: if no source has been saved yet and you run it in a console, it asks once with a numbered list; press Enter for automatic. It does not ask when its input or output is a pipe or a file, or with `--json` or `--accept-license`.
+   - On the command line: if no source has been saved yet and you run it in a console, it asks once with a numbered list; press Enter for automatic. It does not ask when its input comes from a pipe or a file, or with `--json` or `--accept-license`.
    - Once saved, the choice is reused and not asked again. To change it, choose **组件下载源** (Component download source) in **设置** (Settings) in the manager, next to the update source (it saves as soon as you choose), or run `tools\modavd.exe components source [auto|googledownloads_cn|tencent|google]`. Without an argument it shows the current one.
 2. It gets the full text of Google's Android Software Development Kit License Agreement from the chosen source and shows it. It also saves a copy to `downloads\android-sdk-license.txt`.
    - Manager: the full text is shown in the dialog. After reading it, click **同意并下载** (Agree and download). If you click **不同意** (Disagree) or close the dialog, nothing is downloaded.

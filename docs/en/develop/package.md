@@ -23,6 +23,7 @@ What the three `.bat` files did is now done like this:
   - `.gitattributes` makes this directory store files as they are, with no line-ending conversion. When you send a PR, keep the file's original line endings and BOM: the bytes in the repository are the bytes in the release package.
 - No hard-coded local paths. adb goes only through the private port in `mas-avd.json` in the ModAVD root folder and never touches 5037.
 - Before restarting or shutting down, run `adb shell sync` first, then end the emulator.
+
 ## Hardware
 
 To run it for real on an installed ModAVD, you need to start an instance:

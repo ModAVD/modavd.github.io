@@ -51,7 +51,7 @@ adb 和系统镜像要在你的电脑上从官方渠道下载。两种做法，�
 
 1. 选下载源。可选自动（按顺序试 googledownloads_cn → tencent → google）、只用其中一个、或自定义地址。
    - 管理器的对话框里直接选。选的在你点「同意并下载」时保存。
-   - 命令行：还没存过下载源、而且是在控制台里运行时，用编号问一次，直接回车是自动；用管道、文件、`--json` 或 `--accept-license` 时不问。
+   - 命令行：还没存过下载源、而且是在控制台里运行时，用编号问一次，直接回车是自动；输入来自管道或文件，或者带了 `--json`、`--accept-license` 时不问。
    - 存过以后沿用，不再问。想换，在管理器的「设置」里选「组件下载源」（和更新源并排，选了就保存），或运行 `tools\modavd.exe components source [auto|googledownloads_cn|tencent|google]`，不带参数是看现在用的。
 2. 从选的下载源取来 Google《Android 软件开发套件许可协议》全文并显示，另存一份到 `downloads\android-sdk-license.txt`。
    - 管理器：全文显示在对话框里，读完点「同意并下载」；点「不同意」或关掉对话框，什么也不下载。
