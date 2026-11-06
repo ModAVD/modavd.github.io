@@ -38,9 +38,10 @@
 
 ## 随包的脚本和程序
 
-- **补全组件.bat**：只在你运行它时联网，访问你选的下载源（自动时依次是 googledownloads.cn、mirrors.cloud.tencent.com、dl.google.com），下载许可协议清单、adb 和系统镜像。请求里只有普通的下载信息（用户代理是 `ModAVDManager/<版本>`；0.38.0 及更早的包是 `ModAVD-fetch-components/1.0`），不带任何标识。过程记在文件夹里的 `logs\fetch-components.log`。
-- **收集问题信息.bat**：只在本机读文件、打包，不联网，也不上传。它会读模拟器和 AUTO-MAS 的日志、崩溃转储，开着的实例还会截一张图；不碰实例的磁盘镜像，也不碰 AUTO-MAS 存账号密码的 `config`、`data` 文件夹。生成的 zip 要不要发由你决定；崩溃转储不要公开上传，要发就发邮件，见[反馈问题](./feedback)。
-- **管理器 `ModAVD.exe`**：起一个只听 127.0.0.1 的本地服务，页面内嵌在程序里，不联网。
+- **补全组件**（管理器里的按钮，或 `tools\modavd.exe components fetch`）：只在你点它或运行它时联网，访问你选的下载源（自动时依次是 googledownloads.cn、mirrors.cloud.tencent.com、dl.google.com），下载许可协议清单、adb 和系统镜像。请求里只有普通的下载信息（用户代理是 `ModAVDManager/<版本>`；0.38.1 及更早的包里的脚本是 `ModAVD-fetch-components/1.0`），不带任何标识。过程记在文件夹里的 `logs\fetch-components.log`。选的下载源只存在你这台电脑上。
+- **收集问题信息**（管理器的「设置 → 组件与问题反馈」，或 `tools\modavd.exe collect-info`）：只在本机读文件、打包，不联网，也不上传。它会读模拟器和 AUTO-MAS 的日志、崩溃转储，开着的实例还会截一张图；不碰实例的磁盘镜像，也不碰 AUTO-MAS 存账号密码的 `config`、`data` 文件夹。生成的 zip 要不要发由你决定；崩溃转储不要公开上传，要发就发邮件，见[反馈问题](./feedback)。
+- **复制配置信息**（同一处，或 `tools\modavd.exe report-config`）：只在本机整理电脑配置和实例里装的游戏，复制到剪贴板并显示出来，不联网。贴出去之前先看一遍。
+- **管理器 `ModAVD.exe`**：起一个只听 127.0.0.1 的本地服务，页面内嵌在程序里。联网的只有上面的「补全组件」和你自己点的更新。
 - **宿主输入法**：不申请任何权限，不存任何数据，日志里不记打出的文字。
 
 ## 本项目不收集任何数据

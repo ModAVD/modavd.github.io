@@ -20,7 +20,7 @@ The zip has no outer folder. Right-click it and choose Extract All, or in 7-Zip 
 
 Put it at a path that contains **only English letters and digits**. You can rename it, for example `D:\ModAVD`.
 
-- With Chinese characters in the path the emulator cannot start, and `补全组件.bat` (fetches the Google components) refuses to run.
+- With Chinese characters in the path the emulator cannot start, and **补全组件** (Fetch components) refuses to run.
 - Do not put it in a directory that needs administrator rights, such as `C:\Program Files`.
 - All instance data from now on is stored in the `avd\` folder here, so pick a drive with plenty of space.
 
@@ -29,44 +29,56 @@ The extracted folder contains:
 | Path | Contents |
 |---|---|
 | `sdk\emulator\` | The emulator itself; `resources\modavd\` holds the arm64 execution bridge |
-| `ModAVD.exe` | The manager (from 0.36.0) |
-| `tools\` | The CLI `modavd.exe`, `modavd-bridge.ps1` for installing the bridge (from 0.36.0), and the PowerShell scripts that the bat files call |
+| `ModAVD.exe` | The manager (from 0.36.0). Fetching the components, collecting a problem report and copying the configuration info are done here too |
+| `tools\` | The CLI `modavd.exe`, and `modavd-bridge.ps1` for installing the bridge (from 0.36.0) |
 | `components\` | The package of µLauncher, a lightweight home screen; from 0.36.0 also the host IME `modavd-ime.apk` |
-| `补全组件.bat` | Downloads adb and the system image |
-| `收集问题信息.bat` | Generates a problem report when something goes wrong |
-| `复制配置信息.bat` | Generates a configuration summary that is safe to post publicly (for compatibility reports) |
 | `说明.txt` | A short readme |
 | `LICENSES\` | Licenses and third-party component notices |
 | `modavd-manifest.json` | The size and SHA-256 of every file in the package |
 
+Packages 0.38.1 and earlier also have `补全组件.bat`, `收集问题信息.bat` and `复制配置信息.bat` in the root, and the PowerShell scripts they call in `tools\`. From 0.38.2 none of them exist; the three jobs are done in the manager or on the command line.
+
 ## 2. Fetch the Google components
 
-Double-click `补全组件.bat`.
+adb and the system image are downloaded on your computer from the official channels. There are two ways, and both download the same things:
 
-On the first run it asks where to download from: press Enter for automatic (Google's China download site first, then the Tencent Cloud mirror and Google's official site), or type a number to use only one of them. The choice is kept in `downloads\source.txt` and not asked again; to change it, delete that file and run it again. (Packages 0.38.0 and earlier do not have this step.)
+- **In the manager**: double-click `ModAVD.exe`. When components are missing, the home page shows a banner with a **补全组件** (Fetch components) button. You can also click **电脑检查** (Computer check) in the top bar and click **补全组件** under the **组件** (Components) item that did not pass.
+- **On the command line**: type `cmd` in the folder's address bar, press Enter, and run `tools\modavd.exe components fetch`.
 
-1. It first gets the full text of Google's Android Software Development Kit License Agreement from the download mirror and shows it. It also saves a copy to `downloads\android-sdk-license.txt`.
-2. Type `y` and press Enter to agree. If you just press Enter or type anything else, it exits without downloading anything.
+In packages 0.38.1 and earlier this was `补全组件.bat` in the package root. From 0.38.2 that file is gone.
+
+The steps below are the same for both ways. Only the interface differs.
+
+1. Choose the download source: automatic (tries googledownloads_cn → tencent → google in order), only one of them, or a custom address.
+   - In the manager, choose it in the dialog. The choice is saved when you click **同意并下载** (Agree and download).
+   - On the command line: if no source has been saved yet and you run it in a console, it asks once with a numbered list; press Enter for automatic. It does not ask when its input or output is a pipe or a file, or with `--json` or `--accept-license`.
+   - Once saved, the choice is reused and not asked again. To change it, choose **组件下载源** (Component download source) in **设置** (Settings) in the manager, next to the update source (it saves as soon as you choose), or run `tools\modavd.exe components source [auto|googledownloads_cn|tencent|google]`. Without an argument it shows the current one.
+2. It gets the full text of Google's Android Software Development Kit License Agreement from the chosen source and shows it. It also saves a copy to `downloads\android-sdk-license.txt`.
+   - Manager: the full text is shown in the dialog. After reading it, click **同意并下载** (Agree and download). If you click **不同意** (Disagree) or close the dialog, nothing is downloaded.
+   - Command line: type `y` and press Enter to agree. If you just press Enter or type anything else, it exits without downloading anything.
 3. After you agree, it downloads two things and installs them into `sdk\`:
    - Platform tools (adb) 37.0.1, about 8 MB;
    - System image Android 14 (API 34) Google APIs x86_64 r14, about 1.5 GB, about 4.2 GB after extraction.
 4. With the automatic choice it tries the mirrors in order: googledownloads.cn → Tencent Cloud mirror → dl.google.com. If one is unreachable or fails the check, it moves on to the next.
-5. After each file is downloaded, the script checks its size and SHA-1 and extracts it only if they match. If the download is interrupted, run the script again and it resumes.
-6. When you see 完成，可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now add this folder in AUTO-MAS.), it is finished.
+5. After each file is downloaded, it checks the size and SHA-1 and extracts the file only if they match. If the download is interrupted, click **补全组件** again or run the command again and it resumes.
+6. Done. In the manager, the item shows the progress (bytes downloaded, percentage, speed, time left) and a **取消** (Cancel) button while it runs, and the check runs again by itself when it finishes. The command line prints 完成，可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now add this folder in AUTO-MAS.)
 
 Components that are already installed are skipped, so running it again has no side effects. The process is logged in `logs\fetch-components.log`.
 
 ### If fetching the components fails
 
+In the manager, a failure shows the reason under the item, and the button becomes **重试** (Retry). The command line prints the same reason.
+
 | Message | What to do |
 |---|---|
-| 路径里有中文或其他非英文字符 (the path contains Chinese or other non-English characters) | Move the whole folder to a path with English characters only, then run the script again |
-| 这里没有 sdk\emulator\emulator.exe (there is no sdk\emulator\emulator.exe here) | The Release zip was not fully extracted. Extract it again and run the script in the extracted folder |
+| 路径里有中文或其他非英文字符 (the path contains Chinese or other non-English characters) | Move the whole folder to a path with English characters only, then run it again |
+| 这里没有 sdk\emulator\emulator.exe (there is no sdk\emulator\emulator.exe here) | The Release zip was not fully extracted. Extract it again and run it in the extracted folder |
 | 磁盘空间不够 (not enough disk space) | Use a drive with more space |
-| 取不到许可协议全文 / 所有镜像都没下成 (cannot get the license text / no mirror worked) | Check your network and try again. The parts already downloaded are kept |
+| 取不到许可协议全文 / 所有镜像都没下成 (cannot get the license text / no mirror worked) | Check your network and try again. The parts already downloaded are kept. You can also choose another download source |
+| 下载源这次给的许可协议和你在管理器里同意的那份不一样 (the source gave a license text different from the one you agreed to in the manager) | Nothing was downloaded. Click **补全组件** again, read the current text and agree again |
 | 解压后的关键文件或版本校验失败 (the key files or version check failed after extraction) for the system image, with a 0.37.0–0.38.0 package | `补全组件.bat` in these versions has a bug and always fails on the system image. Type `cmd` in the folder's address bar and press Enter, run `tools\modavd.exe components fetch`, and type `y` after reading the license agreement; the zip already downloaded is used as it is |
 
-If downloads are too slow or keep failing, you can download the two files below by hand with a browser or a download tool, put them in the folder's `downloads\` **without renaming them**, and run `补全组件.bat` again. It still needs the network once to get the license text. It then checks the two files and uses them if they pass. After installing, it deletes these two zip files from `downloads\`.
+If downloads are too slow or keep failing, you can download the two files below by hand with a browser or a download tool, put them in the folder's `downloads\` **without renaming them**, and click **补全组件** again (or run `tools\modavd.exe components fetch`). It still needs the network once to get the license text. It then checks the two files and uses them if they pass. After installing, it deletes these two zip files from `downloads\`.
 
 | File | URL | SHA-1 |
 |---|---|---|

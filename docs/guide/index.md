@@ -7,7 +7,7 @@ ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器
 - 一个安卓模拟器，现在跑在 Windows 上，用 Windows 虚拟机监控程序平台（WHPX）做硬件加速；以后计划支持更多平台。
 - 可以开窗口当普通模拟器用，也可以不开窗口（无头）运行，由管理器、命令行或脚本拉起、用完关掉。
 - 模拟器本体来自 Google 开源的 [Android Emulator](https://android.googlesource.com/platform/external/qemu/)。我们改了其中的 QEMU、gfxstream（图形转发）和 Crashpad（崩溃处理），改动以补丁形式公开。
-- adb 和安卓系统镜像属于 Google，受《Android 软件开发套件许可协议》约束，不能由我们分发，所以不在 Release 里，由包里的「补全组件.bat」在你的电脑上从官方渠道下载。
+- adb 和安卓系统镜像属于 Google，受《Android 软件开发套件许可协议》约束，不能由我们分发，所以不在 Release 里，由管理器里的「补全组件」（或 `tools\modavd.exe components fetch`）在你的电脑上从官方渠道下载。
 
 和官方模拟器的逐项区别见[和官方模拟器有什么不同](./changes)。
 
@@ -19,8 +19,8 @@ ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器
 |---|---|---|
 | 模拟器本体（打过补丁的 AOSP Emulator） | `sdk\emulator\` | [ModAVD](https://github.com/ModAVD/ModAVD) 的 `patches/` |
 | arm64 执行桥 | `sdk\emulator\resources\modavd\` | ModAVD 的 `bridge/` |
-| 随包脚本（补全组件、收集问题信息、复制配置信息、装执行桥） | 包根的 `.bat`（调 `tools\modavd.exe`）、`tools\modavd-bridge.ps1` | ModAVD 的 `package/`；三个 `.bat` 做的事在 ModAVDManager |
-| 管理器和命令行 | `ModAVD.exe`、`tools\modavd.exe` | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
+| 装执行桥的脚本 | `tools\modavd-bridge.ps1` | ModAVD 的 `package/` |
+| 管理器和命令行（含补全组件、收集问题信息、复制配置信息） | `ModAVD.exe`、`tools\modavd.exe` | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
 | 宿主输入法 | `components\modavd-ime.apk` | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) |
 
 - 管理器和输入法有自己的版本号，单独在各自仓库发版；ModAVD 整包发版时带上当时的版本。

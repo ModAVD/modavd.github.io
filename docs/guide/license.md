@@ -15,7 +15,7 @@
 
 | 程序 | 源码 |
 |---|---|
-| 包里的脚本（补全组件、收集问题信息、复制配置信息、装执行桥） | ModAVD 仓库的 [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package)。0.35.0 及更早的包里的脚本按 Apache License 2.0 发布 |
+| 包里的脚本（装执行桥的 `tools\modavd-bridge.ps1`；0.38.1 及更早还有补全组件、收集问题信息、复制配置信息的三个 `.bat` 和三个 `.ps1`） | ModAVD 仓库的 [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package)。0.35.0 及更早的包里的脚本按 Apache License 2.0 发布 |
 | arm64 执行桥（`sdk\emulator\resources\modavd\`） | ModAVD 仓库的 [`bridge/`](https://github.com/ModAVD/ModAVD/tree/main/bridge)，也在同一个 Release 的源码包里 |
 | 管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe` | [ModAVD/ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
 | 宿主输入法 `components\modavd-ime.apk` | [ModAVD/ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) |
@@ -48,7 +48,7 @@
 
 ## Google 的组件
 
-adb 和系统镜像不在 Release 里，由「补全组件.bat」从官方渠道下载，受《Android 软件开发套件许可协议》约束，下载前要你同意。
+adb 和系统镜像不在 Release 里，由管理器里的「补全组件」（或 `tools\modavd.exe components fetch`）从官方渠道下载，受《Android 软件开发套件许可协议》约束，下载前要你同意。
 
 ## 图标与美术
 

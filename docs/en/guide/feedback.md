@@ -8,9 +8,13 @@ Open an issue in the [Issues](https://github.com/ModAVD/ModAVD/issues) of the Mo
 ## 1. Collect a problem report
 
 1. **Do not shut down the emulator after something goes wrong.** If the instance is still running, the collection also records the screen and state at that moment.
-2. Double-click `收集问题信息.bat` (collects a problem report) in the folder. After about a minute, a `魔改AVD问题信息-<time>.zip` (the name means "ModAVD problem info") appears on the desktop and is selected in File Explorer automatically.
+2. Generate the report, in one of two ways:
+   - In the manager: open `ModAVD.exe`, click **设置** (Settings), then **组件与问题反馈** (Components and feedback), then **收集问题信息** (Collect a problem report). When it finishes, it shows the path of the report, a button **在资源管理器里显示** (Show in File Explorer) that opens its folder, and a privacy note.
+   - On the command line: run `tools\modavd.exe collect-info`. After about a minute, a `魔改AVD问题信息-<time>.zip` (the name means "ModAVD problem info") appears on the desktop and is selected in File Explorer automatically (add `--no-explorer` to skip that).
 
-This script only reads and does not write: it does not shut down or restart anything, and it uploads nothing. It collects:
+In packages 0.38.1 and earlier this was `收集问题信息.bat` in the package root. From 0.38.2 that file is gone.
+
+The collection only reads and does not write: it does not shut down or restart anything, and it uploads nothing. It collects:
 
 | Content | Description |
 |---|---|
@@ -47,8 +51,8 @@ What to do:
 - whether it can be reproduced, and how;
 - the emulator version (`Pkg.BuildId` in `sdk\emulator\source.properties`) and the AUTO-MAS version. The problem report's `summary.txt` already has both.
 
-When `补全组件.bat` (fetches the Google components) fails, attaching `logs\fetch-components.log` is enough. It only records the download process (which mirror, which address, at which step it failed) and the folder path.
+When 补全组件 (Fetch components) fails, attaching `logs\fetch-components.log` is enough. It only records the download process (which mirror, which address, at which step it failed) and the folder path.
 
 ## Tell us when it works, too
 
-If a round of daily tasks runs through on your computer, double-click `复制配置信息.bat` (copies your system and game info). Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and include the output. Fill in the last three lines and add a sentence saying whether it works. This output has no user name, computer name, full paths or game accounts, so you can post it publicly as it is. See [Testing on real games and compatibility reports](../develop/testing).
+If a round of daily tasks runs through on your computer, click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`. The configuration info is copied to the clipboard and shown on screen. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last three lines and add a sentence saying whether it works. This output has no user name, computer name, full paths or game accounts, so you can post it publicly as it is. See [Testing on real games and compatibility reports](../develop/testing).

@@ -10,11 +10,12 @@ From 0.36.0 the package root also has `ModAVD.exe` (the manager), `tools\` has `
 |---|---|
 | `sdk\emulator\` | The emulator itself. Overwrite it with the one in the new package. Overwriting does not delete files that the new version dropped. To clear those too, delete the old folder before extracting (see step 3) |
 | `ModAVD.exe` (the manager, from 0.36.0) | Overwrite with the one in the new package |
-| `tools\`: from 0.36.0 `modavd.exe` (the CLI) and `modavd-bridge.ps1` (installs, uninstalls and checks the arm64 execution bridge); 0.38.0 and earlier also had `fetch-components.ps1`, `collect-info.ps1` and `report-config.ps1`, which later packages replace with `components-sources.txt` (the download-source menu of 补全组件.bat), the three `.bat` files calling `modavd.exe` instead | Overwrite with the ones in the new package. The three `.ps1` files an older package left are no longer used and can be deleted |
+| `tools\`: from 0.36.0 `modavd.exe` (the CLI) and `modavd-bridge.ps1` (installs, uninstalls and checks the arm64 execution bridge); 0.38.1 and earlier also had `fetch-components.ps1`, `collect-info.ps1` and `report-config.ps1` | Overwrite with the ones in the new package. The three `.ps1` files are no longer shipped from 0.38.2: upgrading with `modavd update` deletes them, while overwriting by hand leaves them in place, which does no harm, and you can delete them yourself |
 | `components\`: `de.jrpie.android.launcher_57.apk` (µLauncher); from 0.36.0 also `modavd-ime.apk` (the host IME) | Overwrite with the ones in the new package |
-| `补全组件.bat` (fetches the Google components), `收集问题信息.bat` (collects a problem report), `复制配置信息.bat` (copies your system and game info), `说明.txt`, `LICENSES\`, `modavd-manifest.json` | Overwrite with the ones in the new package |
+| `说明.txt`, `LICENSES\`, `modavd-manifest.json` | Overwrite with the ones in the new package |
+| `补全组件.bat`, `收集问题信息.bat`, `复制配置信息.bat` (in the root of packages 0.38.1 and earlier) | The new package from 0.38.2 does not have them. The three jobs are done in the manager and on the command line (see [Install](./install) and [Report a problem](./feedback)). Upgrading with `modavd update` deletes these three files, while overwriting by hand leaves them in place, which does no harm, and you can delete them yourself |
 | `avd\` | **Left alone**, the new package does not have this folder. Instances, games and login state are all here |
-| `sdk\platform-tools\`, `sdk\system-images\` | Left alone, the new package does not have them either. If the versions the new release requires change, the Release notes say so, and you run `补全组件.bat` again then |
+| `sdk\platform-tools\`, `sdk\system-images\` | Left alone, the new package does not have them either. If the versions the new release requires change, the Release notes say so, and you click **补全组件** (Fetch components) in the manager again then, or run `tools\modavd.exe components fetch` |
 | `mas-avd.json`, `logs\` | Left alone. These are written by AUTO-MAS and the emulator itself |
 
 ## Steps
@@ -28,10 +29,10 @@ From 0.36.0 the package root also has `ModAVD.exe` (the manager), `tools\` has `
 
 ## Upgrading from a beta package
 
-A beta package (for example `ModAVD-37.2.10-mas25`) comes with adb and the system image, the same versions that `补全组件.bat` downloads, so:
+A beta package (for example `ModAVD-37.2.10-mas25`) comes with adb and the system image, the same versions that **补全组件** (Fetch components) downloads, so:
 
-- Follow the steps above and extract the whole new package into the beta package's root folder. Files that the beta package does not have (for example `补全组件.bat`, `LICENSES\`, and from 0.36.0 `ModAVD.exe`) are put in along with the rest.
-- You do not need to run `补全组件.bat` again. It does no harm if you do: it reports that both components are already complete and skips them.
+- Follow the steps above and extract the whole new package into the beta package's root folder. Files that the beta package does not have (for example `LICENSES\`, and from 0.36.0 `ModAVD.exe`) are put in along with the rest.
+- You do not need to fetch the components again. It does no harm to run `tools\modavd.exe components fetch` on the command line: it reports that both components are already complete and skips them.
 
 Old instances from the beta package can be started with the new version directly.
 

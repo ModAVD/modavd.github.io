@@ -19,7 +19,7 @@ To get a game that currently will not start or runs badly working on ModAVD, wor
 
 - Before launching, run `logcat -c`, then `logcat -b all -v threadtime > 启动.txt`, then launch the game, and stop once it reproduces.
 - If it crashed, take the newest file in `/data/tombstones/`: `shell su 0 ls -t /data/tombstones`.
-- The emulator logs are in `logs\` in the root folder. `收集问题信息.bat` (collects a problem report) packs the logs together.
+- The emulator logs are in `logs\` in the root folder. **收集问题信息** (Collect a problem report) packs the logs together.
 - Look mainly at these:
   - `Fatal signal`: which library and which thread it crashed in;
   - `FATAL EXCEPTION`;
@@ -54,7 +54,7 @@ Try approaches that need no recompiling first, and settle the direction before y
 
 ## Step 5: After it works {#after}
 
-- Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues). Include the output of `复制配置信息.bat`, the game, channel, version, how you got it running, and roughly what frame rate it gets.
+- Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues). Include the output of **复制配置信息** (Copy configuration info), the game, channel, version, how you got it running, and roughly what frame rate it gets.
 - If the game has an automation script and tasks that do not use many resources, the maintainer will add it to the pre-release regression tests and record a frame-rate baseline.
 
 ## Rules

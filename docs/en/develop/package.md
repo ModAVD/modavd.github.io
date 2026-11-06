@@ -1,29 +1,31 @@
 # Bundled scripts
 
-**What you change**: the scripts that ship in the ModAVD package, in [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package) of the ModAVD repository. The three `.bat` files go in the root of the package, and `modavd-bridge.ps1` and `components-sources.txt` in the package's `tools\` folder. They are byte-identical to the files shipped in the package.
+**What you change**: the scripts that ship in the ModAVD package, in [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package) of the ModAVD repository. From 0.38.2 only `modavd-bridge.ps1` is left, in the package's `tools\` folder. It is byte-identical to the file shipped in the package.
 
-The three `.bat` files only call the CLI in the package, `tools\modavd.exe`: how components are fetched, problem reports are collected and system info is copied is changed in [ModAVDManager](https://github.com/ModAVD/ModAVDManager), see [Manager and CLI](./manager). In 0.38.0 and earlier packages, three `.ps1` files under `tools\` did these jobs; later packages no longer have them.
+Fetching the components, collecting a problem report and copying the configuration info are no longer scripts. In packages 0.38.1 and earlier, the package root has three `.bat` files that call `fetch-components.ps1`, `collect-info.ps1` and `report-config.ps1` under `tools\`. From 0.38.2 none of these six files ship, and the three jobs are all in the manager and the CLI. To change them, send a PR to [ModAVDManager](https://github.com/ModAVD/ModAVDManager); see [Manager and CLI](./manager).
 
 | File | What it does | In the package since |
 | --- | --- | --- |
-| `补全组件.bat` (fetches the Google components) → `modavd components fetch` | On the first run it asks where to download from (the menu is `tools\components-sources.txt`; the choice is kept in `downloads\source.txt`). Then it shows Google's Android Software Development Kit License Agreement; after you agree, it downloads adb and the system image, checks the SHA-1 and installs them into `sdk\`. It can resume downloads | 37.2.10-mas30 |
-| `收集问题信息.bat` (collects a problem report) → `modavd collect-info` | Makes a problem report on the desktop; see [Reporting problems](../guide/feedback) | 37.2.10-mas30 |
-| `复制配置信息.bat` (copies your system and game info) → `modavd report-config` | Puts the computer's configuration and the game packages installed in each instance into one block of text and copies it to the clipboard, to include in a new issue in [Issues](https://github.com/ModAVD/ModAVD/issues) | 0.35.0 |
 | `modavd-bridge.ps1` | Installs, removes or checks the arm64 execution bridge on an instance; see [Development: arm64 execution bridge](./bridge#installing-into-an-instance) | 0.36.0 |
+
+What the three `.bat` files did is now done like this:
+
+| Before | Now: the manager | Now: the CLI |
+| --- | --- | --- |
+| `补全组件.bat` (fetches the Google components) | **补全组件** under the **组件** item in **电脑检查** (Computer check) in the top bar, or on the banner of the home page when components are missing. Choose a download source and read Google's Android Software Development Kit License Agreement; after you agree, it downloads adb and the system image, checks the SHA-1 and installs them into `sdk\`. It can resume downloads | `tools\modavd.exe components fetch`; use `components source` to see and change the download source |
+| `收集问题信息.bat` (collects a problem report) | **设置 → 组件与问题反馈 → 收集问题信息** (Settings → Components and feedback → Collect a problem report) makes the report; see [Reporting problems](../guide/feedback) | `tools\modavd.exe collect-info` |
+| `复制配置信息.bat` (copies your system and game info) | **复制配置信息** in the same place puts the computer's configuration and the game packages installed in each instance into one block of text and copies it to the clipboard, to include in a new issue in [Issues](https://github.com/ModAVD/ModAVD/issues) | `tools\modavd.exe report-config` |
 
 ## Writing rules
 
 - They must also run on the Windows PowerShell 5.1 that ships with Windows, because it is the default on users' machines:
   - save `.ps1` files as UTF-8 with BOM;
-  - use only ASCII in `.bat` files, with CRLF line endings; Chinese text for the user goes into a UTF-8 `.txt` file, shown under code page 65001 just for that and switched back before reading input;
   - `.gitattributes` makes this directory store files as they are, with no line-ending conversion. When you send a PR, keep the file's original line endings and BOM: the bytes in the repository are the bytes in the release package.
 - No hard-coded local paths. adb goes only through the private port in `mas-avd.json` in the ModAVD root folder and never touches 5037.
 - Before restarting or shutting down, run `adb shell sync` first, then end the emulator.
-- Output that users paste into public issues must not contain user names, computer names, full paths or game accounts.
-
 ## Hardware
 
-To run them for real on an installed ModAVD, you need to start an instance:
+To run it for real on an installed ModAVD, you need to start an instance:
 
 | | Recommended | Minimum |
 |---|---|---|
@@ -33,7 +35,7 @@ To run them for real on an installed ModAVD, you need to start an instance:
 
 ## Verification
 
-Run each script with PowerShell 5.1 on Windows 10 and 11, and under different system languages.
+Run `modavd-bridge.ps1` with PowerShell 5.1 on Windows 10 and 11, and under different system languages.
 
 ## Delivery
 

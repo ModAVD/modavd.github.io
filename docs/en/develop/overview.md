@@ -12,7 +12,7 @@ For how to take part (credit, licensing, how to submit), [Contributing to ModAVD
 | [arm64 execution bridge](./bridge) | `bridge/` of ModAVD | C++ (NDK) | High | Nothing | Opus 5.5 / GPT-6 Astra |
 | [The manager and CLI](./manager) | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) | Go; the pages are plain JS / CSS | Medium | Unit tests, build, reproducible-build check | Sonnet 5.5 / GPT-6.1 Sol; Opus 5.5 / GPT-6 Astra for the boot flow, concurrency and package updates |
 | [The host IME](./ime) | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) | Java (Android) | Medium to low | Protocol self-test, APK build, release check | Sonnet 5.5 / GPT-6.1 Sol |
-| [Bundled scripts](./package) | `package/` of ModAVD | PowerShell, batch | Medium to low | Privacy scan | Sonnet 5.5 / GPT-6.1 Sol |
+| [Bundled scripts](./package) | `package/` of ModAVD | PowerShell | Medium to low | Privacy scan | Sonnet 5.5 / GPT-6.1 Sol |
 | Pre-release regression tests (end-to-end tests) | [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E) | PowerShell, Python | Medium | Syntax parsing, privacy scan; the regression run itself is not run | Sonnet 5.5 / GPT-6.1 Sol |
 | [Documentation and this site](./docs) | This site's repository [modavd.github.io](https://github.com/ModAVD/modavd.github.io), and the READMEs of the repositories | Markdown | Low | Builds the site, checks dead links, privacy scan | Sonnet 5.5 / GPT-6.1 Terra; Haiku 5.5 / GPT-6 Luna for mechanical changes |
 | [AUTO-MAS integration](./automas) | [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) | Python, front end | Medium | AUTO-MAS's own CI | Sonnet 5.5 / GPT-6.1 Sol; Opus 5.5 / GPT-6 Astra for review |

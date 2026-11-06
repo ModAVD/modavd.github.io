@@ -9,14 +9,14 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 维护者只在一台 Windows 11、AMD CPU、NVIDIA 独显的电脑上测过。最缺这些配置的实测：Intel CPU，AMD 或 Intel 显卡，笔记本双显卡，Windows 10，16 GB 内存。
 
 1. 照[安装](../guide/install)装好，在 AUTO-MAS 里添加，开机后跑一轮日常任务。
-2. 双击文件夹里的「复制配置信息.bat」（0.35.0 起包里有），在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，附上输出，补完最后三行，再写一句能不能跑。
+2. 在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」（或运行 `tools\modavd.exe report-config`），在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后三行，再写一句能不能跑。0.38.1 及更早的包里是包根的「复制配置信息.bat」。
 
 这份输出不带用户名、电脑名、完整路径和游戏账号，可以直接公开贴。详见[游戏实测和兼容性报告](./testing)。
 
 ## 报问题
 
 - 各组件的问题都在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 提：模拟器本体，也包括管理器和命令行、宿主输入法、本站、发版前回归。开 issue 时选上是哪个组件。
-- 附「收集问题信息.bat」生成的问题包。哪些能公开贴、崩溃转储怎么私下发，见[反馈问题](../guide/feedback)。
+- 附「收集问题信息」生成的问题包（管理器的「设置 → 组件与问题反馈」，或 `tools\modavd.exe collect-info`）。哪些能公开贴、崩溃转储怎么私下发，见[反馈问题](../guide/feedback)。
 - 贴日志前，把路径里的 `C:\Users\<你的用户名>` 换成 `%USERPROFILE%`。
 - AUTO-MAS 的界面、任务、调度问题，请到 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues) 提。
 - 安全问题不要公开发，请发邮件到 qiyinxi@foxmail.com。
