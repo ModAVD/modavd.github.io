@@ -14,6 +14,7 @@ Instance files and `mas-avd.json` are written the same way as in AUTO-MAS, so in
 Double-click `ModAVD.exe` in the package root. It starts a local server that listens only on 127.0.0.1, then opens a window in Edge app mode (Edge comes with Windows 10 / 11); if Edge is not found, it uses the default browser. The page is embedded in the program and does not use the network.
 
 - Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
+- The manager always starts instances with a window; use the CLI or MCP for headless starts. Headless instances can also be shut down here.
 - One server runs per root folder; double-clicking again only reopens the window. The log is at `<root>\logs\modavd-ui.log`.
 - After you close the window, it waits for the running tasks to finish before it exits.
 
@@ -30,17 +31,18 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
 | `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched |
 | `delete <i> --yes` | Delete a shut-down instance together with its game data |
-| `start <i> [--window] [--timeout 300] [--no-bridge]` | Start, then wait until boot is complete and the post-boot setup is done |
+| `start <i> [--window \| --headless] [--timeout 300] [--no-bridge]` | Start headless by default; `--window` starts with a window and `--headless` explicitly requests headless mode. Wait until boot and post-boot setup are complete |
 | `stop <i> [--force]`, `stop --all` | Shut down: first ask Android for a clean shutdown; if that fails, sync + kill. `--force` is sync + force-kill |
-| `restart <i> [--window] [--timeout 300] [--force] [--no-bridge]` | Shut down, then start |
 | `bridge <i> install\|uninstall\|verify` | Install, uninstall or check the arm64 execution bridge |
 | `proxy <i> [on\|off\|test] [--server URL\|auto] [--add pkg] [--remove pkg] [--apps pkg]` | Since manager 0.4.0: the [per-app proxy](./app-proxy); the listed apps use the proxy, the others go direct |
 | `check [--memory M]` | PC check before starting |
-| `window <i> show\|hide`, `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Window, install an APK, guest command, adb passthrough |
+| `window <i> show\|hide` | Show or hide the window of an instance started with one; headless instances have no window |
+| `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Install an APK, guest command, adb passthrough |
 | `servers`, `version`, `mcp`, `help [command]` | |
 
 - Write `<i>` as `3` or `mas_3` (0–9, except 5). Write memory as `6144`, `6144M` or `6G`; there are only four levels: 3 / 4 / 5 / 6 GB. Cores are 2 / 4 / 6, frame rate 30 / 60.
 - Root folder: `--root`; if it is not given, the environment variable `MODAVD_ROOT`; otherwise the folder containing `modavd.exe` or its parent.
+- Windowed / headless mode cannot change while an instance is running; shut it down, then start it in the desired mode. `--window` and `--headless` are mutually exclusive. Since 0.3.0 there is no `restart` command; use `stop` followed by `start`.
 - adb uses only the root folder's private server (`adbServerPort` in `mas-avd.json`) and never touches the default 5037.
 - Shutdown syncs first and then stops, so it does not leave 0-byte files behind.
 

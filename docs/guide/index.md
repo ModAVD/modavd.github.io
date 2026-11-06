@@ -5,7 +5,7 @@ ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器
 包里带管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe`，用来建实例、开机关机；也可以接入 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 这类自动化工具，由它们负责实例编排和任务流程。
 
 - 一个安卓模拟器，现在跑在 Windows 上，用 Windows 虚拟机监控程序平台（WHPX）做硬件加速；以后计划支持更多平台。
-- 可以开窗口当普通模拟器用，也可以不开窗口（无头）运行，由管理器、命令行或脚本拉起、用完关掉。
+- 可以开窗口当普通模拟器用，也可以不开窗口（无头）运行。管理器开机带窗口；无头开机用命令行、MCP 或脚本，用完可以在管理器或命令行里关掉。
 - 模拟器本体来自 Google 开源的 [Android Emulator](https://android.googlesource.com/platform/external/qemu/)。我们改了其中的 QEMU、gfxstream（图形转发）和 Crashpad（崩溃处理），改动以补丁形式公开。
 - adb 和安卓系统镜像属于 Google，受《Android 软件开发套件许可协议》约束，不能由我们分发，所以不在 Release 里，由管理器里的「补全组件」（或 `tools\modavd.exe components fetch`）在你的电脑上从官方渠道下载。
 
