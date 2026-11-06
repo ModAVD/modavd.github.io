@@ -10,11 +10,12 @@
 |---|---|
 | `sdk\emulator\` | 模拟器本体，用新包里的覆盖。覆盖不会删掉新版拿掉的文件；想顺便清掉，解压前先删掉旧的这个文件夹（见步骤 3） |
 | `ModAVD.exe`（管理器，0.36.0 起） | 用新包里的覆盖 |
-| `tools\`：`fetch-components.ps1`、`collect-info.ps1`、`report-config.ps1`；0.36.0 起还有 `modavd.exe`（命令行）、`modavd-bridge.ps1`（arm64 执行桥的安装 / 卸载 / 检查） | 用新包里的覆盖 |
+| `tools\`：0.36.0 起有 `modavd.exe`（命令行）、`modavd-bridge.ps1`（arm64 执行桥的安装 / 卸载 / 检查）；0.38.1 及更早还有 `fetch-components.ps1`、`collect-info.ps1`、`report-config.ps1` | 用新包里的覆盖。三个 `.ps1` 从 0.38.2 起不再随包发：用 `modavd update` 升级会自动删掉，手动覆盖时会留着，不碍事，可以自己删 |
 | `components\`：`de.jrpie.android.launcher_57.apk`（µLauncher）；0.36.0 起还有 `modavd-ime.apk`（宿主输入法） | 用新包里的覆盖 |
-| `补全组件.bat`、`收集问题信息.bat`、`复制配置信息.bat`、`说明.txt`、`LICENSES\`、`modavd-manifest.json` | 用新包里的覆盖 |
+| `说明.txt`、`LICENSES\`、`modavd-manifest.json` | 用新包里的覆盖 |
+| `补全组件.bat`、`收集问题信息.bat`、`复制配置信息.bat`（0.38.1 及更早的包根里有） | 0.38.2 起新包里没有，三件事改在管理器和命令行里做（见[安装](./install)和[反馈问题](./feedback)）。用 `modavd update` 升级会自动删掉这三个文件，手动覆盖时会留着，不碍事，可以自己删 |
 | `avd\` | **不动**，新包里没有这个文件夹。实例、游戏和登录状态都在这里 |
-| `sdk\platform-tools\`、`sdk\system-images\` | 不动，新包里也没有。新版要求的版本变了时，Release 说明里会写，届时再运行「补全组件.bat」 |
+| `sdk\platform-tools\`、`sdk\system-images\` | 不动，新包里也没有。新版要求的版本变了时，Release 说明里会写，届时在管理器里再点「补全组件」，或运行 `tools\modavd.exe components fetch` |
 | `mas-avd.json`、`logs\` | 不动。这是 AUTO-MAS 和模拟器自己写的 |
 
 ## 步骤
@@ -28,10 +29,10 @@
 
 ## 从内测包升级
 
-内测包（例如 `ModAVD-37.2.10-mas25`）自带 adb 和系统镜像，和「补全组件.bat」下载的是同一版本，所以：
+内测包（例如 `ModAVD-37.2.10-mas25`）自带 adb 和系统镜像，和「补全组件」下载的是同一版本，所以：
 
-- 按上面的步骤把新包整个解压到内测包的根目录。内测包里没有的文件（例如「补全组件.bat」、`LICENSES\`，以及 0.36.0 起的 `ModAVD.exe`）会一起放进去；
-- 不需要再运行「补全组件.bat」。运行了也没关系，它会显示两样组件都已齐全并跳过。
+- 按上面的步骤把新包整个解压到内测包的根目录。内测包里没有的文件（例如 `LICENSES\`，以及 0.36.0 起的 `ModAVD.exe`）会一起放进去；
+- 不需要再补全组件。在命令行里运行 `tools\modavd.exe components fetch` 也没关系，它会显示组件都已齐全并跳过。
 
 内测包里的旧实例可以直接用新版开机。
 

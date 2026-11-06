@@ -9,14 +9,14 @@ To see what environment and hardware each area needs, and which models to pick w
 The maintainer has tested on only one computer: Windows 11, AMD CPU, NVIDIA discrete GPU. What is missing most is testing on these configurations: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM.
 
 1. Install by following [Installation](../guide/install), add the instance in AUTO-MAS, start it, and run one round of daily tasks.
-2. Double-click `复制配置信息.bat` (copies your system and game info) in the folder (it is in the package from 0.35.0). Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and include the output. Fill in the last three lines and add one sentence on whether it runs.
+2. Click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last three lines and add one sentence on whether it runs. In packages 0.38.1 and earlier this was `复制配置信息.bat` in the package root.
 
 This output does not contain your user name, computer name, full paths or game accounts, so you can post it publicly as it is. For details, see [Testing on real games and compatibility reports](./testing).
 
 ## Reporting problems
 
 - Problems with every component go to the [Issues](https://github.com/ModAVD/ModAVD/issues) of the ModAVD repository: the emulator itself, and also the manager and CLI, the host IME, this site and the pre-release regression tests. Pick the component when you open the issue.
-- Attach the problem report made by `收集问题信息.bat` (collects a problem report). For what you can post publicly and how to send crash dumps privately, see [Reporting problems](../guide/feedback).
+- Attach the problem report made by **收集问题信息** (Collect a problem report), in **设置 → 组件与问题反馈** in the manager or with `tools\modavd.exe collect-info`. For what you can post publicly and how to send crash dumps privately, see [Reporting problems](../guide/feedback).
 - Before you paste logs, replace `C:\Users\<your user name>` in paths with `%USERPROFILE%`.
 - Problems with AUTO-MAS's interface, tasks or scheduling belong to [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues).
 - Do not report security problems publicly. Send an e-mail to qiyinxi@foxmail.com.

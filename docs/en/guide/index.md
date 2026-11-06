@@ -7,7 +7,7 @@ The package includes a manager, `ModAVD.exe`, and a CLI, `tools\modavd.exe`, for
 - An Android emulator that runs on Windows today and uses the Windows Hypervisor Platform (WHPX) for hardware acceleration. More platforms are planned.
 - It can run with a window as an ordinary emulator, or without one (headless). The manager, the CLI or a script starts it and shuts it down when done.
 - The emulator itself comes from Google's open-source [Android Emulator](https://android.googlesource.com/platform/external/qemu/). We changed QEMU, gfxstream (graphics streaming) and Crashpad (crash handling) in it, and the changes are published as patches.
-- adb and the Android system images belong to Google and are covered by the Android Software Development Kit License Agreement. We cannot distribute them, so they are not in the Release. `补全组件.bat` (fetches the Google components) in the package downloads them from the official channels on your computer.
+- adb and the Android system images belong to Google and are covered by the Android Software Development Kit License Agreement. We cannot distribute them, so they are not in the Release. **补全组件** (Fetch components) in the manager (or `tools\modavd.exe components fetch`) downloads them from the official channels on your computer.
 
 For the differences from the official emulator, item by item, see [How ModAVD differs from the official emulator](./changes).
 
@@ -19,8 +19,8 @@ A Release package is made of several parts, each developed in its own repository
 |---|---|---|
 | The emulator itself (the patched AOSP Emulator) | `sdk\emulator\` | `patches/` in [ModAVD](https://github.com/ModAVD/ModAVD) |
 | The arm64 execution bridge | `sdk\emulator\resources\modavd\` | `bridge/` in ModAVD |
-| Bundled scripts (fetch the Google components, collect a problem report, copy system and game info, install the bridge) | the `.bat` files in the package root, `tools\*.ps1` | `package/` in ModAVD |
-| The manager and the CLI | `ModAVD.exe`, `tools\modavd.exe` | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
+| The script that installs the bridge | `tools\modavd-bridge.ps1` | `package/` in ModAVD |
+| The manager and the CLI (including fetching the components, collecting a problem report and copying the configuration info) | `ModAVD.exe`, `tools\modavd.exe` | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
 | The host IME | `components\modavd-ime.apk` | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) |
 
 - The manager and the host IME have their own version numbers and are released separately from their own repositories. A ModAVD package release includes the versions that are current at the time.
