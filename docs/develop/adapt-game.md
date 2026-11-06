@@ -19,7 +19,7 @@
 
 - 启动前 `logcat -c`，再 `logcat -b all -v threadtime > 启动.txt`，然后启动游戏，复现以后停。
 - 崩了的话，取 `/data/tombstones/` 里最新的那份：`shell su 0 ls -t /data/tombstones`。
-- 模拟器日志在根目录的 `logs\` 里。「收集问题信息.bat」会把日志一起打包。
+- 模拟器日志在根目录的 `logs\` 里。「收集问题信息」会把日志一起打包。
 - 重点看这几样：
   - `Fatal signal`：崩在哪个库、哪个线程；
   - `FATAL EXCEPTION`；
@@ -54,7 +54,7 @@
 
 ## 第五步：适配好以后 {#after}
 
-- 在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，附上「复制配置信息.bat」的输出，记下游戏、渠道、版本、怎么跑起来的、帧率大概多少。
+- 在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，附上「复制配置信息」的输出，记下游戏、渠道、版本、怎么跑起来的、帧率大概多少。
 - 有自动化脚本、又有不耗资源的任务的，维护者会把它加进发版回归，并存下帧率基准。
 
 ## 规矩

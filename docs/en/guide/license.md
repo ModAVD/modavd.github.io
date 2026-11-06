@@ -15,7 +15,7 @@ From 0.36.0 all of them are under the GNU Affero General Public License version 
 
 | Program | Source |
 |---|---|
-| The scripts in the package (fetch the Google components, collect a problem report, copy system and game info, install the bridge) | [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package) in the ModAVD repository. The scripts in packages from 0.35.0 and earlier are published under the Apache License 2.0 |
+| The scripts in the package (`tools\modavd-bridge.ps1`, which installs the bridge; 0.38.1 and earlier also have three `.bat` and three `.ps1` files for fetching the Google components, collecting a problem report and copying system and game info) | [`package/`](https://github.com/ModAVD/ModAVD/tree/main/package) in the ModAVD repository. The scripts in packages from 0.35.0 and earlier are published under the Apache License 2.0 |
 | The arm64 execution bridge (`sdk\emulator\resources\modavd\`) | [`bridge/`](https://github.com/ModAVD/ModAVD/tree/main/bridge) in the ModAVD repository, and also in the source bundle of the same Release |
 | The manager `ModAVD.exe` and the CLI `tools\modavd.exe` | [ModAVD/ModAVDManager](https://github.com/ModAVD/ModAVDManager) |
 | The host IME `components\modavd-ime.apk` | [ModAVD/ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) |
@@ -48,7 +48,7 @@ The patches are in [`patches/`](https://github.com/ModAVD/ModAVD/tree/main/patch
 
 ## Google components
 
-adb and the system images are not in the Release. `补全组件.bat` (fetches the Google components) downloads them from the official channels. They are covered by the Android Software Development Kit License Agreement, which you must accept before downloading.
+adb and the system images are not in the Release. **补全组件** (Fetch components) in the manager, or `tools\modavd.exe components fetch`, downloads them from the official channels. They are covered by the Android Software Development Kit License Agreement, which you must accept before downloading.
 
 ## Icon and artwork
 

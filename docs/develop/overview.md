@@ -12,7 +12,7 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
 | [arm64 执行桥](./bridge) | ModAVD 的 `bridge/` | C++（NDK） | 高 | 不能 | Opus 5.5 / GPT-6 Astra |
 | [管理器和命令行](./manager) | [ModAVDManager](https://github.com/ModAVD/ModAVDManager) | Go，页面是原生 JS / CSS | 中 | 单元测试、构建、可复现核对 | Sonnet 5.5 / GPT-6.1 Sol；开机流程、并发、整包更新用 Opus 5.5 / GPT-6 Astra |
 | [宿主输入法](./ime) | [ModAVDHostIME](https://github.com/ModAVD/ModAVDHostIME) | Java（Android） | 中低 | 协议自测、APK 构建、发布核对 | Sonnet 5.5 / GPT-6.1 Sol |
-| [随包脚本](./package) | ModAVD 的 `package/` | PowerShell、批处理 | 中低 | 隐私扫描 | Sonnet 5.5 / GPT-6.1 Sol |
+| [随包脚本](./package) | ModAVD 的 `package/` | PowerShell | 中低 | 隐私扫描 | Sonnet 5.5 / GPT-6.1 Sol |
 | 发版前回归（端到端测试） | [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E) | PowerShell、Python | 中 | 语法解析、隐私扫描；回归本身不跑 | Sonnet 5.5 / GPT-6.1 Sol |
 | [文档和本站](./docs) | 本站仓库 [modavd.github.io](https://github.com/ModAVD/modavd.github.io)，各仓库的 README | Markdown | 低 | 编译站点、查死链、隐私扫描 | Sonnet 5.5 / GPT-6.1 Terra；机械改动用 Haiku 5.5 / GPT-6 Luna |
 | [AUTO-MAS 对接](./automas) | [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) | Python、前端 | 中 | 按 AUTO-MAS 自己的 CI | Sonnet 5.5 / GPT-6.1 Sol；审查用 Opus 5.5 / GPT-6 Astra |
