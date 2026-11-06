@@ -51,4 +51,4 @@ When `补全组件.bat` (fetches the Google components) fails, attaching `logs\f
 
 ## Tell us when it works, too
 
-If a round of daily tasks runs through on your computer, double-click `复制配置信息.bat` (copies your system and game info), paste the output into the pinned "兼容性报告" (compatibility report) issue in Issues, fill in the last three lines, and add a sentence saying whether it works. This output has no user name, computer name, full paths or game accounts, so you can post it publicly as it is. See [Testing on real games and compatibility reports](../develop/testing).
+If a round of daily tasks runs through on your computer, double-click `复制配置信息.bat` (copies your system and game info). Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and include the output. Fill in the last three lines and add a sentence saying whether it works. This output has no user name, computer name, full paths or game accounts, so you can post it publicly as it is. See [Testing on real games and compatibility reports](../develop/testing).
