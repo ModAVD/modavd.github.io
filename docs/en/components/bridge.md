@@ -3,7 +3,7 @@
 It lets games that only have an arm64 build and use app hardening run on ModAVD's x86_64 system image. Right now it takes effect only for the 7 channel builds of *Onmyoji*. From 0.36.0 it ships with the main Release package, installed in `sdk\emulator\resources\modavd\`.
 
 ::: info It does not touch the game
-The bridge **does not modify, patch or bypass the game or its hardening libraries, and does not interfere with any integrity or anti-tamper check**. This is compatibility work on the translation layer: it makes the hooks the game installs itself execute and return correctly. Intel Houdini already works this way, and the same game runs on Houdini. We do not change a single byte of Google's translation-layer binaries.
+The bridge **does not modify, patch or bypass the game or its hardening libraries, and does not interfere with any integrity or anti-tamper check**. This is compatibility work on the translation layer: it makes the hooks the game installs itself execute and return correctly. Intel Houdini already works this way, and the same game runs on Houdini. The bridge itself does not change Google's translation layer. After boot, the manager separately mounts a patched copy, generated on your machine, over the original path. It only changes how the hint instructions (SEVL, SEV, WFE, WFI) are decoded; the image file is untouched and the modified binary is not distributed.
 :::
 
 ## Why it is needed
