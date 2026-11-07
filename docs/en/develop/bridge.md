@@ -11,7 +11,7 @@
 Two generations of the translation layer are supported: ndk_translation 0.2.3 on the API 34 image (this is the one ModAVD uses) and Berberis 16 on API 36.1. Symbols are resolved by name from the images that are already mapped, and are not tied to a build-id.
 
 ::: danger Hard rules
-Do not modify, patch or bypass any file of the game itself or of its protection libraries, and do not interfere with any integrity or anti-tamper check. Not a single byte of Google's translation-layer binaries is changed.
+Do not modify, patch or bypass any file of the game itself or of its protection libraries, and do not interfere with any integrity or anti-tamper check. The bridge itself does not change Google's translation layer. After boot, the manager separately mounts a patched copy, generated on your machine, over the original path. It only changes how the hint instructions (SEVL, SEV, WFE, WFI) are decoded; the image file is untouched and the modified binary is not distributed.
 :::
 
 ## Why it crashes
