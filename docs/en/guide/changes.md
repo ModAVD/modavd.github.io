@@ -56,7 +56,7 @@ For details see [Privacy](./privacy).
 
 - The side toolbar is cut down to power, volume up and down, back and home (plus minimize and close). Set the environment variable `ANDROID_EMU_FULL_TOOLBAR=1` to get the full toolbar back.
 - Each log line is written immediately, and standard error is no longer buffered in blocks, so the last lines before a crash are not lost.
-- The program icon and window icon are now ModAVD's own icon (fan art, see [Licenses and source code](./license#icon-and-artwork)).
+- The program icon and window icon are now ModAVD's own icon (see [Licenses and source code](./license#icon-and-artwork)).
 
 ## Input method
 
