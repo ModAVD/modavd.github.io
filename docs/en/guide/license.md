@@ -52,6 +52,5 @@ adb and the system images are not in the Release. **补全组件** (Fetch compon
 
 ## Icon and artwork
 
-- The images under `assets/` in the ModAVD repository (banner, avatar, social preview image), and the icons compiled into the programs (the program icons and window icons of `emulator.exe`, `emulator-check.exe`, `qemu-system-x86_64*.exe` and `ModAVD.exe`, and the images in the manager's pages), are all fan art and **are not covered by the grant of any code or document license**.
-- The character in the artwork is Eyjafjalla from *Arknights*. The character's copyright belongs to Shanghai Hypergryph.
+- The images under `assets/` in the ModAVD repository (banner, avatar, social preview image), and the icons compiled into the programs (the program icons and window icons of `emulator.exe`, `emulator-check.exe`, `qemu-system-x86_64*.exe` and `ModAVD.exe`, and the images in the manager's pages), are ModAVD's own icon and artwork and **are not covered by the grant of any code or document license**.
 - If you have a copyright concern, please contact us through [Issues](https://github.com/ModAVD/ModAVD/issues) or by email at qiyinxi@foxmail.com, and we will deal with it immediately.
