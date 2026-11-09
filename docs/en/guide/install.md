@@ -61,7 +61,7 @@ The steps below are the same for both ways. Only the interface differs.
    - System image Android 14 (API 34) Google APIs x86_64 r14, about 1.5 GB, about 4.2 GB after extraction.
 4. With the automatic choice it tries the mirrors in order: googledownloads.cn → Tencent Cloud mirror → dl.google.com. If one is unreachable or fails the check, it moves on to the next.
 5. After each file is downloaded, it checks the size and SHA-1 and extracts the file only if they match. If the download is interrupted, click **补全组件** again or run the command again and it resumes.
-6. Done. In the manager, the item shows the progress (bytes downloaded, percentage, speed, time left) and a **取消** (Cancel) button while it runs, and the check runs again by itself when it finishes. The command line prints 完成，可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now add this folder in AUTO-MAS.)
+6. Done. In the manager, the item shows the progress (bytes downloaded, percentage, speed, time left) and a **取消** (Cancel) button while it runs, and the check runs again by itself when it finishes. The command line prints 完成，可以新建实例了；用 AUTO-MAS 的，也可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now create instances; if you use AUTO-MAS, you can also add this folder there.)
 
 Components that are already installed are skipped, so running it again has no side effects. The process is logged in `logs\fetch-components.log`.
 

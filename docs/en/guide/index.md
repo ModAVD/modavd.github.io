@@ -34,7 +34,7 @@ A Release package is made of several parts, each developed in its own repository
 | CPU | x86_64 (Intel / AMD), with virtualization turned on in the BIOS (Intel VT-x / AMD SVM) |
 | Windows feature | Windows Hypervisor Platform (WHPX) |
 | GPU | A discrete GPU or a recent integrated GPU with Vulkan support |
-| Memory | AUTO-MAS gives each instance 6 GB by default, and the PC needs about 1.5 GB more free when an instance boots |
+| Memory | Each instance gets 6 GB by default (3–6 GB can be chosen), and the PC needs about 1.5 GB more free when an instance boots |
 | Disk | Put it on an NTFS drive. Fetching the components needs about 6.5 GB free. Each instance needs more than 10 GB free on its first boot, then grows with game data, usually tens of GB per game |
 | Path | A path with only English letters and digits, for example `D:\ModAVD` |
 | AUTO-MAS | `v5.7.0` or newer is recommended. From v5.7.0-beta.5, MAA and MFW scripts (MaaFramework projects, such as M9A) work; other scripts are not supported yet. The Release notes list what each version supports |

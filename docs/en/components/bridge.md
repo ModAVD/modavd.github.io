@@ -20,7 +20,7 @@ A game's hardening library redirects the entry points of some functions in the s
 ## Installing into an instance
 
 - **From 0.36.0 you do not need to install it yourself**: when you start an instance with the manager `ModAVD.exe` or the CLI `tools\modavd.exe start`, both new and existing instances get the bridge automatically. If the bridge is not installed after the startup sequence finishes, it is installed; if it does not take effect, the instance is shut down and cold-booted, up to three rounds. The first boot takes 1–2 minutes longer.
-- Once it is installed, start instances with AUTO-MAS as usual; the bridge stays in place.
+- Once it is installed, start instances as usual (from the manager, the CLI or AUTO-MAS); the bridge stays in place.
 - An instance that has only ever been started by AUTO-MAS and never by the manager is not installed automatically in this version: start it once with the manager.
 - The bridge is installed in the instance's own system / vendor overlay and does not touch Google's original image.
 

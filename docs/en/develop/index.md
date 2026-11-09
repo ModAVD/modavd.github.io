@@ -25,7 +25,7 @@ If this is your first time, look at the issues labeled [good first issue](https:
 The maintainer has tested on only one computer: Windows 11, AMD CPU, NVIDIA discrete GPU. What is missing most is testing on these configurations: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM.
 
 1. Install by following [Installation](../guide/install), create an instance in the manager, start it, install a game you play and play for a while. If you use AUTO-MAS, add the instance there and run one round of daily tasks.
-2. Click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last three lines and add one sentence on whether it runs. In packages 0.38.1 and earlier this was `复制配置信息.bat` in the package root.
+2. Click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last two lines and add one sentence on whether it runs. In packages 0.38.1 and earlier this was `复制配置信息.bat` in the package root.
 
 This output does not contain your user name, computer name, full paths or game accounts, so you can post it publicly as it is. For details, see [Testing on real games and compatibility reports](./testing).
 

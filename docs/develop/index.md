@@ -25,7 +25,7 @@ issue、PR、评论和提交说明用中文或英文都可以。
 维护者只在一台 Windows 11、AMD CPU、NVIDIA 独显的电脑上测过。最缺这些配置的实测：Intel CPU，AMD 或 Intel 显卡，笔记本双显卡，Windows 10，16 GB 内存。
 
 1. 照[安装](../guide/install)装好，在管理器里建一台实例、开机，装上你玩的游戏玩一会儿；用 AUTO-MAS 的，在 AUTO-MAS 里添加，跑一轮日常任务。
-2. 在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」（或运行 `tools\modavd.exe report-config`），在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后三行，再写一句能不能跑。0.38.1 及更早的包里是包根的「复制配置信息.bat」。
+2. 在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」（或运行 `tools\modavd.exe report-config`），在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后两行，再写一句能不能跑。0.38.1 及更早的包里是包根的「复制配置信息.bat」。
 
 这份输出不带用户名、电脑名、完整路径和游戏账号，可以直接公开贴。详见[游戏实测和兼容性报告](./testing)。
 

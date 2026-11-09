@@ -55,4 +55,4 @@
 
 ## 能跑起来也欢迎说一声
 
-在你的电脑上跑通了一轮日常的话，在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」（或运行 `tools\modavd.exe report-config`），配置信息会复制到剪贴板并显示出来。在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后三行，再写一句能不能跑。这份输出不带用户名、电脑名、完整路径和游戏账号，可以直接公开贴。见[游戏实测和兼容性报告](../develop/testing)。
+游戏在你的电脑上能正常玩（或者跑通了一轮日常）的话，在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」（或运行 `tools\modavd.exe report-config`），配置信息会复制到剪贴板并显示出来。在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后两行，再写一句能不能跑。这份输出不带用户名、电脑名、完整路径和游戏账号，可以直接公开贴。见[游戏实测和兼容性报告](../develop/testing)。

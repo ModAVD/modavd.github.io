@@ -2,10 +2,10 @@
 
 ## The easiest way to help
 
-Install on your own computer by following [Installation](../guide/install), run one round of daily tasks in AUTO-MAS, and then:
+Install on your own computer by following [Installation](../guide/install), create an instance, install the game you want to test and play it for a while (if you use AUTO-MAS, run one round of daily tasks in it), and then:
 
 1. Click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`;
-2. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues), paste it, and fill in the last three lines;
+2. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues), paste it, and fill in the last two lines;
 3. Add one sentence on whether it runs.
 
 These configurations are missing most: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM. For compatibility reports, low-end machines are in fact the most wanted. As long as you meet the [requirements](../guide/#requirements), you are welcome to test.
