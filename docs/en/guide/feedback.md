@@ -10,7 +10,7 @@ Open an issue in the [Issues](https://github.com/ModAVD/ModAVD/issues) of the Mo
 1. **Do not shut down the emulator after something goes wrong.** If the instance is still running, the collection also records the screen and state at that moment.
 2. Generate the report, in one of two ways:
    - In the manager: open `ModAVD.exe`, click **设置** (Settings), then **组件与问题反馈** (Components and feedback), then **收集问题信息** (Collect a problem report). The report also goes to your desktop. When it finishes, it shows its path, a button **在资源管理器里显示** (Show in File Explorer) that opens its folder, and a privacy note.
-   - On the command line: run `tools\modavd.exe collect-info`. After about a minute, a `魔改AVD问题信息-<time>.zip` (the name means "ModAVD problem info") appears on the desktop and is selected in File Explorer automatically (add `--no-explorer` to skip that).
+   - On the command line: run `tools\modavd.exe collect-info`. After about a minute, a `ModAVD-问题信息-<time>.zip` (问题信息 means "problem info") appears on the desktop and is selected in File Explorer automatically (add `--no-explorer` to skip that).
 
 In packages 0.38.1 and earlier this was `收集问题信息.bat` in the package root. From 0.38.2 that file is gone.
 

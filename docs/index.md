@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: ModAVD
-  text: 魔改 AVD
+  text: Windows 上的安卓模拟器
   tagline: 基于 AOSP Android Emulator 的安卓模拟器，加了一批补丁后自己编译。目前支持 Windows，以后计划支持更多平台。
   actions:
     - theme: brand
