@@ -4,7 +4,7 @@
 
 <!-- README.md 和 README.en.md 逐节对应：改了其中一份，请在同一个 PR 里把另一份也改了。 -->
 
-[ModAVD（魔改 AVD）](https://github.com/ModAVD/ModAVD) 的文档站源码，发布在 <https://modavd.github.io/>（英文版在 <https://modavd.github.io/en/>）。用 [VitePress](https://vitepress.dev/) 编译。
+[ModAVD](https://github.com/ModAVD/ModAVD) 的文档站源码，发布在 <https://modavd.github.io/>（英文版在 <https://modavd.github.io/en/>）。用 [VitePress](https://vitepress.dev/) 编译。
 
 - 页面是 `docs/` 下的 Markdown，中文是主语言；英文页在 `docs/en/` 下，路径和中文页一一对应。导航和侧边栏在 `docs/.vitepress/config.mts`，两种语言用同一张页面表。
 - 每页底部有「在 GitHub 上改这一页」，改完提 PR 就行。写法见站内的「参与开发 → 文档和本站」。

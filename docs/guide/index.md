@@ -1,6 +1,6 @@
 # 这是什么
 
-ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器，加了一批补丁后自己编译。目前支持 Windows，以后计划支持更多平台（见 [#27](https://github.com/ModAVD/ModAVD/issues/27)）。
+ModAVD是基于 AOSP Android Emulator 37.2.10 的安卓模拟器，加了一批补丁后自己编译。目前支持 Windows，以后计划支持更多平台（见 [#27](https://github.com/ModAVD/ModAVD/issues/27)）。
 
 包里带管理器 `ModAVD.exe` 和命令行 `tools\modavd.exe`，用来建实例、开机关机；也可以接入 [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 这类自动化工具，由它们负责实例编排和任务流程。
 
@@ -34,7 +34,7 @@ ModAVD（魔改 AVD）是基于 AOSP Android Emulator 37.2.10 的安卓模拟器
 | CPU | x86_64（Intel / AMD），BIOS 里开着虚拟化（Intel VT-x / AMD SVM） |
 | Windows 功能 | 「Windows 虚拟机监控程序平台」（WHPX） |
 | 显卡 | 支持 Vulkan 的独立显卡或较新的集成显卡 |
-| 内存 | AUTO-MAS 默认每台实例 6 GB，开机时电脑要再空出约 1.5 GB |
+| 内存 | 每台实例默认 6 GB（可选 3–6 GB），开机时电脑要再空出约 1.5 GB |
 | 硬盘 | 放在 NTFS 盘。补全组件时要约 6.5 GB 可用；每台实例第一次开机要 10 GB 以上可用，之后随游戏数据增长，一个游戏通常几十 GB |
 | 路径 | 只含英文、数字的路径，例如 `D:\ModAVD` |
 | AUTO-MAS | 推荐 `v5.7.0` 或更新。v5.7.0-beta.5 起 MAA 和 MFW 脚本（MaaFramework 项目，如 M9A）可以用，其他脚本暂不支持；各版本的支持情况见 Release 说明 |

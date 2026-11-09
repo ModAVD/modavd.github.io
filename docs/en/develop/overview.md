@@ -42,7 +42,7 @@ For how to take part (credit, licensing, how to submit), [Contributing to ModAVD
 Verification in several areas needs a running instance. The numbers come from ModAVD's documentation and from measurements on the maintainer's machine:
 
 - **CPU**: x86_64, with virtualization turned on in the BIOS (Intel VT-x / AMD SVM). Android can use at most half of the computer's logical processors as virtual CPUs, so an instance with 4 cores needs 8 threads, and 6 cores need 12 threads.
-- **RAM**: Instance memory can be 3 / 4 / 5 / 6 GB (AUTO-MAS defaults to 6 GB). At boot the computer needs about another 1.5 GB free, and the emulator itself takes about 0.6–0.75 GB more.
+- **RAM**: Instance memory can be 3 / 4 / 5 / 6 GB (6 GB by default). At boot the computer needs about another 1.5 GB free, and the emulator itself takes about 0.6–0.75 GB more.
 - **Disk**: On an NTFS drive. The components and the emulator itself take about 5 GB together (6.5 GB must be free when fetching the Google components). The drive of each instance needs 10 GB or more free on its first boot; a new instance with no games installed actually takes only about 1.1 GB. An instance with games installed takes tens of GB; see [Testing on real games](./testing).
 
 ## What is in progress

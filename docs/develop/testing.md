@@ -2,10 +2,10 @@
 
 ## 协助者最容易帮上的
 
-在你自己的电脑上照[安装](../guide/install)装好，在 AUTO-MAS 里跑一轮日常，然后：
+在你自己的电脑上照[安装](../guide/install)装好，建一台实例，装上要测的游戏玩一会儿（用 AUTO-MAS 的，在 AUTO-MAS 里跑一轮日常），然后：
 
 1. 在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」，或运行 `tools\modavd.exe report-config`；
-2. 在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后三行；
+2. 在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后两行；
 3. 再写一句能不能跑。
 
 最缺这些配置：Intel CPU、AMD 或 Intel 显卡、笔记本双显卡、Windows 10、16 GB 内存。兼容性报告最想要的反而是低配机器，只要满足[适用环境](../guide/#适用环境)就欢迎来测。
