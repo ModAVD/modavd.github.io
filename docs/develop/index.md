@@ -4,11 +4,27 @@ ModAVD 只有一个维护者，回复可能要几天。大一点的改动请先�
 
 想知道各部分要什么环境和硬件、用 AI 工具时选什么模型，见[分区一览和通用要求](./overview)。
 
+issue、PR、评论和提交说明用中文或英文都可以。
+
+## 按你会的找入口
+
+| 你会的 | 能做什么 | 要什么环境 | 从这里开始 |
+|---|---|---|---|
+| 不写代码，会玩游戏 | 在自己的电脑上跑游戏，报能不能跑、帧率怎么样 | 一台满足[适用环境](../guide/#适用环境)的 Windows 10 / 11 电脑 | [游戏实测和兼容性报告](./testing)；已经测过哪些游戏见 [README](https://github.com/ModAVD/ModAVD#已实测的游戏) |
+| 写文档、翻译 | 改错漏、把只有中文的页面和 README 翻成英文、校对英文 | 浏览器就够；本地预览要 Node.js 24 | [文档和本站](./docs)；[文档类 issue](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Adocs) |
+| Go | 管理器和命令行：建实例、开关机、下载组件、界面（页面是原生 JS / CSS），包括给界面做英文版 | Go 1.26、Windows；只编译和跑单测 4 核、8 GB 内存就够 | [管理器和命令行](./manager)；[管理器的 issue](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Amanager) |
+| Java（Android） | 宿主输入法：电脑上打字直接送进安卓 | JDK、两件 Android SDK 组件（共约 1 GB） | [宿主输入法](./ime)；[输入法的 issue](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Ahostime) |
+| PowerShell、Python | 发版前回归（端到端测试）、随包脚本、CI 检查 | PowerShell 7、Python 3.12 | [随包脚本](./package)、[ModAVDE2E](https://github.com/ModAVD/ModAVDE2E)；[回归的 issue](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Ae2e) |
+| C / C++（QEMU、图形、Vulkan、ARM 转译） | 模拟器本体的补丁、arm64 执行桥 | 自己编模拟器要约 140 GB 硬盘，16 核编一次约 1.5 小时；只交补丁的话不要求会编 | [模拟器本体](./emulator)、[arm64 执行桥](./bridge) |
+| macOS、Linux | 把 ModAVD 移到别的平台：管理器的平台层、打包、签名 | 对应平台的电脑 | [#27 多平台总体安排](https://github.com/ModAVD/ModAVD/issues/27)；[macOS](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aplatform%3Amacos)、[Linux](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aplatform%3Alinux) 的 issue |
+
+第一次来，先看标了 [good first issue](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22) 的：范围小，不用编模拟器，正文里有英文说明。
+
 ## 最需要的：在你的电脑上试
 
 维护者只在一台 Windows 11、AMD CPU、NVIDIA 独显的电脑上测过。最缺这些配置的实测：Intel CPU，AMD 或 Intel 显卡，笔记本双显卡，Windows 10，16 GB 内存。
 
-1. 照[安装](../guide/install)装好，在 AUTO-MAS 里添加，开机后跑一轮日常任务。
+1. 照[安装](../guide/install)装好，在管理器里建一台实例、开机，装上你玩的游戏玩一会儿；用 AUTO-MAS 的，在 AUTO-MAS 里添加，跑一轮日常任务。
 2. 在管理器的「设置 → 组件与问题反馈」里点「复制配置信息」（或运行 `tools\modavd.exe report-config`），在 ModAVD 仓库的 [Issues](https://github.com/ModAVD/ModAVD/issues) 新开 issue，贴上它，补完最后三行，再写一句能不能跑。0.38.1 及更早的包里是包根的「复制配置信息.bat」。
 
 这份输出不带用户名、电脑名、完整路径和游戏账号，可以直接公开贴。详见[游戏实测和兼容性报告](./testing)。
