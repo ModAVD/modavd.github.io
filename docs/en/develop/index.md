@@ -4,11 +4,27 @@ ModAVD has only one maintainer, so replies can take a few days. For bigger chang
 
 To see what environment and hardware each area needs, and which models to pick when you use AI tools, see [Areas and common requirements](./overview).
 
+Issues, PRs, comments and commit messages can be in English or Chinese.
+
+## Where to start, by what you know
+
+| What you know | What you can do | What you need | Start here |
+|---|---|---|---|
+| No coding, you play games | Run games on your own computer and report whether they run and how the frame rate is | A Windows 10 / 11 computer that meets the [requirements](../guide/#requirements) | [Testing on real games and compatibility reports](./testing); for the games already tested, see the [README](https://github.com/ModAVD/ModAVD/blob/main/README.en.md#tested-games) |
+| Writing, translating | Fix mistakes, translate pages and READMEs that exist only in Chinese, proofread the English | A browser is enough; previewing locally needs Node.js 24 | [Documentation and this site](./docs); [docs issues](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Adocs) |
+| Go | The manager and CLI: creating instances, starting and stopping, fetching components, the interface (plain JS / CSS pages), including an English version of the interface | Go 1.26 and Windows; building and unit tests need only 4 cores and 8 GB of RAM | [The manager and CLI](./manager); [manager issues](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Amanager) |
+| Java (Android) | The host IME: text typed on the computer goes straight into Android | A JDK and two Android SDK components (about 1 GB in all) | [The host IME](./ime); [IME issues](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Ahostime) |
+| PowerShell, Python | The pre-release regression (end-to-end tests), bundled scripts, CI checks | PowerShell 7, Python 3.12 | [Bundled scripts](./package), [ModAVDE2E](https://github.com/ModAVD/ModAVDE2E); [regression issues](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aarea%3Ae2e) |
+| C / C++ (QEMU, graphics, Vulkan, ARM translation) | Patches to the emulator itself, the arm64 execution bridge | Building the emulator yourself needs about 140 GB of disk, and one build takes about 1.5 hours on 16 cores; you do not have to build it to send a patch | [The emulator itself](./emulator), [the arm64 execution bridge](./bridge) |
+| macOS, Linux | Bring ModAVD to other platforms: the manager's platform layer, packaging, signing | A computer on that platform | [#27 Multi-platform plan](https://github.com/ModAVD/ModAVD/issues/27); [macOS](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aplatform%3Amacos) and [Linux](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3Aplatform%3Alinux) issues |
+
+If this is your first time, look at the issues labeled [good first issue](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22): they are small, need no emulator build, and have an English summary in the description.
+
 ## What is needed most: try it on your computer
 
 The maintainer has tested on only one computer: Windows 11, AMD CPU, NVIDIA discrete GPU. What is missing most is testing on these configurations: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM.
 
-1. Install by following [Installation](../guide/install), add the instance in AUTO-MAS, start it, and run one round of daily tasks.
+1. Install by following [Installation](../guide/install), create an instance in the manager, start it, install a game you play and play for a while. If you use AUTO-MAS, add the instance there and run one round of daily tasks.
 2. Click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last three lines and add one sentence on whether it runs. In packages 0.38.1 and earlier this was `复制配置信息.bat` in the package root.
 
 This output does not contain your user name, computer name, full paths or game accounts, so you can post it publicly as it is. For details, see [Testing on real games and compatibility reports](./testing).

@@ -26,7 +26,9 @@ features:
   - title: 不向 Google 上传数据
     details: 模拟器不向 Google 上传使用统计和崩溃报告，不向 Google 检查更新，也不从 Google 下载特性开关。安卓和应用照常联网。
   - title: arm64 游戏也能跑
-    details: 随包的 arm64 执行桥让只有 arm64 版本、带加固的游戏（《阴阳师》各渠道包）在 x86_64 镜像上跑起来。
+    details: 随包的 arm64 执行桥让一部分只有 arm64 版本的游戏在 x86_64 镜像上跑起来。
+    link: https://github.com/ModAVD/ModAVD#已实测的游戏
+    linkText: 已实测的游戏
   - title: 补丁全部公开
     details: QEMU、gfxstream、Crashpad 的改动以补丁形式公开，每个 Release 附完整的对应源码。
 ---

@@ -26,7 +26,9 @@ features:
   - title: No data sent to Google
     details: The emulator does not upload usage statistics or crash reports to Google, does not check Google for updates, and does not download feature flags from Google. Android and its apps use the network as usual.
   - title: arm64-only games run too
-    details: The bundled arm64 execution bridge lets games that only have an arm64 build and use app hardening (the Onmyoji channel builds) run on an x86_64 system image.
+    details: The bundled arm64 execution bridge lets some games that only have an arm64 build run on an x86_64 system image.
+    link: https://github.com/ModAVD/ModAVD/blob/main/README.en.md#tested-games
+    linkText: Tested games
   - title: All patches are public
     details: The changes to QEMU, gfxstream and Crashpad are published as patches, and every release comes with the full matching source.
 ---

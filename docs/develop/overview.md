@@ -49,8 +49,7 @@ ModAVD 是 AOSP Android Emulator 加一批补丁，WHPX 加速，gfxstream 渲�
 
 动手前先看，免得撞车：
 
-- AUTO-MAS 计划改用 `modavd` 命令行管实例、更新整包（改动提到 AUTO-MAS 仓库）；
-- ModAVDManager：v0.1.0 已发布，v0.2.0（新建时在后台做完初始化、`modavd update`）待发布，main 上在做 0.3.0（组件与问题反馈、平台层）；
-- ModAVDHostIME：v1.0.0 已发布。
+- [已经指派给人](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20assignee%3A*)的 issue，就是有人在做；
+- 各仓库开着的 PR，包括草稿。
 
 想做的事和这些有交集，先在 ModAVD 仓库开 issue 说一声（各组件的 issue 都在那里）。

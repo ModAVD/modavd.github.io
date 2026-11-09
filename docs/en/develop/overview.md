@@ -49,8 +49,7 @@ Verification in several areas needs a running instance. The numbers come from Mo
 
 Look here before you start, to avoid collisions:
 
-- AUTO-MAS plans to switch to the `modavd` CLI for managing instances and updating the package (the changes go to the AUTO-MAS repository);
-- ModAVDManager: v0.1.0 is released; v0.2.0 (finishes initialization in the background when creating an instance, `modavd update`) is not released yet; 0.3.0 (components and problem reporting, platform layer) is being worked on in main;
-- ModAVDHostIME: v1.0.0 is released.
+- Issues that are [assigned to someone](https://github.com/ModAVD/ModAVD/issues?q=is%3Aissue%20is%3Aopen%20assignee%3A*) are being worked on;
+- open PRs in each repository, including drafts.
 
 If what you want to do overlaps with these, say so first in an issue in the ModAVD repository (issues for every component are there).
