@@ -1,28 +1,102 @@
-# Installing the Google Play Store yourself
+# Google Play Store
 
-ModAVD runs Google's "Google APIs" Android 14 system image. It comes with Google Play services but without the Play Store. If you need to download a game from the Play Store or sign in to a Google account through the store, this page shows how to put the store from Google's official "Google Play" image into your own instance. The manager is meant to offer this as an option when you create an instance later; until then, use this page.
+ModAVD runs Google's "Google APIs" Android 14 system image. It comes with Google Play services but without the Play Store. If you need to download a game from the Play Store or sign in to a Google account through the store, you can add the store from Google's official "Google Play" image to an instance. Since ModAVD 0.38.2 (manager 0.5.0), both the manager and the command line can do it. New instances come without the store; add it to the ones that need it.
 
 ::: warning Read the risks first
 See [Risks](#risks) at the end of this page. Use a new instance for this; don't try it first on an instance that holds game data you care about.
 :::
 
+## With the manager
+
+The instance needs the execution bridge (any instance created without `--no-bridge` has it; see [How it relates to the bridge and the host IME](#how-it-relates-to-the-bridge-and-the-host-ime)).
+
+1. In the instance card's 「更多操作」 (More actions) menu, choose 「补全 Google Play 商店…」 (Add Google Play Store).
+2. If the root folder does not have the five files from [the table below](#what-gets-installed) yet, the manager first takes you to the 「Google Play 商店服务」 (Google Play Store services) item of 「电脑检查」 (PC check). Pick one:
+   - 「下载…」 (Download): after you accept the license agreement, it downloads Google's official Play image (about 1.5 GB), keeps only the five files and deletes the rest;
+   - 「使用我自己的文件…」 (Use my own files): import Google's official image zip `x86_64-34_r14.zip`, or the five files themselves.
+
+   When you fetch components for the first time (「补全组件」, Fetch components, in the PC check), you can also tick 「同时补全 Google Play 商店服务」 (Also fetch the Google Play Store services) right away. Once the five files are in the root folder, every instance uses that one copy.
+3. Go back to the instance's 「更多操作」 menu and choose 「补全 Google Play 商店…」 again. The manager asks first, then cold-boots the instance once and puts the files in; an instance that was off is shut down again afterwards.
+4. Open "Play Store" from the app list in the instance's window and tap "Sign in". If you reach Google's sign-in page, the store is installed. Read [Register the device](#register-the-device) before you sign in.
+
+- Once it is installed, the instance's 「更多操作」 menu shows 「移除 Google Play 商店…」 (Remove Google Play Store) and 「复制 GSF ID」 (Copy GSF ID).
+- Once the instance is online, the store updates itself and Play services to the latest versions, which downloads a few hundred MB. The store closes itself when that update is installed; open it again a minute or two later.
+
+## With the command line
+
+In the ModAVD folder, use `tools\modavd.exe`. `<i>` is the instance number.
+
+```powershell
+# put the five files in the root folder, either way
+.\tools\modavd.exe components fetch --play-store                   # download (asks for the license)
+.\tools\modavd.exe components import-playstore <zip or folder>     # your own files
+
+# put the store into an instance
+.\tools\modavd.exe playstore <i> install     # cold-boots once
+.\tools\modavd.exe playstore <i> status      # check the result (the instance must be running)
+.\tools\modavd.exe playstore <i> gsfid       # print the GSF ID, for registering the device
+.\tools\modavd.exe playstore <i> uninstall   # remove it, cold-boots once
+```
+
+- `components import-playstore` takes Google's `x86_64-34_r14.zip` or the five files (any names). Each is checked against its size and SHA-256; anything that doesn't match is refused and nothing changes.
+- Without the execution bridge, or without the five files in the root folder, `playstore <i> install` fails before the instance is touched.
+- `components fetch --play-store` fetches only the store's five files; `components fetch` without it fetches only adb and the system image.
+
 ## What gets installed
 
 Five files are taken from Google's official `system-images;android-34;google_apis_playstore;x86_64` r14 and placed into the instance's own system overlay. That image is the same Android version and the same build cycle as the image ModAVD uses now.
 
-| File | What it is |
-|---|---|
-| `/product/priv-app/Phonesky/Phonesky.apk` | The Play Store |
-| `/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk` | Google Play services, replaced by the copy signed with the same key as the store (same version, 23.18.18) |
-| `/system_ext/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk` | Google Services Framework (GSF), likewise |
-| `/product/priv-app/PartnerSetupPrebuilt/PartnerSetupPrebuilt.apk` | Google Partner Setup, likewise; without it, it keeps crashing in the background |
-| `/product/etc/security/fsverity/play_store_fsi_cert.der` | The store's fs-verity certificate |
+| File | What it is | SHA-256 |
+|---|---|---|
+| `/product/priv-app/Phonesky/Phonesky.apk` | The Play Store | `2616771999b1cde77fd000ae17a43784dded1f76b21ec12881137c84d5313dd2` |
+| `/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk` | Google Play services, replaced by the copy signed with the same key as the store (same version, 23.18.18) | `63aaf087cdfad32fd9eca45f36966afe2f44db7e125e099f3e344ca99cee13c2` |
+| `/system_ext/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk` | Google Services Framework (GSF), likewise | `58999d24e4dbdde61f90b59a89c86edabc69e0908ddaaa2742091493d7e3b975` |
+| `/product/priv-app/PartnerSetupPrebuilt/PartnerSetupPrebuilt.apk` | Google Partner Setup, likewise; without it, it keeps crashing in the background | `20190a60924f36baae9ef9b7687691c445dd9a764b42c4751474293baf5ea15c` |
+| `/product/etc/security/fsverity/play_store_fsi_cert.der` | The store's fs-verity certificate | `37aabd485044e3af6d84755268faf8392e226ca0d188be6a80335525ce0ec6ff` |
 
 The image's own license-check placeholder, `/product/app/LicenseChecker`, is also hidden: its package name is `com.android.vending` too, and it would clash with the store.
 
-For why Play services has to be replaced as well, and why a plain `adb install` doesn't work, see [Why it is done this way](#why-it-is-done-this-way).
+The manager and the command line check the size and SHA-256 of each of the five files before putting them in. For why Play services has to be replaced as well, and why a plain `adb install` doesn't work, see [Why it is done this way](#why-it-is-done-this-way).
 
-## Before you start
+## Register the device
+
+ModAVD instances aren't devices certified by Google. If signing in, or using Google apps afterwards, is refused with a message that the device isn't Play Protect certified, register the instance's GSF ID with your Google account:
+
+1. Get the GSF ID. With the instance running and online, choose 「复制 GSF ID」 (Copy GSF ID) in its 「更多操作」 menu, or run `.\tools\modavd.exe playstore <i> gsfid`. It gives the ID in decimal and in hexadecimal; enter whichever the registration page asks for. If there is no ID yet, leave the network on for a minute or two and try again. For a manual install, use `playstore.sh gsfid` from [Manual install](#manual-install).
+2. On the PC, open <https://www.google.com/android/uncertified/> in a browser, sign in with the Google account you will use in the instance, enter the GSF ID and submit it.
+3. Give the registration a while to take effect, shut the instance down and start it again, then sign in.
+
+- Each instance has its own GSF ID and needs its own registration. Clearing the data of "Google Services Framework" or recreating the instance gives it a new ID, which has to be registered again.
+- Registration only lets Google apps work; the store still shows the device as uncertified.
+
+## How it relates to the bridge and the host IME
+
+- **Host IME**: an ordinary app, not affected.
+- **Execution bridge**: the store and the bridge both live in the instance's system overlay, each with its own files. With the store installed, `bridge <number> verify` still passes and the post-boot setup still runs.
+- **The store depends on the writable-system boot that the bridge brings**:
+  - Instances created with `--no-bridge` can't take the store; in the manager, 「补全 Google Play 商店…」 is greyed out for them and says the bridge is required.
+  - Don't remove the bridge from an instance with the store. Without the bridge the instance boots from Google's original image again, the store is gone, and mismatched updates are left behind in the system. If the manager installed the store, `bridge <number> uninstall` refuses until you remove the store. If you installed it by hand, the manager doesn't know about it and doesn't stop you (see [Manual install](#manual-install)); remove the store yourself first, as in [Manual uninstall](#manual-uninstall).
+- **Upgrading ModAVD**: as long as the system image version stays the same, the instance's overlay is left alone, so the store stays, like the bridge, and needs no reinstall.
+- **A different system image version**: the files, offsets and checksums on this page are for r14 only; each manager version carries the files for its own image. If a later ModAVD moves to another image version, follow the documentation of that version.
+
+## Uninstall
+
+In the instance's 「更多操作」 menu, choose 「移除 Google Play 商店…」 (Remove Google Play Store), or run `.\tools\modavd.exe playstore <i> uninstall`. The manager disables the store first, removes the updates the store installed for itself, Play services and GSF and the files that were put in, cold-boots once, and brings the image's placeholder back.
+
+- Afterwards Play services is back to the image's 23.18, with its data kept. Updates the store installed for other apps (Android System WebView, for example) stay.
+- The five files in the root folder are not deleted; the next install uses them.
+- A Google account you signed in with stays in the instance. To remove it, use "Passwords & accounts" in Android's settings.
+- For a manual install the menu has no 「移除 Google Play 商店…」; use [Manual uninstall](#manual-uninstall).
+
+## Manual install
+
+If the manager and the command line don't work for you, you can install the store by hand with the steps below. It puts in the same five files at the same places.
+
+::: warning The manager doesn't recognize a manual install
+The manager only knows a store it installed itself (recorded in the instance's `mas-avd.json`). A store you install by hand is invisible to it: the instance card's menu still shows 「补全 Google Play 商店…」 (Add Google Play Store), there is no 「移除 Google Play 商店…」 (Remove) or 「复制 GSF ID」 (Copy GSF ID), and `bridge <number> uninstall` is not blocked. For a manual install, use the script's `gsfid` to register the device and [Manual uninstall](#manual-uninstall) to remove it.
+:::
+
+### Before you start
 
 - ModAVD 0.36.0 or newer, and an instance with the arm64 execution bridge (any instance created without `--no-bridge`). Only instances with the bridge boot with a writable system, which is what lets the store in.
 - About 5 GB of temporary space on the PC (1.5 GB zip, 3.1 GB `system.img`) and about 3.5 GB free on the instance's data disk for temporary files. You can delete both afterwards.
@@ -35,7 +109,7 @@ $dl = 'D:\gplay'    # a folder for the downloads, English letters and digits onl
 New-Item -ItemType Directory -Force $dl | Out-Null
 ```
 
-## 1. Download the Play image and check it
+### 1. Download the Play image and check it
 
 ```powershell
 curl.exe -L -o "$dl\x86_64-34_r14.zip" https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86_64-34_r14.zip
@@ -46,7 +120,7 @@ curl.exe -L -o "$dl\x86_64-34_r14.zip" https://dl.google.com/android/repository/
 - `googledownloads.cn/android/repository/` or `mirrors.cloud.tencent.com/AndroidSDK/` in place of `dl.google.com/android/repository/` serve the same file.
 - The image is covered by Google's Android Software Development Kit License Agreement, the one fetching the components shows and keeps in `downloads\android-sdk-license.txt`.
 
-## 2. Extract system.img
+### 2. Extract system.img
 
 ```powershell
 tar -xf "$dl\x86_64-34_r14.zip" -C $dl x86_64/system.img
@@ -54,7 +128,7 @@ tar -xf "$dl\x86_64-34_r14.zip" -C $dl x86_64/system.img
 
 This gives `$dl\x86_64\system.img`, 3,101,687,808 bytes.
 
-## 3. Create the install script
+### 3. Create the install script
 
 Copy and run the whole block; it writes `playstore.sh` into `$dl`. The script runs as root inside the instance: it mounts two partitions of `system.img` read-only, checks the SHA-256 of the five files, and only then copies them into the instance.
 
@@ -176,7 +250,7 @@ esac
 [IO.File]::WriteAllText("$dl\playstore.sh", $sh.Replace("`r`n", "`n"))
 ```
 
-## 4. Install it into the instance
+### 4. Install it into the instance
 
 ```powershell
 .\tools\modavd.exe start $i
@@ -196,7 +270,7 @@ Then shut the instance down and start it again: the new files take effect after 
 .\tools\modavd.exe start $i --window
 ```
 
-## 5. Check the result
+### 5. Check the result
 
 ```powershell
 .\tools\modavd.exe shell $i "su 0 sh /data/local/tmp/playstore/playstore.sh status"
@@ -216,28 +290,11 @@ com.android.vending: package:/product/priv-app/Phonesky/Phonesky.apk
 
 After a while the last line may show `/data/app/...` instead: the store has updated itself over the network, which is fine.
 
-Then open "Play Store" from the app list in the instance's window and tap "Sign in". If you reach Google's sign-in page, the store is installed. Read the next section before you sign in.
+Then open "Play Store" from the app list in the instance's window and tap "Sign in". If you reach Google's sign-in page, the store is installed. Read [Register the device](#register-the-device) above before you sign in.
 
 - Once the instance is online, the store updates Play services to the latest version right away. The store closes itself when that update is installed; open it again a minute or two later.
 
-## 6. Register the device
-
-ModAVD instances aren't devices certified by Google. If signing in, or using Google apps afterwards, is refused with a message that the device isn't Play Protect certified, register the instance's GSF ID with your Google account:
-
-1. Get the GSF ID:
-
-   ```powershell
-   .\tools\modavd.exe shell $i "su 0 sh /data/local/tmp/playstore/playstore.sh gsfid"
-   ```
-
-   It prints the ID in decimal and in hexadecimal; enter whichever the registration page asks for. If there is no ID yet, leave the network on for a minute or two and try again.
-2. On the PC, open <https://www.google.com/android/uncertified/> in a browser, sign in with the Google account you will use in the instance, enter the GSF ID and submit it.
-3. Give the registration a while to take effect, shut the instance down and start it again, then sign in.
-
-- Each instance has its own GSF ID and needs its own registration. Clearing the data of "Google Services Framework" or recreating the instance gives it a new ID, which has to be registered again.
-- Registration only lets Google apps work; the store still shows the device as uncertified.
-
-## 7. Delete the temporary files
+### 6. Delete the temporary files
 
 ```powershell
 .\tools\modavd.exe shell $i "rm /data/local/tmp/playstore/system.img"
@@ -247,17 +304,7 @@ Remove-Item "$dl\x86_64" -Recurse
 - Keep `playstore.sh` in the instance; uninstalling needs it, and it is small.
 - Keep the zip if you want to install the store into other instances; otherwise delete it.
 
-## How it relates to the bridge and the host IME
-
-- **Host IME**: an ordinary app, not affected.
-- **Execution bridge**: the store and the bridge both live in the instance's system overlay, each with its own files. With the store installed, `bridge <number> verify` still passes and the post-boot setup still runs.
-- **The store depends on the writable-system boot that the bridge brings**:
-  - Don't run `bridge <number> uninstall` on an instance with the store. Without the bridge the instance boots from Google's original image again, the store is gone, and mismatched updates are left behind in the system. To remove the bridge, remove the store first (next section).
-  - Instances created with `--no-bridge` can't take the store.
-- **Upgrading ModAVD**: as long as the system image version stays the same, the instance's overlay is left alone, so the store stays, like the bridge, and needs no reinstall.
-- **A different system image version**: the files, offsets and checksums on this page are for r14 only. If a later ModAVD moves to another image version, follow the documentation of that version.
-
-## Uninstall
+### Manual uninstall
 
 ```powershell
 .\tools\modavd.exe shell $i "su 0 sh /data/local/tmp/playstore/playstore.sh uninstall"
