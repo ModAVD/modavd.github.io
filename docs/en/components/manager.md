@@ -13,7 +13,7 @@ Instance files and `mas-avd.json` are written the same way as in AUTO-MAS, so in
 
 Double-click `ModAVD.exe` in the package root. It starts a local server that listens only on 127.0.0.1, then opens a window in Edge app mode (Edge comes with Windows 10 / 11); if Edge is not found, it uses the default browser. The page is embedded in the program and does not use the network.
 
-- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
+- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, [components and feedback](#components-and-feedback) (since manager 0.3.0), activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
 - The manager always starts instances with a window. Headless starts are only on the command line (`start <i>` is headless by default, and so is MCP's `start_instance`), for automation such as AUTO-MAS; the manager has no headless start. A headless instance is marked “无头” (headless) on its card and can also be shut down here.
 - One server runs per root folder; double-clicking again only reopens the window. The log is at `<root>\logs\modavd-ui.log`.
 - After you close the window, it waits for the running tasks to finish before it exits. Since manager 0.8.0 the Windows manager stays in the tray instead; see below.
@@ -40,6 +40,23 @@ Since manager 0.8.0, Windows only.
   - The right-click menu has “打开管理器” (open the manager) and “退出” (exit). Exiting first shows the hidden windows, and waits for running tasks to finish.
   - The manager registers the boss keys, so if you only use AUTO-MAS and never open the manager, there are no boss keys. Open the manager once and leave it in the tray to get them.
 
+## Components and feedback
+
+A note on version numbers: "since manager 0.3.0" below is the version of ModAVDManager itself (the manager and the CLI share one version number). It is a different numbering from the ModAVD package version (such as 0.38.2); the package's release notes say which manager version it contains.
+
+**设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager puts three jobs in one panel, and the CLI has matching commands:
+
+| In the panel | CLI | What it does |
+| --- | --- | --- |
+| Component status | `components status` | Shows whether adb and the system image are installed, and whether the optional Google Play Store services are present (read-only) |
+| **补全组件** (Fetch components) | `components fetch` | Downloads adb and the system image from the official source: pick a download source, read Google's license, and only after you agree does it download; shows progress and a Cancel button |
+| **收集问题信息** (Collect a problem report) | `collect-info` | Packs logs, configuration and computer info into one zip on the desktop, then shows its path and a privacy note (read-only; no network, no upload) |
+| **复制配置信息** (Copy configuration info) | `report-config` | Puts the computer's configuration and the games installed in running instances into one block of text, copies it to the clipboard and shows it (read-only) |
+
+- The component status in the panel is display-only. When components are missing, the home page shows a banner with a **补全组件** button, and the same button is under the failed **组件** (Components) item of **电脑检查** (Computer check). For the full steps, download sources and error handling, see [Install](../guide/install#_2-fetch-the-google-components).
+- For what is collected and what is safe to post publicly, see [Reporting problems](../guide/feedback) and [Privacy](../guide/privacy).
+- In packages 0.38.1 and earlier these three jobs were three `.bat` files in the package root; from 0.38.2 they are gone and the manager and CLI do them.
+
 ## The CLI
 
 ```
@@ -58,6 +75,9 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | `bridge <i> install\|uninstall\|verify` | Install, uninstall or check the arm64 execution bridge |
 | `proxy <i> [on\|off\|test] [--server URL\|auto] [--add pkg] [--remove pkg] [--apps pkg]` | Since manager 0.4.0: the [per-app proxy](./app-proxy); the listed apps use the proxy, the others go direct |
 | `check [--memory M]` | PC check before starting |
+| `components [status]`, `components source [auto\|googledownloads_cn\|tencent\|google]`, `components fetch [--accept-license] [--keep-downloads]` | Since manager 0.3.0: show component status, choose the download source, fetch the Google components. `fetch` shows the license first and downloads only after you type `y`; with `--json` it requires `--accept-license`. Only Windows has a component list; other systems return `unsupported` |
+| `collect-info [--out-dir D] [--no-explorer]` | Since manager 0.3.0: collect a problem report as a zip, placed on the desktop and selected in File Explorer by default |
+| `report-config [--no-clipboard]` | Since manager 0.3.0: copy the configuration info, to the clipboard by default |
 | `window <i> show\|hide` | Show or hide the window of an instance started with one; headless instances have no window. In the manager, use the [boss key](#boss-keys-and-the-tray) |
 | `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Install an APK, guest command, adb passthrough |
 | `servers`, `version`, `mcp`, `help [command]` | |
