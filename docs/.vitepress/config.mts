@@ -13,7 +13,7 @@ const guide: Page[] = [
   ['/guide/', '这是什么', 'What is ModAVD'],
   ['/guide/install', '安装', 'Install'],
   ['/guide/upgrade', '升级', 'Upgrade'],
-  ['/guide/playstore', '自己装 Google Play 商店', 'Installing the Google Play Store yourself'],
+  ['/guide/playstore', 'Google Play 商店', 'Google Play Store'],
   ['/guide/changes', '和官方模拟器有什么不同', 'How ModAVD differs from the official emulator'],
   ['/guide/feedback', '反馈问题', 'Report a problem'],
   ['/guide/false-positive', '杀毒软件误报怎么办', 'What to do when antivirus software flags ModAVD'],

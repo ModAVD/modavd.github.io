@@ -1,28 +1,102 @@
-# 自己装 Google Play 商店
+# Google Play 商店
 
-ModAVD 用的系统镜像是 Google 的「Google APIs」版 Android 14，自带 Google Play 服务，但没有 Play 商店。要从 Play 商店下载游戏、在商店里登录 Google 账号的，可以照这一页，把 Google 官方「Google Play」版镜像里的商店装进自己的实例。管理器以后打算做成新建实例时可选，在那之前先用这个办法。
+ModAVD 用的系统镜像是 Google 的「Google APIs」版 Android 14，自带 Google Play 服务，但没有 Play 商店。要从 Play 商店下载游戏、在商店里登录 Google 账号的，可以给实例补上 Google 官方「Google Play」版镜像里的商店。ModAVD 0.38.2（管理器 0.5.0）起，管理器和命令行都能做；新建的实例不带商店，要用的实例再补。
 
 ::: warning 先看风险
 见本页最后的[风险](#风险)。建议新建一台实例专门来装，不要先在存着重要游戏数据的实例上试。
 :::
 
+## 用管理器装
+
+实例要有执行桥（新建时没加 `--no-bridge` 就是带的，见[和执行桥、宿主输入法的关系](#和执行桥、宿主输入法的关系)）。
+
+1. 在实例卡片的「更多操作」里点「补全 Google Play 商店…」。
+2. 根目录还没有[下面表里](#装的是什么)那五个文件时，管理器会先带你到「电脑检查」的「Google Play 商店服务」一项，二选一：
+   - 点「下载…」：同意许可协议后下载 Google 官方的 Play 版镜像（约 1.5 GB），只取出五个文件，其余删掉；
+   - 点「使用我自己的文件…」：导入 Google 官方的镜像压缩包 `x86_64-34_r14.zip`，或者那五个文件本身。
+
+   第一次补全组件（电脑检查里的「补全组件」）时，也可以直接勾上「同时补全 Google Play 商店服务」。五个文件在根目录里放好以后，每台实例都用这一份。
+3. 回到实例的「更多操作」，再点「补全 Google Play 商店…」。管理器会先问一下，然后把实例冷启动一次，把文件放进去；原来没开的实例做完会再关上。
+4. 在实例窗口的应用列表里打开「Play Store」（中文界面叫「Play 商店」），点「Sign in」，能进到 Google 的登录页就装好了。登录前先看[登记设备](#登记设备)。
+
+- 装好以后，实例的「更多操作」里变成「移除 Google Play 商店…」和「复制 GSF ID」。
+- 联网以后商店会把自己和 Play 服务更新到最新版，要下载几百 MB。更新装上的那一下商店会自己关掉，过一两分钟再打开就好。
+
+## 用命令行装
+
+在 ModAVD 文件夹里，用 `tools\modavd.exe`。`<i>` 是实例编号。
+
+```powershell
+# 根目录补全五个文件，二选一
+.\tools\modavd.exe components fetch --play-store                  # 下载（会问许可协议）
+.\tools\modavd.exe components import-playstore <压缩包或文件夹>   # 用自己的文件
+
+# 装进实例
+.\tools\modavd.exe playstore <i> install     # 冷启动一次
+.\tools\modavd.exe playstore <i> status      # 看装没装好（实例要开着）
+.\tools\modavd.exe playstore <i> gsfid       # 打出 GSF ID，登记设备用
+.\tools\modavd.exe playstore <i> uninstall   # 移除，冷启动一次
+```
+
+- `components import-playstore` 收 Google 官方的 `x86_64-34_r14.zip`，或者那五个文件（名字不限）。逐个核对大小和 SHA-256，对不上的一律拒收，什么也不改。
+- 实例没有执行桥，或者根目录还没有五个文件时，`playstore <i> install` 在动实例之前就报错。
+- `components fetch --play-store` 只补全商店的五个文件；不带这个参数的 `components fetch` 只补全 adb 和系统镜像。
+
 ## 装的是什么
 
 从 Google 官方的 `system-images;android-34;google_apis_playstore;x86_64` r14 里取五个文件，放进实例自己的系统覆盖层。这个镜像和 ModAVD 现在用的镜像是同一个安卓版本、同一期构建。
 
-| 文件 | 是什么 |
-|---|---|
-| `/product/priv-app/Phonesky/Phonesky.apk` | Play 商店 |
-| `/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk` | Google Play 服务，换成和商店同一个签名的那份（版本不变，都是 23.18.18） |
-| `/system_ext/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk` | Google 服务框架（GSF），同上 |
-| `/product/priv-app/PartnerSetupPrebuilt/PartnerSetupPrebuilt.apk` | Google 合作伙伴设置，同上；不换的话它在后台反复崩溃 |
-| `/product/etc/security/fsverity/play_store_fsi_cert.der` | 商店用的 fs-verity 证书 |
+| 文件 | 是什么 | SHA-256 |
+|---|---|---|
+| `/product/priv-app/Phonesky/Phonesky.apk` | Play 商店 | `2616771999b1cde77fd000ae17a43784dded1f76b21ec12881137c84d5313dd2` |
+| `/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk` | Google Play 服务，换成和商店同一个签名的那份（版本不变，都是 23.18.18） | `63aaf087cdfad32fd9eca45f36966afe2f44db7e125e099f3e344ca99cee13c2` |
+| `/system_ext/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk` | Google 服务框架（GSF），同上 | `58999d24e4dbdde61f90b59a89c86edabc69e0908ddaaa2742091493d7e3b975` |
+| `/product/priv-app/PartnerSetupPrebuilt/PartnerSetupPrebuilt.apk` | Google 合作伙伴设置，同上；不换的话它在后台反复崩溃 | `20190a60924f36baae9ef9b7687691c445dd9a764b42c4751474293baf5ea15c` |
+| `/product/etc/security/fsverity/play_store_fsi_cert.der` | 商店用的 fs-verity 证书 | `37aabd485044e3af6d84755268faf8392e226ca0d188be6a80335525ce0ec6ff` |
 
 另外把镜像自带的许可证检查占位应用 `/product/app/LicenseChecker` 藏起来：它的包名也是 `com.android.vending`，不藏会和商店撞。
 
-为什么要连 Play 服务一起换、为什么不能直接 `adb install`，见[为什么要这样装](#为什么要这样装)。
+管理器和命令行放进去之前，会逐个核对这五个文件的大小和 SHA-256。为什么要连 Play 服务一起换、为什么不能直接 `adb install`，见[为什么要这样装](#为什么要这样装)。
 
-## 开始前确认
+## 登记设备
+
+ModAVD 的实例不是 Google 认证过的设备。登录时或登录后提示「设备未经 Play 保护机制认证」、不让用 Google 应用的，要把这台实例的 GSF ID 登记到你的 Google 账号：
+
+1. 取 GSF ID。实例开着、联网，在实例的「更多操作」里点「复制 GSF ID」；命令行用 `.\tools\modavd.exe playstore <i> gsfid`。会给出十进制和十六进制两种写法，登记页要哪种就填哪种。提示还没有 ID 的，开着网等一两分钟再试。手动装的实例用[手动安装](#手动安装)里的 `playstore.sh gsfid`。
+2. 在电脑的浏览器里打开 <https://www.google.com/android/uncertified/>，用要在实例里登录的那个 Google 账号登录，填入 GSF ID，提交。
+3. 等一会儿让登记生效，把实例关机再开机，再去登录。
+
+- 每台实例的 GSF ID 不一样，每台都要登记。清除「Google 服务框架」的数据或者重建实例以后 ID 会变，要重新登记。
+- 登记只是让 Google 应用能用，商店里照样显示设备未认证。
+
+## 和执行桥、宿主输入法的关系
+
+- **宿主输入法**：是普通应用，不受影响。
+- **执行桥**：商店和桥都在实例的系统覆盖层里，各放各的文件。装了商店以后 `bridge <编号> verify` 照常通过，开机后的设置也照常做。
+- **商店离不开桥带来的可写系统镜像开机**：
+  - 用 `--no-bridge` 新建的实例装不了；管理器里这样的实例，「补全 Google Play 商店…」是灰的，提示要执行桥。
+  - 装了商店的实例不要卸执行桥：卸了桥，实例就改回用 Google 的原始镜像开机，商店没了，系统里还会留下不配套的更新。管理器装的，`bridge <编号> uninstall` 会拒绝，要先移除商店；手动装的，管理器不认，不会拦（见[手动安装](#手动安装)），要自己先照[手动卸载](#手动卸载)卸掉商店再卸桥。
+- **升级 ModAVD**：系统镜像版本不变时，实例的覆盖层不动，商店和执行桥一样留着，不用重装。
+- **换系统镜像版本**：这一页的文件、偏移和校验值只对 r14 有效；管理器每个版本带的是它那一版对应的文件。以后 ModAVD 换了镜像版本，以那时的文档为准。
+
+## 卸载
+
+在实例的「更多操作」里点「移除 Google Play 商店…」，或者用命令行 `.\tools\modavd.exe playstore <i> uninstall`。管理器会先停用商店，去掉商店、Play 服务、GSF 从商店装的更新和放进去的文件，冷启动一次，再把镜像自带的占位应用恢复。
+
+- 卸完以后 Play 服务回到镜像自带的 23.18，数据保留。商店给别的应用装过的更新（比如 Android System WebView）会留着。
+- 根目录里的五个文件不删，下次再补全时直接用。
+- 已经登录的 Google 账号会留在实例里，不想留就在安卓设置的「Passwords & accounts」（中文界面叫「密码和帐号」）里删掉。
+- 手动装的，管理器的菜单里没有「移除」，照[手动卸载](#手动卸载)做。
+
+## 手动安装
+
+管理器和命令行用不了时，可以照下面的步骤自己装。装的是同样的五个文件，放在同样的位置。
+
+::: warning 管理器不认手动装的
+管理器只认自己装的商店（记在实例的 `mas-avd.json` 里），照这里手动装的它看不出来：实例卡片的菜单里还是「补全 Google Play 商店…」，没有「移除」和「复制 GSF ID」，`bridge <编号> uninstall` 也不拦。手动装的，登记设备用下面脚本的 `gsfid`，卸载照[手动卸载](#手动卸载)做。
+:::
+
+### 开始前确认
 
 - ModAVD 0.36.0 或更新，实例带 arm64 执行桥（新建时没加 `--no-bridge` 就是带的）。只有带桥的实例按可写系统镜像开机，商店才放得进去。
 - 电脑上要有约 5 GB 临时空间（压缩包 1.5 GB，解出来的 `system.img` 3.1 GB）；实例的数据盘要有约 3.5 GB 空间放临时文件。装完都可以删。
@@ -35,7 +109,7 @@ $dl = 'D:\gplay'    # 放下载文件的文件夹，路径只用英文
 New-Item -ItemType Directory -Force $dl | Out-Null
 ```
 
-## 1. 下载 Play 版镜像并核对
+### 1. 下载 Play 版镜像并核对
 
 ```powershell
 curl.exe -L -o "$dl\x86_64-34_r14.zip" https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86_64-34_r14.zip
@@ -46,7 +120,7 @@ curl.exe -L -o "$dl\x86_64-34_r14.zip" https://dl.google.com/android/repository/
 - 把 `dl.google.com/android/repository/` 换成 `googledownloads.cn/android/repository/` 或 `mirrors.cloud.tencent.com/AndroidSDK/`，也能下到同一个文件。
 - 这个镜像受 Google《Android 软件开发套件许可协议》约束，就是补全组件时显示、存在 `downloads\android-sdk-license.txt` 里的那一份。
 
-## 2. 解出 system.img
+### 2. 解出 system.img
 
 ```powershell
 tar -xf "$dl\x86_64-34_r14.zip" -C $dl x86_64/system.img
@@ -54,7 +128,7 @@ tar -xf "$dl\x86_64-34_r14.zip" -C $dl x86_64/system.img
 
 得到 `$dl\x86_64\system.img`，3,101,687,808 字节。
 
-## 3. 生成安装脚本
+### 3. 生成安装脚本
 
 整段复制运行，会在 `$dl` 里生成 `playstore.sh`。它在实例里用 root 运行：只读挂上 `system.img` 里的两个分区，核对五个文件的 SHA-256，对上了才放进实例。
 
@@ -176,7 +250,7 @@ esac
 [IO.File]::WriteAllText("$dl\playstore.sh", $sh.Replace("`r`n", "`n"))
 ```
 
-## 4. 装进实例
+### 4. 装进实例
 
 ```powershell
 .\tools\modavd.exe start $i
@@ -196,7 +270,7 @@ esac
 .\tools\modavd.exe start $i --window
 ```
 
-## 5. 确认装好了
+### 5. 确认装好了
 
 ```powershell
 .\tools\modavd.exe shell $i "su 0 sh /data/local/tmp/playstore/playstore.sh status"
@@ -216,28 +290,11 @@ com.android.vending: package:/product/priv-app/Phonesky/Phonesky.apk
 
 最后一行过一会儿可能变成 `/data/app/...`：那是商店联网后自己更新了，正常。
 
-然后在实例窗口的应用列表里打开「Play Store」（中文界面叫「Play 商店」），点「Sign in」，能进到 Google 的登录页就装好了。登录前先看下一节。
+然后在实例窗口的应用列表里打开「Play Store」（中文界面叫「Play 商店」），点「Sign in」，能进到 Google 的登录页就装好了。登录前先看上面的[登记设备](#登记设备)。
 
 - 开机联网后，商店会马上把 Play 服务更新到最新版。更新装上的那一下商店会自己关掉，过一两分钟再打开就好。
 
-## 6. 登记设备
-
-ModAVD 的实例不是 Google 认证过的设备。登录时或登录后提示「设备未经 Play 保护机制认证」、不让用 Google 应用的，要把这台实例的 GSF ID 登记到你的 Google 账号：
-
-1. 取 GSF ID：
-
-   ```powershell
-   .\tools\modavd.exe shell $i "su 0 sh /data/local/tmp/playstore/playstore.sh gsfid"
-   ```
-
-   会打出十进制和十六进制两种写法，登记页要哪种就填哪种。提示还没有 ID 的，开着网等一两分钟再试。
-2. 在电脑的浏览器里打开 <https://www.google.com/android/uncertified/>，用要在实例里登录的那个 Google 账号登录，填入 GSF ID，提交。
-3. 等一会儿让登记生效，把实例关机再开机，再去登录。
-
-- 每台实例的 GSF ID 不一样，每台都要登记。清除「Google 服务框架」的数据或者重建实例以后 ID 会变，要重新登记。
-- 登记只是让 Google 应用能用，商店里照样显示设备未认证。
-
-## 7. 删掉临时文件
+### 6. 删掉临时文件
 
 ```powershell
 .\tools\modavd.exe shell $i "rm /data/local/tmp/playstore/system.img"
@@ -247,17 +304,7 @@ Remove-Item "$dl\x86_64" -Recurse
 - 实例里的 `playstore.sh` 留着，卸载时还要用，它很小。
 - 压缩包要给别的实例装就留着，不要了就删掉。
 
-## 和执行桥、宿主输入法的关系
-
-- **宿主输入法**：是普通应用，不受影响。
-- **执行桥**：商店和桥都在实例的系统覆盖层里，各放各的文件。装了商店以后 `bridge <编号> verify` 照常通过，开机后的设置也照常做。
-- **商店离不开桥带来的可写系统镜像开机**：
-  - 不要对装了商店的实例运行 `bridge <编号> uninstall`。卸了桥，实例就改回用 Google 的原始镜像开机，商店没了，系统里还会留下不配套的更新。要卸桥，先照下一节卸掉商店。
-  - 用 `--no-bridge` 新建的实例装不了。
-- **升级 ModAVD**：系统镜像版本不变时，实例的覆盖层不动，商店和执行桥一样留着，不用重装。
-- **换系统镜像版本**：这一页的文件、偏移和校验值只对 r14 有效。以后 ModAVD 换了镜像版本，以那时的文档为准。
-
-## 卸载
+### 手动卸载
 
 ```powershell
 .\tools\modavd.exe shell $i "su 0 sh /data/local/tmp/playstore/playstore.sh uninstall"
