@@ -36,7 +36,7 @@ It uses `-trimpath -buildvcs=false` and does not write the version number with `
 ## Verification
 
 - `gofmt -l .` prints nothing, and `go vet ./...` and `go test ./...` pass;
-- Some tests run AUTO-MAS's original logic with Python 3 and compare it with Go's output byte by byte, so Python 3 must be installed;
+- Some tests run AUTO-MAS's original logic with Python 3 and compare it with Go's output byte by byte, so Python 3 must be installed: point the environment variable `MODAVD_TEST_PYTHON` at it; if it is not set, `python` on PATH is used, and if that is not found, those comparison tests are skipped;
 - Testing on a real instance needs a ModAVD root folder: extract the release package, then fetch the Google components;
 - Use newly created instances and a private adb port for these tests;
 - Give root folders for development and testing their own port range: when the same computer also has a root folder in daily use (for example the one AUTO-MAS uses), write `"portBase": 21000` in the `mas-avd.json` of the development root folder. Its instances then count their ports from 21000 and do not fight with the instances of the same number over there. This needs a manager with [ModAVD/ModAVD#75](https://github.com/ModAVD/ModAVD/issues/75).
@@ -45,7 +45,28 @@ It uses `-trimpath -buildvcs=false` and does not write the version number with `
   - Shut down every instance of the root folder before you change it. AUTO-MAS does not know `portBase` yet, so do not add a root folder that sets it to AUTO-MAS.
 - Do not turn on the live-test switch (`MODAVD_TEST_LIVE=1`) against a root folder that holds important instances.
 
-CI runs the format check, `go vet`, `go test`, `build.ps1`, the privacy scan and the author check on PRs.
+On PRs, CI runs:
+
+- Windows: the full set: the format check, `go vet`, `go test`, `build.ps1`, the privacy scan and the author check, plus a cross `go vet` with `GOOS=darwin GOARCH=arm64` and with `GOOS=linux GOARCH=amd64`;
+- macOS and Linux: only `go vet` and `go test` on the matching system. They do not build a releasable program or start an emulator.
+
+## Platform layer
+
+The manager is mainly for Windows x64 today. The platform-specific parts are split into two places:
+
+- `internal/win`: the Windows operations for processes, command lines, ports, starting outside the process tree, file locks and windows. These files carry `//go:build windows`, so other systems do not compile them;
+- `internal/root/platform.go`: the platform table. The `Platform` struct gives one fixed row of values per host system and architecture: the file names of the emulator, adb and QEMU (including the headless one), the subdirectory QEMU lives in, the suffix of the package file name, the MirrorChyan system and architecture ids, the guest ABI and architecture and the target API, and the system image directory and name. `CurrentPlatform()` currently has three rows, Windows x64, macOS arm64 and Linux x64; any other combination returns an empty table, `Supported()` is `false`, and it does not inherit the Windows names. Shared code looks things up in this table; do not hard-code `.exe` or x86_64 in it.
+
+The table covers only file names and identifiers. The rules for the root folder layout, ports and instance paths are not in it (they are in the other files of `internal/root`).
+
+The non-Windows side lives in files such as `*_other.go` in each package (the host-related part is in `internal/host`). Most of it is first a stub that returns `Unsupported`, and commands report `unsupported` (exit code 4) honestly; for example, only Windows has a component list. To add a new platform you roughly need to:
+
+1. Add its row to the platform table (or change the existing one) and add tests for it;
+2. Write the Windows-only operations (those in `internal/win` and the stubs in each package's `*_other.go`) for that platform, separated by build tags, replacing the stubs;
+3. Do component download, package update, packaging and signing once per platform;
+4. Run `go vet` and `go test` in CI on that system.
+
+The overall plan and who takes which platform are in [ModAVD/ModAVD#27](https://github.com/ModAVD/ModAVD/issues/27); how the macOS platform layer is done is in [ModAVD/ModAVD#68](https://github.com/ModAVD/ModAVD/issues/68).
 
 ## Contract
 

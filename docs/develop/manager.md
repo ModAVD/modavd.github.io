@@ -36,7 +36,7 @@ pwsh -NoProfile -File build.ps1 -Test    # 先跑 go vet 和 go test
 ## 验证
 
 - `gofmt -l .` 为空，`go vet ./...`、`go test ./...` 通过；
-- 有一部分测试用 Python 3 运行 AUTO-MAS 的原始逻辑，和 Go 的输出逐字节对照，所以要装 Python 3；
+- 有一部分测试用 Python 3 运行 AUTO-MAS 的原始逻辑，和 Go 的输出逐字节对照，所以要装 Python 3：环境变量 `MODAVD_TEST_PYTHON` 指向它，不设就用 PATH 上的 `python`，找不到就跳过那几个对照测试；
 - 实测要一个 ModAVD 根目录：Release 包解压，再补全组件；
 - 实测用新建的实例、私有 adb 端口；
 - 开发、测试用的根目录换一段端口：同一台电脑上还有日常在用的根目录（比如 AUTO-MAS 用的那个）时，在开发根目录的 `mas-avd.json` 里写 `"portBase": 21000`，这个根目录的实例就从 21000 起算端口，不和那边同编号的实例抢。要带 [ModAVD/ModAVD#75](https://github.com/ModAVD/ModAVD/issues/75) 的管理器。
@@ -45,7 +45,28 @@ pwsh -NoProfile -File build.ps1 -Test    # 先跑 go vet 和 go test
   - 改之前先关掉这个根目录的所有实例。AUTO-MAS 还不认 `portBase`，设了的根目录不要加进 AUTO-MAS。
 - 不要对放着重要实例的根目录开实机测试开关（`MODAVD_TEST_LIVE=1`）。
 
-CI 在 PR 上跑格式检查、`go vet`、`go test`、`build.ps1`、隐私扫描和作者检查。
+CI 在 PR 上跑：
+
+- Windows：全套，包括格式检查、`go vet`、`go test`、`build.ps1`、隐私扫描和作者检查，另外用 `GOOS=darwin GOARCH=arm64`、`GOOS=linux GOARCH=amd64` 各交叉 `go vet` 一遍；
+- macOS 和 Linux：只在对应系统上跑 `go vet` 和 `go test`，不编出可发布的程序，也不开模拟器。
+
+## 平台层
+
+管理器目前以 Windows x64 为主，平台相关的部分拆在两处：
+
+- `internal/win`：Windows 的进程、命令行、端口、脱离进程树的启动、文件锁、窗口等操作。这些文件都带 `//go:build windows`，别的系统编译时不包含它们；
+- `internal/root/platform.go`：平台表。`Platform` 结构按宿主系统和架构给出一行固定的值：模拟器、adb、QEMU（含无头版）的文件名，QEMU 所在的子目录，整包文件名的后缀，Mirror 酱的系统和架构标识，客体的 ABI 和架构、目标 API，以及系统镜像的目录和名字。`CurrentPlatform()` 现在有 Windows x64、macOS arm64、Linux x64 三行，其余组合返回空表，`Supported()` 为 `false`，不会沿用 Windows 的名字。共用的代码查这张表，不要在里面写死 `.exe` 或 x86_64。
+
+这张表只管文件名和标识，不管根目录布局、端口和实例路径的规则（那些在 `internal/root` 的其他文件里）。
+
+非 Windows 的部分放在各包的 `*_other.go` 这类文件里（宿主相关的在 `internal/host`），多数先是返回 `Unsupported` 的桩，各命令照实报 `unsupported`（退出码 4）；比如组件清单只有 Windows 有。要给一个新平台补上，大致是：
+
+1. 在平台表里加这一行（或改现有的行），补上该平台的测试；
+2. 把 Windows 专有的操作（`internal/win` 里的，以及各包 `*_other.go` 里的桩）写成对应平台的实现，用构建标签区分，替换掉桩；
+3. 组件下载、整包更新、打包和签名按平台各做一份；
+4. 在对应系统的 CI 上跑 `go vet`、`go test`。
+
+总体安排和各平台的分工见 [ModAVD/ModAVD#27](https://github.com/ModAVD/ModAVD/issues/27)，macOS 平台层的具体做法见 [ModAVD/ModAVD#68](https://github.com/ModAVD/ModAVD/issues/68)。
 
 ## 契约
 
