@@ -14,9 +14,31 @@ Instance files and `mas-avd.json` are written the same way as in AUTO-MAS, so in
 Double-click `ModAVD.exe` in the package root. It starts a local server that listens only on 127.0.0.1, then opens a window in Edge app mode (Edge comes with Windows 10 / 11); if Edge is not found, it uses the default browser. The page is embedded in the program and does not use the network.
 
 - Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, [components and feedback](#components-and-feedback) (since manager 0.3.0), activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
-- The manager always starts instances with a window; use the CLI or MCP for headless starts. Headless instances can also be shut down here.
+- The manager always starts instances with a window. Headless starts are only on the command line (`start <i>` is headless by default, and so is MCP's `start_instance`), for automation such as AUTO-MAS; the manager has no headless start. A headless instance is marked “无头” (headless) on its card and can also be shut down here.
 - One server runs per root folder; double-clicking again only reopens the window. The log is at `<root>\logs\modavd-ui.log`.
-- After you close the window, it waits for the running tasks to finish before it exits.
+- After you close the window, it waits for the running tasks to finish before it exits. Since manager 0.8.0 the Windows manager stays in the tray instead; see below.
+
+### Boss keys and the tray
+
+Since manager 0.8.0, Windows only.
+
+- **Boss key**: each instance running with a window has a global hot key. Press it once to hide this instance's emulator window, and again to bring it back.
+  - While hidden, the instance keeps rendering and screenshots keep working, so automation is not affected. It has no taskbar button. When it comes back, its position and size are the same as before.
+  - A headless instance has no window, so its boss key does nothing.
+- **Default key**: instances 0–9 use Ctrl+Alt+Shift+number, with the digit row of the main keyboard (for example, `mas_1` is Ctrl+Alt+Shift+1). Instances above 9 have no boss key by default.
+- **Where to change it**: in the instance's settings, next to diagnostic mode.
+  - Click the field and press the combination. It needs at least one of Ctrl, Alt and Shift; combinations with Win are refused.
+  - It can be cleared, which leaves the instance without a boss key.
+  - A change applies at once, without restarting the instance.
+  - On the command line it is `set <i> --boss-key <combination>` (`none` for no key), and `info` shows it.
+  - It is stored as `bossKey` under the instance in `mas-avd.json`; when it is not written, the default applies.
+- **Several instances on one key**: this is not a conflict. A press hides them all if any of them shows its window, and shows them all if all are hidden. It looks at whether the windows show right now, so windows hidden by AUTO-MAS or `window <i> hide` come back too.
+- **Key taken by another program**: the settings page shows a warning icon next to it, and hovering says to pick another key; no dialog pops up. With managers of two root folders open on one computer, their default keys collide, and the one opened later shows the warning.
+- **Tray**:
+  - The manager puts an icon in the tray. After you close the manager window, the manager stays in the tray and the boss keys keep working.
+  - A left click on the icon brings every hidden window back.
+  - The right-click menu has “打开管理器” (open the manager) and “退出” (exit). Exiting first shows the hidden windows, and waits for running tasks to finish.
+  - The manager registers the boss keys, so if you only use AUTO-MAS and never open the manager, there are no boss keys. Open the manager once and leave it in the tray to get them.
 
 ## Components and feedback
 
@@ -46,7 +68,7 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | `list` | All instances and their status |
 | `info <i>` / `status <i>` | Detailed information / status of one instance |
 | `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
-| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched |
+| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N] [--boss-key combination\|none]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched. `--boss-key` is the [boss key](#boss-keys-and-the-tray) and applies at once |
 | `delete <i> --yes` | Delete a shut-down instance together with its game data |
 | `start <i> [--window \| --headless] [--timeout 300] [--no-bridge]` | Start headless by default; `--window` starts with a window and `--headless` explicitly requests headless mode. Wait until boot and post-boot setup are complete |
 | `stop <i> [--force]`, `stop --all` | Shut down: first ask Android for a clean shutdown; if that fails, sync + kill. `--force` is sync + force-kill |
@@ -56,7 +78,7 @@ modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
 | `components [status]`, `components source [auto\|googledownloads_cn\|tencent\|google]`, `components fetch [--accept-license] [--keep-downloads]` | Since manager 0.3.0: show component status, choose the download source, fetch the Google components. `fetch` shows the license first and downloads only after you type `y`; with `--json` it requires `--accept-license`. Only Windows has a component list; other systems return `unsupported` |
 | `collect-info [--out-dir D] [--no-explorer]` | Since manager 0.3.0: collect a problem report as a zip, placed on the desktop and selected in File Explorer by default |
 | `report-config [--no-clipboard]` | Since manager 0.3.0: copy the configuration info, to the clipboard by default |
-| `window <i> show\|hide` | Show or hide the window of an instance started with one; headless instances have no window |
+| `window <i> show\|hide` | Show or hide the window of an instance started with one; headless instances have no window. In the manager, use the [boss key](#boss-keys-and-the-tray) |
 | `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Install an APK, guest command, adb passthrough |
 | `servers`, `version`, `mcp`, `help [command]` | |
 
