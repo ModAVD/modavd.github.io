@@ -13,7 +13,7 @@
 | `tools\`：0.36.0 起有 `modavd.exe`（命令行）、`modavd-bridge.ps1`（arm64 执行桥的安装 / 卸载 / 检查）；0.38.1 及更早还有 `fetch-components.ps1`、`collect-info.ps1`、`report-config.ps1` | 用新包里的覆盖。三个 `.ps1` 从 0.38.2 起不再随包发：用 `modavd update` 升级会自动删掉，手动覆盖时会留着，不碍事，可以自己删 |
 | `components\`：`de.jrpie.android.launcher_57.apk`（µLauncher）；0.36.0 起还有 `modavd-ime.apk`（宿主输入法） | 用新包里的覆盖 |
 | `LICENSES\`、`modavd-manifest.json` | 用新包里的覆盖 |
-| `说明.txt`（0.40 及更早的包根里有） | 0.41 起新包里没有，用法看管理器和本站。用 `modavd update` 升级会自动删掉，手动覆盖时会留着，可以自己删 |
+| `说明.txt`（0.40.0 及更早的包根里有） | 0.40.1 起新包里没有，用法看管理器和本站。用 `modavd update` 升级会自动删掉，手动覆盖时会留着，可以自己删 |
 | `补全组件.bat`、`收集问题信息.bat`、`复制配置信息.bat`（0.38.1 及更早的包根里有） | 0.38.2 起新包里没有，三件事改在管理器和命令行里做（见[安装](./install)和[反馈问题](./feedback)）。用 `modavd update` 升级会自动删掉这三个文件，手动覆盖时会留着，不碍事，可以自己删 |
 | `avd\` | **不动**，新包里没有这个文件夹。实例、游戏和登录状态都在这里 |
 | `sdk\platform-tools\`、`sdk\system-images\` | 不动，新包里也没有。新版要求的版本变了时，Release 说明里会写，届时在管理器里再点「补全组件」，或运行 `tools\modavd.exe components fetch` |
