@@ -32,7 +32,6 @@
 | `ModAVD.exe` | 管理器（0.36.0 起）。补全组件、收集问题信息、复制配置信息也在这里做 |
 | `tools\` | 命令行 `modavd.exe`、装执行桥的 `modavd-bridge.ps1`（0.36.0 起） |
 | `components\` | 轻量桌面 µLauncher 的安装包；0.36.0 起还有宿主输入法 `modavd-ime.apk` |
-| `说明.txt` | 简短说明 |
 | `LICENSES\` | 许可证和第三方组件声明 |
 | `modavd-manifest.json` | 包里每个文件的大小和 SHA-256 |
 

@@ -32,7 +32,6 @@ The extracted folder contains:
 | `ModAVD.exe` | The manager (from 0.36.0). Fetching the components, collecting a problem report and copying the configuration info are done here too |
 | `tools\` | The CLI `modavd.exe`, and `modavd-bridge.ps1` for installing the bridge (from 0.36.0) |
 | `components\` | The package of µLauncher, a lightweight home screen; from 0.36.0 also the host IME `modavd-ime.apk` |
-| `说明.txt` | A short readme |
 | `LICENSES\` | Licenses and third-party component notices |
 | `modavd-manifest.json` | The size and SHA-256 of every file in the package |
 
