@@ -10,8 +10,8 @@ ModAVD ships a MuMu-compatible shell in `<ModAVD root>\mumu-shim\`. MAA currentl
 
 ## Before you start
 
-- Use a ModAVD version that has the `mumu-shim` folder (the release notes say which version it starts in).
-- On an older version: download `external_renderer_ipc.dll` from the [ModAVDExtras releases](https://github.com/ModAVD/ModAVDExtras/releases) and put it in `<ModAVD root>\mumu-shim\shell\sdk\`.
+- ModAVD 0.40.1 and later ship the `mumu-shim` folder.
+- On an older version: update to 0.40.1, or download `external_renderer_ipc.dll` v0.1.3 or later from the [ModAVDExtras releases](https://github.com/ModAVD/ModAVDExtras/releases) and put it in `<ModAVD root>\mumu-shim\shell\sdk\`.
 - Start the instance you want to connect to.
 
 ## Settings

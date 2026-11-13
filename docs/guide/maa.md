@@ -10,8 +10,8 @@ ModAVD 带一个 MuMu 兼容外壳，在 `<ModAVD 根目录>\mumu-shim\`。MAA �
 
 ## 准备
 
-- 用带 `mumu-shim` 目录的 ModAVD 版本（从哪一版起带，见发布说明）。
-- 旧版用户：从 [ModAVDExtras 的 Release](https://github.com/ModAVD/ModAVDExtras/releases) 下载 `external_renderer_ipc.dll`，放进 `<ModAVD 根目录>\mumu-shim\shell\sdk\`。
+- ModAVD 0.40.1 起包里带 `mumu-shim` 目录。
+- 更早的版本：先更新到 0.40.1；或者从 [ModAVDExtras 的 Release](https://github.com/ModAVD/ModAVDExtras/releases) 下载 v0.1.3 以后的 `external_renderer_ipc.dll`，放进 `<ModAVD 根目录>\mumu-shim\shell\sdk\`。
 - 先把要连的实例开机。
 
 ## 设置
