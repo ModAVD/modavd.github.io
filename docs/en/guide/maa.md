@@ -25,11 +25,16 @@ In MAA, go to "Settings → Connection" and set, in order:
 4. "MuMu Installation Path": `<ModAVD root>\mumu-shim`, for example `D:\ModAVD\mumu-shim`.
    - MAA rejects the path if `shell\sdk\external_renderer_ipc.dll` is not under it.
    - MAA may have filled in a real MuMu path from the registry when you ticked the option. Replace it with the one above.
-5. Tick "MuMu Network Bridge Connection", click "Confirm" in the warning, then fill in "Instance Number" with the ModAVD instance number (0, 1, 2, ...: the number on the manager card).
+5. Tick "MuMu Network Bridge Connection", click "Confirm" in the warning, then fill in "Instance Number" with the instance's console port, which is the connection address port minus 1: for `127.0.0.1:20041`, fill in `20040`.
    - If you leave it off, MAA works out MuMu's instance number from the connection address port. The result is wrong and screenshots fail.
+   - The number on the manager card (0, 1, 2, ...) works too.
 6. "Touch Mode": "MaaTouch (Experimental)".
 7. "Connection address": `127.0.0.1:<port>`, the adb address shown on the manager card. The default is `20001 + 10 × number`; if you changed the port range of the root, use what the manager shows.
 8. "ADB path": `<ModAVD root>\sdk\platform-tools\adb.exe`.
+
+Filled in, it looks like this (MAA's connection settings are at the bottom right, in the Chinese interface: ModAVD in `D:\ModAVD`, instance 4; "Screenshot test" picks MumuExtras, 6 ms):
+
+![MAA set up as MuMu, connected to ModAVD instance 4](/images/maa-mumu-shim.webp)
 
 ## Check that it works
 
