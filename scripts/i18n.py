@@ -60,10 +60,13 @@ def parse(path):
 
 
 def resolve(page, target):
-    """The page a link points to, relative to docs/; None for links to other sites."""
+    """The page a link points to, relative to docs/; None for links to other sites and to files that are not pages."""
     if re.match(r"^[a-z]+:", target):
         return None
     path = target.split("#")[0]
+    # Images and other files from docs/public are shared by both languages.
+    if re.search(r"\.(?!md$|html$)[A-Za-z0-9]+$", path):
+        return None
     if not path:
         return page
     parts = [] if path.startswith("/") else page.split("/")[:-1]
