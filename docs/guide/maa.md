@@ -25,11 +25,16 @@ ModAVD 带一个 MuMu 兼容外壳，在 `<ModAVD 根目录>\mumu-shim\`。MAA �
 4. 「MuMu 安装路径」填 `<ModAVD 根目录>\mumu-shim`，例如 `D:\ModAVD\mumu-shim`。
    - 路径下没有 `shell\sdk\external_renderer_ipc.dll` 时，MAA 会拒绝这个路径。
    - 勾上截图增强时 MAA 可能已按注册表填了真 MuMu 的路径，改成上面这个。
-5. 勾上「MuMu 网络桥接模式」，在警告里点「确认」，再填「实例编号」：ModAVD 里的实例编号（0、1、2……，就是管理器卡片上的编号）。
+5. 勾上「MuMu 网络桥接模式」，在警告里点「确认」，再填「实例编号」：这台实例的控制台端口，就是连接地址的端口减 1，比如连接地址是 `127.0.0.1:20041`，就填 `20040`。
    - 不勾的话，MAA 会按连接地址的端口去推 MuMu 的实例号，推出来是错的，截图会失败。
+   - 填管理器卡片上的编号（0、1、2……）也认。
 6. 「触控模式」选「MaaTouch（实验功能）」。
 7. 「连接地址」填 `127.0.0.1:<端口>`，就是管理器卡片上显示的 adb 地址。默认是 `20001 + 10 × 编号`；根目录改过端口段的，以管理器显示的为准。
 8. 「ADB 路径」填 `<ModAVD 根目录>\sdk\platform-tools\adb.exe`。
+
+填好以后大致是这样（右下角是 MAA 的连接设置：ModAVD 装在 `D:\ModAVD`，连 4 号实例；点「截图测试」，选中的是 MumuExtras，6 ms）：
+
+![MAA 按 MuMu 配，连 ModAVD 4 号实例](/images/maa-mumu-shim.webp)
 
 ## 确认生效
 
