@@ -37,7 +37,7 @@ ModAVD是基于 AOSP Android Emulator 37.2.10 的安卓模拟器，加了一批�
 | 内存 | 每台实例默认 6 GB（可选 3–6 GB），开机时电脑要再空出约 1.5 GB |
 | 硬盘 | 放在 NTFS 盘。补全组件时要约 6.5 GB 可用；每台实例第一次开机要 10 GB 以上可用，之后随游戏数据增长，一个游戏通常几十 GB |
 | 路径 | 只含英文、数字的路径，例如 `D:\ModAVD` |
-| AUTO-MAS | 推荐 `v5.7.0` 或更新。v5.7.0-beta.5 起 MAA 和 MFW 脚本（MaaFramework 项目，如 M9A）可以用，其他脚本暂不支持；各版本的支持情况见 Release 说明 |
+| AUTO-MAS（可选） | 需要用 AUTO-MAS 管理实例时，查看所用 ModAVD 版本的发布说明，确认兼容的 AUTO-MAS 版本 |
 
 ## 免责声明
 
