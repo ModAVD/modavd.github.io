@@ -18,7 +18,7 @@ hero:
 
 features:
   - title: Windowed or headless
-    details: Run it with a window as an ordinary emulator, or without one. The bundled manager, the CLI or an automation tool such as AUTO-MAS starts it and shuts it down when you are done.
+    details: Start an instance with a window from the bundled manager. The CLI and automation tools such as AUTO-MAS can also start it headless.
   - title: Survives a force-kill
     details: The data disk is handed to Android write-through, so force-killing the emulator does not corrupt the virtual disk's metadata. Crash handling no longer exits at random.
   - title: Uses fewer resources

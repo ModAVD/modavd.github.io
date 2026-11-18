@@ -1,12 +1,11 @@
 # Install
 
-This guide uses AUTO-MAS as the example. None of the steps needs administrator rights, except turning on the Windows feature.
+You can install and use ModAVD with the bundled manager. Administrator rights are only needed to turn on the Windows feature.
 
 ## Check before you start
 
 - Windows 10 / 11, 64-bit. The CPU is an Intel or AMD x86_64.
 - The GPU supports Vulkan (a discrete GPU or a recent integrated GPU).
-- AUTO-MAS: `v5.7.0` or newer is recommended. From v5.7.0-beta.5 it supports MAA and all MFW scripts. For earlier versions, see the Release notes.
 - Find an NTFS drive with plenty of space:
   - Fetching the components needs about 6.5 GB free. Once installed, the components and the emulator itself take about 5 GB together.
   - On each instance's first boot, the drive it sits on needs more than 10 GB free.
@@ -14,9 +13,9 @@ This guide uses AUTO-MAS as the example. None of the steps needs administrator r
 
 ## 1. Download and extract
 
-Download `ModAVD-<version>-win-x64.zip` from [Releases](https://github.com/ModAVD/ModAVD/releases) (the examples below use `0.36.0`).
+Download `ModAVD-<version>-win-x64.zip` from the [latest release](https://github.com/ModAVD/ModAVD/releases/latest).
 
-The zip has no outer folder. Right-click it and choose Extract All, or in 7-Zip choose `Extract to ModAVD-0.36.0-win-x64\`, to get the `ModAVD-0.36.0-win-x64` folder. Do not choose `Extract Here`, or the files end up loose in the folder that holds the zip.
+The zip has no outer folder. Right-click it and choose Extract All, or use 7-Zip to extract it to a folder named after the zip. Do not choose `Extract Here`, or the files end up loose in the folder that holds the zip.
 
 Put it at a path that contains **only English letters and digits**. You can rename it, for example `D:\ModAVD`.
 
@@ -96,31 +95,32 @@ The emulator needs Windows Hypervisor Platform:
 
 If it still does not work, CPU virtualization is most likely turned off in the BIOS. Enter the BIOS and turn on Intel VT-x or AMD SVM. See your motherboard manual for where to find it.
 
-## 4. Add it in AUTO-MAS
+## 4. Create and start an instance
+
+Double-click `ModAVD.exe` in the extracted folder and click **新建实例** (Create instance). Once it is ready, click **开机** (Start) on the instance card to open the emulator window. For commands, see [The manager and the CLI](../components/manager).
+
+### Connect AUTO-MAS (optional)
+
+Check the release notes for your ModAVD version to find a compatible AUTO-MAS version.
 
 1. Open **模拟器管理** (Emulator Management).
 2. If you have no emulator configuration yet, click **手动添加模拟器** (Add emulator manually) and set the emulator type to **自动识别（推荐）** (Auto-detect (recommended)). If you already have such a configuration, use it.
 3. In that configuration click **管理模拟器** (Manage emulators) → **添加魔改 AVD（内测）** (Add ModAVD (beta)), choose the folder you extracted in step 1, and click **检查** (Check).
-4. When all the computer checks pass, click **添加** (Add). The first instance is created automatically after it is added.
+4. When all the computer checks pass, click **添加** (Add). You can now manage the instances in this folder from AUTO-MAS.
 
 If an item under **检查** (Check) does not pass, follow the hint. If virtualization does not pass, see the previous section.
 
-::: tip Without AUTO-MAS
-Double-click `ModAVD.exe` in the package root to open the manager, where you can create instances, start and stop them, and watch the screen. For how to use the CLI `tools\modavd.exe`, see [The manager and the CLI](../components/manager).
-:::
-
 ## 5. First use
 
-Every new instance must be started by hand once, to install the game and log in:
+To play a game, install it and sign in from the emulator window first:
 
-1. In the device list, click the start button of the instance. A manual start shows the emulator window.
-2. In the window, swipe up from the bottom to open the app list, use Chrome to download the game's Android installer from its official website, and install it. If the system says installing unknown apps is not allowed, follow the prompt to allow Chrome to install apps.
-3. Open the game, log in and download the first-run resources, then shut down the instance in AUTO-MAS.
+1. Swipe up from the Android home screen to open the app list. Use Chrome to download the game's Android installer from its official website and install it. If Android prompts you to allow Chrome to install apps, follow the prompt.
+2. Open the game, sign in and download the first-run resources. When you are done, shut down the instance in the manager or AUTO-MAS.
 
 To go back to the home screen, use the ○ button on the window's side toolbar. Swiping up from the bottom edge of the screen does not take you home.
 
-After that, when a task starts the instance, whether it has a window follows the **静默模式** (Silent mode) setting in AUTO-MAS. For how to work with scripts such as MAA and M9A, follow the AUTO-MAS documentation.
+When an AUTO-MAS task starts an instance, its **静默模式** (Silent mode) setting controls whether the emulator window opens. For how to work with scripts such as MAA and M9A, follow the AUTO-MAS documentation.
 
 ## Uninstall
 
-First remove this emulator under **管理模拟器** (Manage emulators) in AUTO-MAS, then delete the whole folder. Crash dumps (if any) are in `%TEMP%\AndroidEmulator\emu-crash-37.2.10-mas.db\` and can be deleted along with it. Entries in the same directory without `-mas` in their names belong to the official emulator, not to this project.
+Shut down all instances. If you added ModAVD to AUTO-MAS, remove it under **管理模拟器** (Manage emulators). Then delete the ModAVD folder. Crash dumps (if any) are in `%TEMP%\AndroidEmulator\emu-crash-37.2.10-mas.db\` and can be deleted along with it. Entries in the same directory without `-mas` in their names belong to the official emulator, not to this project.
