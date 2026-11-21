@@ -10,16 +10,16 @@ See [Risks](#risks) at the end of this page. Use a new instance for this; don't 
 
 The instance needs the execution bridge (any instance created without `--no-bridge` has it; see [How it relates to the bridge and the host IME](#how-it-relates-to-the-bridge-and-the-host-ime)).
 
-1. In the instance card's 「更多操作」 (More actions) menu, choose 「补全 Google Play 商店…」 (Add Google Play Store).
-2. If the root folder does not have the five files from [the table below](#what-gets-installed) yet, the manager first takes you to the 「Google Play 商店服务」 (Google Play Store services) item of 「电脑检查」 (PC check). Pick one:
-   - 「下载…」 (Download): after you accept the license agreement, it downloads Google's official Play image (about 1.5 GB), keeps only the five files and deletes the rest;
-   - 「使用我自己的文件…」 (Use my own files): import Google's official image zip `x86_64-34_r14.zip`, or the five files themselves.
+1. In the instance card's "More actions" menu, choose "Add Google Play Store…".
+2. If the root folder does not have the five files from [the table below](#what-gets-installed) yet, the manager first takes you to the "Google Play Store service" item of "System check". Pick one:
+   - "Download…": after you accept the license agreement, it downloads Google's official Play image (about 1.5 GB), keeps only the five files and deletes the rest;
+   - "Use my own files…": import Google's official image zip `x86_64-34_r14.zip`, or the five files themselves.
 
-   When you fetch components for the first time (「补全组件」, Fetch components, in the PC check), you can also tick 「同时补全 Google Play 商店服务」 (Also fetch the Google Play Store services) right away. Once the five files are in the root folder, every instance uses that one copy.
-3. Go back to the instance's 「更多操作」 menu and choose 「补全 Google Play 商店…」 again. The manager asks first, then cold-boots the instance once and puts the files in; an instance that was off is shut down again afterwards.
+   When you fetch components for the first time ("Fetch components" in the System check), you can also tick "Also fetch the Google Play Store service" right away. Once the five files are in the root folder, every instance uses that one copy.
+3. Go back to the instance's "More actions" menu and choose "Add Google Play Store…" again. The manager asks first, then cold-boots the instance once and puts the files in; an instance that was off is shut down again afterwards.
 4. Open "Play Store" from the app list in the instance's window and tap "Sign in". If you reach Google's sign-in page, the store is installed. Read [Register the device](#register-the-device) before you sign in.
 
-- Once it is installed, the instance's 「更多操作」 menu shows 「移除 Google Play 商店…」 (Remove Google Play Store) and 「复制 GSF ID」 (Copy GSF ID).
+- Once it is installed, the instance's "More actions" menu shows "Remove Google Play Store…" and "Copy GSF ID".
 - Once the instance is online, the store updates itself and Play services to the latest versions, which downloads a few hundred MB. The store closes itself when that update is installed; open it again a minute or two later.
 
 ## With the command line
@@ -62,7 +62,7 @@ The manager and the command line check the size and SHA-256 of each of the five 
 
 ModAVD instances aren't devices certified by Google. If signing in, or using Google apps afterwards, is refused with a message that the device isn't Play Protect certified, register the instance's GSF ID with your Google account:
 
-1. Get the GSF ID. With the instance running and online, choose 「复制 GSF ID」 (Copy GSF ID) in its 「更多操作」 menu, or run `.\tools\modavd.exe playstore <i> gsfid`. It gives the ID in decimal and in hexadecimal; enter whichever the registration page asks for. If there is no ID yet, leave the network on for a minute or two and try again. For a manual install, use `playstore.sh gsfid` from [Manual install](#manual-install).
+1. Get the GSF ID. With the instance running and online, choose "Copy GSF ID" in its "More actions" menu, or run `.\tools\modavd.exe playstore <i> gsfid`. It gives the ID in decimal and in hexadecimal; enter whichever the registration page asks for. If there is no ID yet, leave the network on for a minute or two and try again. For a manual install, use `playstore.sh gsfid` from [Manual install](#manual-install).
 2. On the PC, open <https://www.google.com/android/uncertified/> in a browser, sign in with the Google account you will use in the instance, enter the GSF ID and submit it.
 3. Give the registration a while to take effect, shut the instance down and start it again, then sign in.
 
@@ -74,26 +74,26 @@ ModAVD instances aren't devices certified by Google. If signing in, or using Goo
 - **Host IME**: an ordinary app, not affected.
 - **Execution bridge**: the store and the bridge both live in the instance's system overlay, each with its own files. With the store installed, `bridge <number> verify` still passes and the post-boot setup still runs.
 - **The store depends on the writable-system boot that the bridge brings**:
-  - Instances created with `--no-bridge` can't take the store; in the manager, 「补全 Google Play 商店…」 is greyed out for them and says the bridge is required.
+  - Instances created with `--no-bridge` can't take the store; in the manager, "Add Google Play Store…" is greyed out for them and says the bridge is required.
   - Don't remove the bridge from an instance with the store. Without the bridge the instance boots from Google's original image again, the store is gone, and mismatched updates are left behind in the system. If the manager installed the store, `bridge <number> uninstall` refuses until you remove the store. If you installed it by hand, the manager doesn't know about it and doesn't stop you (see [Manual install](#manual-install)); remove the store yourself first, as in [Manual uninstall](#manual-uninstall).
 - **Upgrading ModAVD**: as long as the system image version stays the same, the instance's overlay is left alone, so the store stays, like the bridge, and needs no reinstall.
 - **A different system image version**: the files, offsets and checksums on this page are for r14 only; each manager version carries the files for its own image. If a later ModAVD moves to another image version, follow the documentation of that version.
 
 ## Uninstall
 
-In the instance's 「更多操作」 menu, choose 「移除 Google Play 商店…」 (Remove Google Play Store), or run `.\tools\modavd.exe playstore <i> uninstall`. The manager disables the store first, removes the updates the store installed for itself, Play services and GSF and the files that were put in, cold-boots once, and brings the image's placeholder back.
+In the instance's "More actions" menu, choose "Remove Google Play Store…", or run `.\tools\modavd.exe playstore <i> uninstall`. The manager disables the store first, removes the updates the store installed for itself, Play services and GSF and the files that were put in, cold-boots once, and brings the image's placeholder back.
 
 - Afterwards Play services is back to the image's 23.18, with its data kept. Updates the store installed for other apps (Android System WebView, for example) stay.
 - The five files in the root folder are not deleted; the next install uses them.
 - A Google account you signed in with stays in the instance. To remove it, use "Passwords & accounts" in Android's settings.
-- For a manual install the menu has no 「移除 Google Play 商店…」; use [Manual uninstall](#manual-uninstall).
+- For a manual install the menu has no "Remove Google Play Store…"; use [Manual uninstall](#manual-uninstall).
 
 ## Manual install
 
 If the manager and the command line don't work for you, you can install the store by hand with the steps below. It puts in the same five files at the same places.
 
 ::: warning The manager doesn't recognize a manual install
-The manager only knows a store it installed itself (recorded in the instance's `mas-avd.json`). A store you install by hand is invisible to it: the instance card's menu still shows 「补全 Google Play 商店…」 (Add Google Play Store), there is no 「移除 Google Play 商店…」 (Remove) or 「复制 GSF ID」 (Copy GSF ID), and `bridge <number> uninstall` is not blocked. For a manual install, use the script's `gsfid` to register the device and [Manual uninstall](#manual-uninstall) to remove it.
+The manager only knows a store it installed itself (recorded in the instance's `mas-avd.json`). A store you install by hand is invisible to it: the instance card's menu still shows "Add Google Play Store…", there is no "Remove Google Play Store…" or "Copy GSF ID", and `bridge <number> uninstall` is not blocked. For a manual install, use the script's `gsfid` to register the device and [Manual uninstall](#manual-uninstall) to remove it.
 :::
 
 ### Before you start

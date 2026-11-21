@@ -19,7 +19,7 @@ The zip has no outer folder. Right-click it and choose Extract All, or use 7-Zip
 
 Put it at a path that contains **only English letters and digits**. You can rename it, for example `D:\ModAVD`.
 
-- With Chinese characters in the path the emulator cannot start, and **补全组件** (Fetch components) refuses to run.
+- With Chinese characters in the path the emulator cannot start, and **Fetch components** refuses to run.
 - Do not put it in a directory that needs administrator rights, such as `C:\Program Files`.
 - All instance data from now on is stored in the `avd\` folder here, so pick a drive with plenty of space.
 
@@ -40,7 +40,7 @@ Packages 0.38.1 and earlier also have `补全组件.bat`, `收集问题信息.ba
 
 adb and the system image are downloaded on your computer from the official channels. There are two ways, and both download the same things:
 
-- **In the manager**: double-click `ModAVD.exe`. When components are missing, the home page shows a banner with a **补全组件** (Fetch components) button. You can also click **电脑检查** (Computer check) in the top bar and click **补全组件** under the **组件** (Components) item that did not pass.
+- **In the manager**: double-click `ModAVD.exe`. When components are missing, the home page shows a banner with a **Fetch components** button. You can also click **System check** in the top bar and click **Fetch components** under the **Components** item that did not pass.
 - **On the command line**: type `cmd` in the folder's address bar, press Enter, and run `tools\modavd.exe components fetch`.
 
 In packages 0.38.1 and earlier this was `补全组件.bat` in the package root. From 0.38.2 that file is gone.
@@ -48,24 +48,24 @@ In packages 0.38.1 and earlier this was `补全组件.bat` in the package root. 
 The steps below are the same for both ways. Only the interface differs.
 
 1. Choose the download source: automatic (tries googledownloads_cn → tencent → google in order), only one of them, or a custom address.
-   - In the manager, choose it in the dialog. The choice is saved when you click **同意并下载** (Agree and download).
+   - In the manager, choose it in the dialog. The choice is saved when you click **Agree and download**.
    - On the command line: if no source has been saved yet and you run it in a console, it asks once with a numbered list; press Enter for automatic. It does not ask when its input comes from a pipe or a file, or with `--json` or `--accept-license`.
-   - Once saved, the choice is reused and not asked again. To change it, choose **组件下载源** (Component download source) in **设置** (Settings) in the manager, next to the update source (it saves as soon as you choose), or run `tools\modavd.exe components source [auto|googledownloads_cn|tencent|google]`. Without an argument it shows the current one.
+   - Once saved, the choice is reused and not asked again. To change it, choose **Component download source** in **Settings** in the manager, next to the update source (it saves as soon as you choose), or run `tools\modavd.exe components source [auto|googledownloads_cn|tencent|google]`. Without an argument it shows the current one.
 2. It gets the full text of Google's Android Software Development Kit License Agreement from the chosen source and shows it. It also saves a copy to `downloads\android-sdk-license.txt`.
-   - Manager: the full text is shown in the dialog. After reading it, click **同意并下载** (Agree and download). If you click **不同意** (Disagree) or close the dialog, nothing is downloaded.
+   - Manager: the full text is shown in the dialog. After reading it, click **Agree and download**. If you click **Disagree** or close the dialog, nothing is downloaded.
    - Command line: type `y` and press Enter to agree. If you just press Enter or type anything else, it exits without downloading anything.
 3. After you agree, it downloads two things and installs them into `sdk\`:
    - Platform tools (adb) 37.0.1, about 8 MB;
    - System image Android 14 (API 34) Google APIs x86_64 r14, about 1.5 GB, about 4.2 GB after extraction.
 4. With the automatic choice it tries the mirrors in order: googledownloads.cn → Tencent Cloud mirror → dl.google.com. If one is unreachable or fails the check, it moves on to the next.
-5. After each file is downloaded, it checks the size and SHA-1 and extracts the file only if they match. If the download is interrupted, click **补全组件** again or run the command again and it resumes.
-6. Done. In the manager, the item shows the progress (bytes downloaded, percentage, speed, time left) and a **取消** (Cancel) button while it runs, and the check runs again by itself when it finishes. The command line prints 完成，可以新建实例了；用 AUTO-MAS 的，也可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now create instances; if you use AUTO-MAS, you can also add this folder there.)
+5. After each file is downloaded, it checks the size and SHA-1 and extracts the file only if they match. If the download is interrupted, click **Fetch components** again or run the command again and it resumes.
+6. Done. In the manager, the item shows the progress (bytes downloaded, percentage, speed, time left) and a **Cancel** button while it runs, and the check runs again by itself when it finishes. The command line prints 完成，可以新建实例了；用 AUTO-MAS 的，也可以在 AUTO-MAS 里添加这个文件夹了。 (Done. You can now create instances; if you use AUTO-MAS, you can also add this folder there.)
 
 Components that are already installed are skipped, so running it again has no side effects. The process is logged in `logs\fetch-components.log`.
 
 ### If fetching the components fails
 
-In the manager, a failure shows the reason under the item, and the button becomes **重试** (Retry). The command line prints the same reason.
+In the manager, a failure shows the reason under the item, and the button becomes **Retry** (Retry). The command line prints the same reason.
 
 | Message | What to do |
 |---|---|
@@ -73,10 +73,10 @@ In the manager, a failure shows the reason under the item, and the button become
 | 这里没有 sdk\emulator\emulator.exe (there is no sdk\emulator\emulator.exe here) | The Release zip was not fully extracted. Extract it again and run it in the extracted folder |
 | 磁盘空间不够 (not enough disk space) | Use a drive with more space |
 | 取不到许可协议全文 / 所有镜像都没下成 (cannot get the license text / no mirror worked) | Check your network and try again. The parts already downloaded are kept. You can also choose another download source |
-| 下载源这次给的许可协议和你在管理器里同意的那份不一样 (the source gave a license text different from the one you agreed to in the manager) | Nothing was downloaded. Click **补全组件** again, read the current text and agree again |
+| 下载源这次给的许可协议和你在管理器里同意的那份不一样 (the source gave a license text different from the one you agreed to in the manager) | Nothing was downloaded. Click **Fetch components** again, read the current text and agree again |
 | 解压后的关键文件或版本校验失败 (the key files or version check failed after extraction) for the system image, with a 0.37.0–0.38.0 package | `补全组件.bat` in these versions has a bug and always fails on the system image. Type `cmd` in the folder's address bar and press Enter, run `tools\modavd.exe components fetch`, and type `y` after reading the license agreement; the zip already downloaded is used as it is |
 
-If downloads are too slow or keep failing, you can download the two files below by hand with a browser or a download tool, put them in the folder's `downloads\` **without renaming them**, and click **补全组件** again (or run `tools\modavd.exe components fetch`). It still needs the network once to get the license text. It then checks the two files and uses them if they pass. After installing, it deletes these two zip files from `downloads\`.
+If downloads are too slow or keep failing, you can download the two files below by hand with a browser or a download tool, put them in the folder's `downloads\` **without renaming them**, and click **Fetch components** again (or run `tools\modavd.exe components fetch`). It still needs the network once to get the license text. It then checks the two files and uses them if they pass. After installing, it deletes these two zip files from `downloads\`.
 
 | File | URL | SHA-1 |
 |---|---|---|
@@ -97,7 +97,7 @@ If it still does not work, CPU virtualization is most likely turned off in the B
 
 ## 4. Create and start an instance
 
-Double-click `ModAVD.exe` in the extracted folder and click **新建实例** (Create instance). Once it is ready, click **开机** (Start) on the instance card to open the emulator window. For commands, see [The manager and the CLI](../components/manager).
+Double-click `ModAVD.exe` in the extracted folder and click **Create instance**. Once it is ready, click **Start** on the instance card to open the emulator window. For commands, see [The manager and the CLI](../components/manager).
 
 ### Connect AUTO-MAS (optional)
 

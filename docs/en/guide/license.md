@@ -48,7 +48,7 @@ The patches are in [`patches/`](https://github.com/ModAVD/ModAVD/tree/main/patch
 
 ## Google components
 
-adb and the system images are not in the Release. **补全组件** (Fetch components) in the manager, or `tools\modavd.exe components fetch`, downloads them from the official channels. They are covered by the Android Software Development Kit License Agreement, which you must accept before downloading.
+adb and the system images are not in the Release. **Fetch components** in the manager, or `tools\modavd.exe components fetch`, downloads them from the official channels. They are covered by the Android Software Development Kit License Agreement, which you must accept before downloading.
 
 ## Icon and artwork
 

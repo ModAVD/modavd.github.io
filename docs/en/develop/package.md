@@ -12,9 +12,9 @@ What the three `.bat` files did is now done like this:
 
 | Before | Now: the manager | Now: the CLI |
 | --- | --- | --- |
-| `补全组件.bat` (fetches the Google components) | **补全组件** under the **组件** item in **电脑检查** (Computer check) in the top bar, or on the banner of the home page when components are missing. Choose a download source and read Google's Android Software Development Kit License Agreement; after you agree, it downloads adb and the system image, checks the SHA-1 and installs them into `sdk\`. It can resume downloads | `tools\modavd.exe components fetch`; use `components source` to see and change the download source |
-| `收集问题信息.bat` (collects a problem report) | **设置 → 组件与问题反馈 → 收集问题信息** (Settings → Components and feedback → Collect a problem report) makes the report; see [Reporting problems](../guide/feedback) | `tools\modavd.exe collect-info` |
-| `复制配置信息.bat` (copies your system and game info) | **复制配置信息** in the same place puts the computer's configuration and the game packages installed in each instance into one block of text and copies it to the clipboard, to include in a new issue in [Issues](https://github.com/ModAVD/ModAVD/issues) | `tools\modavd.exe report-config` |
+| `补全组件.bat` (fetches the Google components) | **Fetch components** under the **Components** item in **System check** in the top bar, or on the banner of the home page when components are missing. Choose a download source and read Google's Android Software Development Kit License Agreement; after you agree, it downloads adb and the system image, checks the SHA-1 and installs them into `sdk\`. It can resume downloads | `tools\modavd.exe components fetch`; use `components source` to see and change the download source |
+| `收集问题信息.bat` (collects a problem report) | **Settings → Components and problem reports → Collect problem info** makes the report; see [Reporting problems](../guide/feedback) | `tools\modavd.exe collect-info` |
+| `复制配置信息.bat` (copies your system and game info) | **Copy configuration info** in the same place puts the computer's configuration and the game packages installed in each instance into one block of text and copies it to the clipboard, to include in a new issue in [Issues](https://github.com/ModAVD/ModAVD/issues) | `tools\modavd.exe report-config` |
 
 ## Writing rules
 
