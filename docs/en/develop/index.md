@@ -25,14 +25,14 @@ If this is your first time, look at the issues labeled [good first issue](https:
 The maintainer has tested on only one computer: Windows 11, AMD CPU, NVIDIA discrete GPU. What is missing most is testing on these configurations: Intel CPU, AMD or Intel GPU, laptops with dual GPUs, Windows 10, and 16 GB of RAM.
 
 1. Install by following [Installation](../guide/install), create an instance in the manager, start it, install a game you play and play for a while. If you use AUTO-MAS, add the instance there and run one round of daily tasks.
-2. Click **复制配置信息** (Copy configuration info) under **设置 → 组件与问题反馈** (Settings → Components and feedback) in the manager, or run `tools\modavd.exe report-config`. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last two lines and add one sentence on whether it runs. In packages 0.38.1 and earlier this was `复制配置信息.bat` in the package root.
+2. Click **Copy configuration info** under **Settings → Components and problem reports** in the manager, or run `tools\modavd.exe report-config`. Open an issue in the [ModAVD repository](https://github.com/ModAVD/ModAVD/issues) and paste it. Fill in the last two lines and add one sentence on whether it runs. In packages 0.38.1 and earlier this was `复制配置信息.bat` in the package root.
 
 This output does not contain your user name, computer name, full paths or game accounts, so you can post it publicly as it is. For details, see [Testing on real games and compatibility reports](./testing).
 
 ## Reporting problems
 
 - Problems with every component go to the [Issues](https://github.com/ModAVD/ModAVD/issues) of the ModAVD repository: the emulator itself, and also the manager and CLI, the host IME, this site and the pre-release regression tests. Pick the component when you open the issue.
-- Attach the problem report made by **收集问题信息** (Collect a problem report), in **设置 → 组件与问题反馈** in the manager or with `tools\modavd.exe collect-info`. For what you can post publicly and how to send crash dumps privately, see [Reporting problems](../guide/feedback).
+- Attach the problem report made by **Collect problem info**, in **Settings → Components and problem reports** in the manager or with `tools\modavd.exe collect-info`. For what you can post publicly and how to send crash dumps privately, see [Reporting problems](../guide/feedback).
 - Before you paste logs, replace `C:\Users\<your user name>` in paths with `%USERPROFILE%`.
 - Problems with AUTO-MAS's interface, tasks or scheduling belong to [AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS/issues).
 - Do not report security problems publicly. Send an e-mail to qiyinxi@foxmail.com.

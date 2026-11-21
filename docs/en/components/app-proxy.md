@@ -18,29 +18,29 @@ When the proxy program is closed or cannot be reached, the listed apps **have no
 
 ## Setting it in the manager
 
-1. On the instance card, click "⋯" at the bottom right, then "按应用走代理…" (per-app proxy). When the card already shows the "代理" mark, clicking the mark opens it too.
-2. Turn on "名单里的应用走代理" (the listed apps use the proxy).
+1. On the instance card, click "⋯" at the bottom right, then "Per-app proxy…". When the card already shows the "Proxy" mark, clicking the mark opens it too.
+2. Turn on "Listed apps use the proxy".
 3. Proxy address:
-   - Click "从系统代理读取" (read the system proxy) to take this computer's proxy setting (the environment variables `ALL_PROXY`, `HTTPS_PROXY`, `HTTP_PROXY`, or the proxy set by hand in Windows "Internet Options");
-   - or type an address such as `socks5://127.0.0.1:7890` (the protocol can be left out) and click "检测" (probe) to see which protocol it speaks and whether UDP works.
+   - Click "Read from system proxy" to take this computer's proxy setting (the environment variables `ALL_PROXY`, `HTTPS_PROXY`, `HTTP_PROXY`, or the proxy set by hand in Windows "Internet Options");
+   - or type an address such as `socks5://127.0.0.1:7890` (the protocol can be left out) and click "Test" to see which protocol it speaks and whether UDP works.
    - `127.0.0.1` and `localhost` are stored as `10.0.2.2`, as the instance sees them; a mixed port written as `http://` is changed to `socks5://`. What was changed is shown under the probe result.
 4. App list:
    - While the instance runs, the installed third-party apps and Google Play services are listed; just tick them. Games the manager knows are shown with their Chinese names.
    - While the instance is off, type package names below (such as `com.example.game`) and press Enter to add them.
-   - Listed apps that are not installed in the instance yet are marked "没装" (not installed); they take effect once installed. The list holds at most 64 apps.
-5. Click "保存" (save). A running instance takes it at once; a stopped one at its next boot through the manager or `modavd`.
+   - Listed apps that are not installed in the instance yet are marked "Not installed"; they take effect once installed. The list holds at most 64 apps.
+5. Click "Save". A running instance takes it at once; a stopped one at its next boot through the manager or `modavd`.
 
-The "现在" (now) line at the bottom of the dialog shows what the saved setting does now; it says the same as the mark on the card.
+The "Now" line at the bottom of the dialog shows what the saved setting does now; it says the same as the mark on the card.
 
 ::: tip Overseas games that sign in with Google
-Also list "Google Play 服务" (Google Play services, `com.google.android.gms`). When it is not in the list, the dialog says so; click "加进名单" (add to the list).
+Also list "Google Play services" (`com.google.android.gms`). When it is not in the list, the dialog says so; click "Add to list".
 :::
 
-To turn it off, untick "名单里的应用走代理" and save. The address and the list are kept, so you do not need to enter them again next time.
+To turn it off, untick "Listed apps use the proxy" and save. The address and the list are kept, so you do not need to enter them again next time.
 
-## The "代理" mark on the card {#mark}
+## The "Proxy" mark on the card {#mark}
 
-While the setting is on and the list is not empty, the instance card shows a "代理" (proxy) mark next to its title, in both the card and the list view. Hover over it to see the details; click it to open the setting.
+While the setting is on and the list is not empty, the instance card shows a "Proxy" mark next to its title, in both the card and the list view. Hover over it to see the details; click it to open the setting.
 
 While the instance runs and the manager window is open, the manager asks the instance for its state about every 30 seconds, and right away after a start, a stop or a change of the setting.
 
@@ -88,7 +88,7 @@ For the fields, error codes and how to log in, see [API.md](https://github.com/M
 
 ### The mark is red and says the proxy cannot be reached
 
-- Check that the proxy program is running and the port is right: click "检测" (probe) in the dialog, or run `tools\modavd.exe proxy <number> test`.
+- Check that the proxy program is running and the port is right: click "Test" in the dialog, or run `tools\modavd.exe proxy <number> test`.
 - The listed apps have no network meanwhile; that is on purpose. Once the proxy program is back you do not need to restart the instance: the mark turns green after the next connection of a listed app succeeds, and may be yellow until then.
 
 ### The mark is yellow and says the last connection through the proxy failed
@@ -104,7 +104,7 @@ Shut the instance down and start it again with the manager or `modavd`. If it st
 - Games that sign in with Google: also list Google Play services.
 - Games that use UDP (voice, real-time matches): use the proxy program's SOCKS5 or mixed port, not an HTTP proxy.
 - The listed apps get no IPv6; they use IPv4 only.
-- An app shown as "没装" (not installed): the package name may be wrong, or the game's package name differs from what you typed. Open the dialog while the instance runs and tick it in the listed apps.
+- An app shown as "Not installed": the package name may be wrong, or the game's package name differs from what you typed. Open the dialog while the instance runs and tick it in the listed apps.
 
 ### Are apps outside the list affected?
 

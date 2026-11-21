@@ -16,7 +16,7 @@ From 0.36.0 the package root also has `ModAVD.exe` (the manager), `tools\` has `
 | `说明.txt` (in the root of packages 0.40.0 and earlier) | The new package from 0.40.1 does not have it; the manager and this site cover how to use ModAVD. Upgrading with `modavd update` deletes it, while overwriting by hand leaves it in place, and you can delete it yourself |
 | `补全组件.bat`, `收集问题信息.bat`, `复制配置信息.bat` (in the root of packages 0.38.1 and earlier) | The new package from 0.38.2 does not have them. The three jobs are done in the manager and on the command line (see [Install](./install) and [Report a problem](./feedback)). Upgrading with `modavd update` deletes these three files, while overwriting by hand leaves them in place, which does no harm, and you can delete them yourself |
 | `avd\` | **Left alone**, the new package does not have this folder. Instances, games and login state are all here |
-| `sdk\platform-tools\`, `sdk\system-images\` | Left alone, the new package does not have them either. If the versions the new release requires change, the Release notes say so, and you click **补全组件** (Fetch components) in the manager again then, or run `tools\modavd.exe components fetch` |
+| `sdk\platform-tools\`, `sdk\system-images\` | Left alone, the new package does not have them either. If the versions the new release requires change, the Release notes say so, and you click **Fetch components** in the manager again then, or run `tools\modavd.exe components fetch` |
 | `mas-avd.json`, `logs\` | Left alone. These are written by AUTO-MAS and the emulator itself |
 
 ## Steps
@@ -30,7 +30,7 @@ From 0.36.0 the package root also has `ModAVD.exe` (the manager), `tools\` has `
 
 ## Upgrading from a beta package
 
-A beta package (for example `ModAVD-37.2.10-mas25`) comes with adb and the system image, the same versions that **补全组件** (Fetch components) downloads, so:
+A beta package (for example `ModAVD-37.2.10-mas25`) comes with adb and the system image, the same versions that **Fetch components** downloads, so:
 
 - Follow the steps above and extract the whole new package into the beta package's root folder. Files that the beta package does not have (for example `LICENSES\`, and from 0.36.0 `ModAVD.exe`) are put in along with the rest.
 - You do not need to fetch the components again. It does no harm to run `tools\modavd.exe components fetch` on the command line: it reports that both components are already complete and skips them.
