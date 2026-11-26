@@ -1,0 +1,13 @@
+# Code owners list only the high-risk paths: the workflows (one of them deploys the site) and the checks themselves.
+# GitHub asks the owner to review a pull request that touches one of them. Pages under docs/ are merged once CI is
+# green. How pull requests are reviewed and merged: https://github.com/ModAVD/ModAVD/blob/main/CONTRIBUTING.en.md
+# 只列高风险路径：动了这些路径的 PR，GitHub 会自动请负责人审查；docs/ 下的页面 CI 绿了就能合。
+# 流程见 https://github.com/ModAVD/ModAVD/blob/main/CONTRIBUTING.md
+
+# Workflows and their permissions, Dependabot, this file
+/.github/                        @qiyinxi
+
+# The CI gates, the privacy scan and its allowlist
+/scripts/repo_checks.py          @qiyinxi
+/scripts/privacy.py              @qiyinxi
+/scripts/privacy-allowlist.json  @qiyinxi

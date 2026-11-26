@@ -50,6 +50,23 @@ On PRs, CI runs:
 - Windows: the full set: the format check, `go vet`, `go test`, `build.ps1`, the privacy scan and the author check, plus a cross `go vet` with `GOOS=darwin GOARCH=arm64` and with `GOOS=linux GOARCH=amd64`;
 - macOS and Linux: only `go vet` and `go test` on the matching system. They do not build a releasable program or start an emulator.
 
+## Interface text and translations
+
+The manager and the CLI show Chinese or English, following the system language.
+
+- Text for people stays Chinese in the code, and the Chinese text is the key. The English is in `internal/i18n/locales/en/<package>.json`; the pages' own text is in `web.json`.
+- After you add or change Chinese text, run the commands below. They add the missing keys to the tables as `""`; then fill each `""` in with the English. If you miss one, `TestCatalog` fails in `go test`, and so does CI.
+
+  ```powershell
+  go test ./internal/i18n -run TestCatalog -update          # add the missing keys to the tables
+  go test ./internal/i18n -run TestCatalog -update -prune   # also remove keys that are no longer in the source
+  ```
+
+- Text that only goes into logs and problem reports, and machine-readable output (`--json`, MCP, exit codes), is not translated: the former gets the value `null`, and the latter is not in the tables at all.
+- To see the English interface, set the environment variable `MODAVD_LANG=en` (it affects only that process), or switch the language in the manager's settings.
+- If you do not write Chinese, write the key as a Chinese sentence with the meaning you intend (a translation tool is fine) and say so in the PR; the maintainer will polish it.
+- How to write the English, and the table of terms, are in the repository's [internal/i18n/README.md](https://github.com/ModAVD/ModAVDManager/blob/main/internal/i18n/README.md).
+
 ## Platform layer
 
 The manager is mainly for Windows x64 today. The platform-specific parts are split into two places:

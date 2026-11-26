@@ -50,6 +50,23 @@ CI 在 PR 上跑：
 - Windows：全套，包括格式检查、`go vet`、`go test`、`build.ps1`、隐私扫描和作者检查，另外用 `GOOS=darwin GOARCH=arm64`、`GOOS=linux GOARCH=amd64` 各交叉 `go vet` 一遍；
 - macOS 和 Linux：只在对应系统上跑 `go vet` 和 `go test`，不编出可发布的程序，也不开模拟器。
 
+## 界面文字和翻译
+
+管理器和命令行按系统语言显示中文或英文。
+
+- 代码里给人看的文字照旧写中文，中文原文就是键；英文在 `internal/i18n/locales/en/<包名>.json`，页面自己的文字在 `web.json`。
+- 新加或改了中文文字以后，跑下面的命令，它把缺的键以 `""` 加进表，再把 `""` 填成英文。漏了的话 `go test` 里的 `TestCatalog` 会失败，CI 也过不了。
+
+  ```powershell
+  go test ./internal/i18n -run TestCatalog -update          # 把缺的键加进表
+  go test ./internal/i18n -run TestCatalog -update -prune   # 同时删掉源码里已经没有的键
+  ```
+
+- 只进日志、问题包的文字，和机读输出（`--json`、MCP、退出码）不翻：前者的值写 `null`，后者本来就不进表。
+- 想看英文界面：设环境变量 `MODAVD_LANG=en`（只管这一个进程），或者在管理器的设置里换语言。
+- 不会写中文：键照意思写一句中文（用翻译工具也行），在 PR 里说一声，由维护者改顺。
+- 英文怎么写、术语对照表，见仓库的 [internal/i18n/README.md](https://github.com/ModAVD/ModAVDManager/blob/main/internal/i18n/README.md)。
+
 ## 平台层
 
 管理器目前以 Windows x64 为主，平台相关的部分拆在两处：
