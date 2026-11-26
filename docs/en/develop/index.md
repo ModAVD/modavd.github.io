@@ -40,7 +40,7 @@ This output does not contain your user name, computer name, full paths or game a
 ## Changing documentation and code
 
 - Say so in the issue before you start. If an issue is already assigned to someone, that person is working on it.
-- Open PRs from your own fork. CI for external PRs only runs after the maintainer approves it.
+- Open PRs from your own fork. For the first PR from a newly registered GitHub account, CI only runs after the maintainer approves it.
 - If something on this site or in the READMEs of the repositories is wrong or unclear, send a PR directly. See [Documentation and this site](./docs).
 - Bundled scripts, `package/`: you can send PRs, and once merged they ship with the next release. For the rules to follow, see [Bundled scripts](./package).
 - The arm64 execution bridge, `bridge/`: open an issue to discuss changes first. It directly affects whether games can start, so every release needs real game regression runs on an instance with the bridge installed.
@@ -52,11 +52,25 @@ This output does not contain your user name, computer name, full paths or game a
 
 To submit emulator patches, see [Emulator](./emulator).
 
+## How pull requests are reviewed and merged {#review-and-merge}
+
+Changes reach `main` in every repository only through a PR, and PRs are merged through GitHub's merge queue.
+
+- **PR description**: say what changed and why, and which checks you actually ran and how they went. Name the issue on a line of its own, `Refs ModAVD/ModAVD#<number>`, in full even in the other repositories; on PRs in the ModAVD repository, the type and `area:*` labels are then copied from the issue automatically.
+- **Do not write `Fixes` or `Closes`**: issues are not closed at merge time. Whoever merges adds `pending-release` to the issue, and it is closed when a release that contains the fix is published. Issues about documentation, tests or CI, which do not ship in the package, are closed at merge time.
+- **Release note line**: for a change users can see, add a file `changelog.d/<name>.<feat|fix|change|remove>.md` in the same PR with one line written for users; how to write it is in each repository's `changelog.d/README.md`. The line goes into the release notes, which are in Chinese. If you do not write Chinese, write it in English and say so in the PR; the maintainer will put it into Chinese.
+- **Checks**: a PR can be merged only when all of its CI checks are green. What CI runs is on each area's page; run locally first whatever you can.
+- **Review**: for a PR that touches a high-risk path, GitHub asks the code owner for a review automatically; wait for that review before merging. The high-risk paths are listed in each repository's `.github/CODEOWNERS`: workflows, the CI checks and the privacy scan themselves, release and signing, component download and package update, programs pushed into the guest, data disks, and emulator patches. Other PRs need no approval and can be merged once CI is green.
+- **Severity**: problems raised in review are graded P0 to P3. P0 and P1 are fixed before merging; P2 and P3 do not block the merge and become issues afterwards.
+- **Merging**: click **Merge when ready** to put the PR into the merge queue. The queue runs the checks again on top of the latest `main` and then squash-merges, so you do not have to keep your branch up to date with `main`. If you have write access, click it yourself; otherwise the maintainer does once CI is green. The PR title becomes the title of the commit on `main`, so it should make sense on its own.
+- **Testing on real instances is done per release**, not per PR. The pre-release regression tests the release's changes together on real instances; when it finds a problem, the PR that caused it is tracked down and, if needed, its merge commit is reverted first and the fix comes in a new PR.
+- **A large feature that is not finished** can go into `main` over several PRs as long as it is behind a switch that is off; it is turned on by default once it is finished and tested on a real instance.
+
 ## Credit and licensing
 
 - Sign with your own name or a pseudonym, and use a GitHub noreply address as your e-mail (`<id>+<login>@users.noreply.github.com`, which you can see in GitHub's e-mail settings). Do not write `Co-authored-by`. Your credit is kept after your change is accepted, and the release notes will thank you.
 - Your changes come in under the license of the files they change; see [Licenses and source code](../guide/license). The copyright line of a new file carries your name or pseudonym. You do not need to sign a CLA, and `Signed-off-by` is optional.
-- You may use AI tools, but the AI must test the change itself, and you are responsible for it. The rules for AI tools are in [AGENTS.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.md) at the root of the ModAVD repository; Codex, Claude Code and others read it on their own. See [Using AI tools](./ai).
+- You may use AI tools, but the AI must test the change itself, and you are responsible for it. The rules for AI tools are in [AGENTS.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.md) at the root of the ModAVD repository (in English: [AGENTS.en.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.en.md)); Codex, Claude Code and others read `AGENTS.md` on their own. See [Using AI tools](./ai).
 - General fixes may later be sent to the Google upstream (AOSP, google/gfxstream). Upstream requires the author to sign the Google CLA personally. You will be asked first, and if you do not want to, the change stays in ModAVD only.
 - For image and icon changes, open an issue first with the source and the license. Fan art and images with an unclear source are not accepted.
 

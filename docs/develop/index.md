@@ -40,7 +40,7 @@ issue、PR、评论和提交说明用中文或英文都可以。
 ## 改文档和代码
 
 - 动手前在 issue 里说一声；issue 已经指派给谁，就是有人在做。
-- 从自己的 fork 开 PR。外部 PR 的 CI 要维护者批准后才会跑。
+- 从自己的 fork 开 PR。新注册的 GitHub 账号第一次提 PR 时，CI 要维护者批准后才会跑。
 - 本站和各仓库 README 里写错、写得不清楚的地方：直接提 PR，见[文档和本站](./docs)。
 - 随包脚本 `package/`：可以提 PR，合进来后随下一版发出。要守的写法见[随包脚本](./package)。
 - arm64 执行桥 `bridge/`：改动先开 issue 商量。它直接影响游戏能不能启动，每一版都要在装了桥的实例上实跑游戏回归。
@@ -52,11 +52,25 @@ issue、PR、评论和提交说明用中文或英文都可以。
 
 模拟器补丁怎么交，见[模拟器本体](./emulator)。
 
+## PR 怎么审、怎么合 {#review-and-merge}
+
+各仓库的 `main` 只能通过 PR 进，合并走 GitHub 的合并队列。
+
+- **PR 正文**：写改了什么、为什么，实际跑过哪些检查、结果怎样。对应的 issue 单独写一行 `Refs ModAVD/ModAVD#<编号>`，在别的仓库里也写全称；ModAVD 仓库的 PR，类型和 `area:*` 标签会从 issue 自动抄过来。
+- **不写 `Fixes`、`Closes`**：issue 不在合并时关。合并的人给 issue 打上 `pending-release`，带着这个修复的版本发布时才关。文档、测试、CI 这类不随安装包发的改动，合并时直接关。
+- **更新说明**：用户看得见的改动，在同一个 PR 里加一个 `changelog.d/<名字>.<feat|fix|change|remove>.md`，写一行给用户看的话，写法见各仓库的 `changelog.d/README.md`。这一行会进中文的发版公告；不会写中文就用英文写，在 PR 里说一声，由维护者改成中文。
+- **检查**：PR 上的 CI 全绿才能合。CI 跑什么见各分区的页面，本地能跑的先在本地跑过。
+- **审查**：动了高风险路径的 PR，GitHub 会自动请负责人审查，审过再合。高风险路径列在各仓库的 `.github/CODEOWNERS`：workflow、CI 检查和隐私扫描本身、发版和签名、组件下载和整包更新、推进客体的程序、数据盘、模拟器补丁。其余的 PR 不要求审批，CI 绿了就能合。
+- **问题分级**：审查里提出的问题按 P0–P3 分。P0、P1 合并前修完；P2、P3 不挡合并，合并后挂 issue。
+- **合并**：点「Merge when ready」把 PR 放进合并队列。队列在最新的 `main` 上再跑一遍检查，过了自动 squash 合并，所以分支不用自己追 `main`。有写权限的人自己点；没有的，CI 绿了以后由维护者点。PR 标题会成为 `main` 上那个提交的标题，要能单独看懂。
+- **实机测试按版本做**：不逐个 PR 测。发版前的回归在真实实例上把这一版的改动一起测；查出问题按 PR 去找，必要时先 revert 那个合并提交，修好再提。
+- **没做完的大功能**可以分几个 PR 进 `main`，前提是有开关、默认关着；做完、实机测过再默认打开。
+
 ## 署名与许可
 
 - 署你自己的名字或化名，邮箱用 GitHub 的 noreply 地址（`<编号>+<登录名>@users.noreply.github.com`，在 GitHub 的邮箱设置里能看到）；不写 `Co-authored-by`。收进来后保留你的署名，发版说明里会致谢。
 - 你的改动按所改文件的许可证进来，见[许可证与源码](../guide/license)；新文件的版权行写你的名字或化名。不用签 CLA，`Signed-off-by` 可加可不加。
-- 可以用 AI 工具，但改动要让 AI 自己测过，你为它负责。给 AI 工具看的规矩在 ModAVD 仓库根目录的 [AGENTS.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.md)，Codex、Claude Code 等会自己读。见[用 AI 工具协助](./ai)。
+- 可以用 AI 工具，但改动要让 AI 自己测过，你为它负责。给 AI 工具看的规矩在 ModAVD 仓库根目录的 [AGENTS.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.md)（英文版 [AGENTS.en.md](https://github.com/ModAVD/ModAVD/blob/main/AGENTS.en.md)），Codex、Claude Code 等会自己读 `AGENTS.md`。见[用 AI 工具协助](./ai)。
 - 通用的修复以后可能投到 Google 上游（AOSP、google/gfxstream），上游要求作者本人签 Google CLA。到时会先问你，不愿意就只留在 ModAVD。
 - 图片、图标类改动先开 issue，写明来源和许可证；同人图和来源说不清的图不收。
 
