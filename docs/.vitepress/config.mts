@@ -119,7 +119,10 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   // 不往外取字体、统计脚本，页面只用本站自己的文件
-  head: [['meta', { name: 'theme-color', content: '#3c6fb4' }]],
+  head: [
+    ['meta', { name: 'theme-color', content: '#3c6fb4' }],
+    ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
+  ],
   transformHead: ({ pageData }) => alternates(pageData.relativePath),
 
   // 中文（根）和英文（/en/）各一份导航、侧边栏和界面文字，页面一一对应
@@ -174,6 +177,7 @@ export default defineConfig({
   },
 
   themeConfig: {
+    logo: '/images/logo.png',
     socialLinks: [{ icon: 'github', link: 'https://github.com/ModAVD' }],
 
     search: {
