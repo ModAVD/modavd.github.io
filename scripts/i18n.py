@@ -5,10 +5,15 @@
 - links into the site stay in their own language (English pages link to /en/..., Chinese pages do not);
 - every #anchor in a link to a page of this site exists in that page.
 
-With --base <ref> it also warns about pages changed since <ref> in one language only.
+Warnings (they never fail the check; they are printed as GitHub annotations in CI):
+- the two versions of a page have a different number of code blocks, or link to different URLs, pages or images
+  (a cheap check that needs no translation);
+- one language was last changed in a later commit than the other ("English page older than Chinese since <commit>");
+- with --base <ref>: pages changed since <ref> in one language only.
 
 Run from anywhere: python scripts/i18n.py [--base origin/main]
 """
+import os
 import re
 import subprocess
 import sys
@@ -35,7 +40,7 @@ def slugify(text):
 
 def parse(path):
     """Headings as (level, explicit id, anchor) and links as (line, target), skipping code blocks."""
-    headings, links, seen, fence = [], [], {}, None
+    headings, links, seen, fence, blocks = [], [], {}, None, 0
     lines = path.read_text(encoding="utf-8").splitlines()
     front = lines.index("---", 1) if lines and lines[0] == "---" else 0
     for number, line in enumerate(lines, 1):
@@ -45,6 +50,8 @@ def parse(path):
             continue
         match = FENCE.match(line)
         if match:
+            if fence is None:
+                blocks += 1
             fence = None if fence == match.group(1) else (fence or match.group(1))
             continue
         if fence:
@@ -56,7 +63,7 @@ def parse(path):
             seen[anchor] = count + 1
             headings.append((len(match.group(1)), match.group(3), anchor if count == 0 else f"{anchor}-{count}"))
         links += [(number, target) for target in LINK.findall(line)]
-    return headings, links
+    return headings, links, blocks
 
 
 def resolve(page, target):
@@ -81,6 +88,64 @@ def resolve(page, target):
     return rel if rel.endswith(".md") else re.sub(r"\.html$", "", rel) + ".md"
 
 
+def warn(message, file=None):
+    """A warning that never fails the check: a GitHub annotation in CI, plain text elsewhere."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::warning file={file}::{message}" if file else f"::warning::{message}")
+    else:
+        print(f"warning: {message}")
+
+
+def external(url):
+    """Another site's URL without what is language specific: the #anchor (headings are translated) and the English
+    file name of a README (README.en.md is the same document as README.md; the repository root shows README.md)."""
+    url = url.split("#")[0].replace(".en.md", ".md")
+    url = re.sub(r"/blob/[^/]+/README\.md$", "", url)
+    return url.replace("modavd.github.io/en/", "modavd.github.io/").rstrip("/")
+
+
+def link_set(page, links):
+    """The links of a page, in a form that is the same in both languages: other sites as they are, pages without the
+    en/ prefix, other files (images) as written."""
+    result = set()
+    for _, target in links:
+        dest = resolve(page, target)
+        if dest is None:
+            result.add(external(target) if re.match(r"^[a-z]+:", target) else target.split("#")[0])
+        else:
+            result.add("page:" + (dest[3:] if dest.startswith("en/") else dest))
+    return result
+
+
+def content_differences(zh_page, en_page):
+    """What differs between the two versions in ways that do not need a translation to see."""
+    found = []
+    if zh_page[2] != en_page[2]:
+        found.append(f"{zh_page[2]} code blocks in Chinese, {en_page[2]} in English")
+    only_zh = sorted(zh_page[3] - en_page[3])
+    only_en = sorted(en_page[3] - zh_page[3])
+    if only_zh:
+        found.append("links only in Chinese: " + ", ".join(only_zh))
+    if only_en:
+        found.append("links only in English: " + ", ".join(only_en))
+    return found
+
+
+def last_change(path, cwd):
+    """(unix time, short commit) of the last commit that changed path, or None if git does not know the file."""
+    out = subprocess.run(["git", "log", "-1", "--format=%ct %h", "--", str(path)], cwd=cwd, capture_output=True,
+                         text=True, encoding="utf-8").stdout.split()
+    return (int(out[0]), out[1]) if len(out) == 2 else None
+
+
+def stale_side(zh_change, en_change):
+    """Which side fell behind: 'English' or 'Chinese' with the commit that moved the other side, or None."""
+    if not zh_change or not en_change or zh_change[1] == en_change[1] or zh_change[0] == en_change[0]:
+        return None
+    if zh_change[0] > en_change[0]:
+        return f"English page older than Chinese since {zh_change[1]}"
+    return f"Chinese page older than English since {en_change[1]}"
+
 def main():
     pages = {p.relative_to(DOCS).as_posix() for p in DOCS.rglob("*.md") if ".vitepress" not in p.parts}
     zh = {p for p in pages if not p.startswith("en/")}
@@ -88,6 +153,7 @@ def main():
     errors = [f"docs/{p}: no English page docs/en/{p}" for p in sorted(zh - en)]
     errors += [f"docs/en/{p}: no Chinese page docs/{p}" for p in sorted(en - zh)]
     parsed = {p: parse(DOCS / p) for p in pages}
+    parsed = {p: (*v, link_set(p, v[1])) for p, v in parsed.items()}
 
     for p in sorted(zh & en):
         a = [(level, hid) for level, hid, _ in parsed[p][0]]
@@ -108,6 +174,13 @@ def main():
                 errors.append(f"docs/{p}:{number}: {target}: no page docs/{dest}")
             elif target.split("#", 1)[1] not in {anchor for _, _, anchor in parsed[dest][0]}:
                 errors.append(f"docs/{p}:{number}: {target}: no such heading in docs/{dest}")
+
+    for p in sorted(zh & en):
+        for text in content_differences(parsed[p], parsed["en/" + p]):
+            warn(f"docs/{p} and docs/en/{p} differ: {text}", f"docs/en/{p}")
+        stale = stale_side(last_change(DOCS / p, DOCS.parent), last_change(DOCS / "en" / p, DOCS.parent))
+        if stale:
+            warn(f"docs/en/{p}: {stale}", f"docs/en/{p}")
 
     if "--base" in sys.argv:
         base = sys.argv[sys.argv.index("--base") + 1]

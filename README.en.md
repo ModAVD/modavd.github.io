@@ -25,7 +25,7 @@ python scripts/privacy.py .   # privacy scan, same as CI
 
 ## CI
 
-- `check.yml`: on a PR it builds the whole site (dead-link check), checks that the Chinese and English pages match (`scripts/i18n.py`: every page exists in both languages, headings have the same levels and order, site links do not cross languages, and every anchor resolves; a page changed in one language only gets a warning), and runs the privacy scan.
+- `check.yml`: on a PR it builds the whole site (dead-link check), checks that the Chinese and English pages match (`scripts/i18n.py`: every page exists in both languages, headings have the same levels and order, site links do not cross languages, and every anchor resolves; a page changed in one language only, different code blocks or links, or one side lagging behind the other only get a warning), and runs the privacy scan.
 - `deploy.yml`: after a merge into `main` it builds the site and publishes it to GitHub Pages.
 - Third-party actions are always pinned to a full 40-character commit SHA; no `pull_request_target`, no self-hosted runners.
 

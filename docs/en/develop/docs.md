@@ -32,7 +32,7 @@ python scripts/i18n.py   # checks the pages and headings of the Chinese and Engl
 CI on a PR will:
 
 - build the whole site, and fail on dead links;
-- check the Chinese and English sides against each other (`python scripts/i18n.py`): every page exists in both languages, headings have the same levels and order, links inside the site do not lead to the other language, and every `#anchor` can be found. A page changed in only one language is flagged as a reminder;
+- check the Chinese and English sides against each other (`python scripts/i18n.py`): every page exists in both languages, headings have the same levels and order, links inside the site do not lead to the other language, and every `#anchor` can be found. A page changed in only one language is flagged as a reminder, and so are pages whose two versions have a different number of code blocks or link to different URLs, or where one side was last changed later than the other (reminders only; CI does not fail);
 - run the privacy scan (`python scripts/privacy.py .`), which fails if the docs contain paths such as a local user directory.
 
 After a merge into `main`, the site is published to GitHub Pages automatically.
