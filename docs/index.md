@@ -6,8 +6,8 @@ hero:
   text: '在 Windows 上运行<span style="white-space: nowrap">安卓</span>应用和游戏'
   tagline: ModAVD 是一款安卓模拟器，目前支持 Windows，计划支持更多平台。
   image:
-    src: /images/home/hero.png
-    alt: 珊瑚色剪纸环绕的 ModAVD 图标
+    src: /images/home/hero.webp
+    alt: 抱着火山屏幕的 ModAVD 角色
   actions:
     - theme: brand
       text: 下载 Windows 版

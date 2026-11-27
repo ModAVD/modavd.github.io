@@ -6,8 +6,8 @@ hero:
   text: Run Android apps and games on Windows
   tagline: ModAVD is an Android emulator for Windows, with more platforms planned.
   image:
-    src: /images/home/hero.png
-    alt: The ModAVD icon surrounded by coral-colored paper cutouts
+    src: /images/home/hero.webp
+    alt: The ModAVD character holding a screen with a volcano
   actions:
     - theme: brand
       text: Download for Windows

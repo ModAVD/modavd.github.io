@@ -1,0 +1,7 @@
+.VPHome {
+  --vp-home-hero-name-color: #4a2c25;
+}
+
+.dark .VPHome {
+  --vp-home-hero-name-color: #f07060;
+}
