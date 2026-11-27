@@ -25,7 +25,7 @@ python scripts/privacy.py .   # 隐私扫描，和 CI 一样
 
 ## CI
 
-- `check.yml`：PR 上编译整站（查死链）、核对中英页面（`scripts/i18n.py`：每页都有两种语言，标题的层级和顺序相同，站内链接不串语言，锚点都找得到；只改了一种语言的页面会标出提醒）、跑隐私扫描。
+- `check.yml`：PR 上编译整站（查死链）、核对中英页面（`scripts/i18n.py`：每页都有两种语言，标题的层级和顺序相同，站内链接不串语言，锚点都找得到；只改了一种语言的页面、两边代码块或链接不同、一边落后于另一边，都只标出提醒）、跑隐私扫描。
 - `deploy.yml`：合进 `main` 后编译并发布到 GitHub Pages。
 - 第三方 action 一律钉到 40 位提交 SHA；不用 `pull_request_target`，不用自托管 runner。
 
