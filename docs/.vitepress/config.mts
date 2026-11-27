@@ -20,6 +20,7 @@ const guide: Page[] = [
   ['/guide/false-positive', '杀毒软件误报怎么办', 'What to do when antivirus software flags ModAVD'],
   ['/guide/privacy', '隐私', 'Privacy'],
   ['/guide/license', '许可证与源码', 'Licenses and source code'],
+  ['/guide/support', '赞赏', 'Support'],
 ]
 
 const components: Page[] = [
