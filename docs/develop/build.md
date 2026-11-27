@@ -92,6 +92,23 @@ foreach ($s in $series) {
 | gfxstream | `51288846bdcb9054d899ffc8458d6744d6206e32` |
 | Crashpad | `0a3c056231f5257034514ae8d83192de388351f0` |
 
+也可以不回放，直接取打好补丁的仓库 [ModAVDQemu](https://github.com/ModAVD/ModAVDQemu)、[ModAVDGfxstream](https://github.com/ModAVD/ModAVDGfxstream)、[ModAVDCrashpad](https://github.com/ModAVD/ModAVDCrashpad) 的 tag `v0.36.0`，源码树就是上表这几个：
+
+```powershell
+$tags = @(
+    @{ Repo = 'external/qemu'; Url = 'https://github.com/ModAVD/ModAVDQemu.git' },
+    @{ Repo = 'hardware/google/gfxstream'; Url = 'https://github.com/ModAVD/ModAVDGfxstream.git' },
+    @{ Repo = 'external/crashpad'; Url = 'https://github.com/ModAVD/ModAVDCrashpad.git' }
+)
+foreach ($t in $tags) {
+    $repo = Join-Path $src $t.Repo
+    git -C $repo fetch $t.Url v0.36.0
+    if ($LASTEXITCODE) { throw "fetch failed: $($t.Repo)" }
+    git -C $repo switch -c modavd-mas36 FETCH_HEAD
+    if ($LASTEXITCODE) { throw "branch failed: $($t.Repo)" }
+}
+```
+
 其余项目仍应处于目标清单记录的 revision。
 
 ## 构建

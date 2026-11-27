@@ -1,0 +1,123 @@
+# The manager and CLI
+
+Since ModAVD 0.36.0 the package includes two management programs. Their source is in [ModAVDManager](https://github.com/ModAVD/ModAVDManager):
+
+| Program | Location | Who uses it |
+|---|---|---|
+| The manager `ModAVD.exe` | Package root | People: instance cards, start and stop, create, settings, screen view, logs |
+| The CLI `modavd.exe` | `tools\` | Scripts, AUTO-MAS and AI assistants; `modavd mcp` is an MCP server |
+
+Instance files and `mas-avd.json` are written the same way as in AUTO-MAS, so instances created by either one can be started by the other.
+
+## The manager
+
+Double-click `ModAVD.exe` in the package root. It starts a local server that listens only on 127.0.0.1, then opens a window in Edge app mode (Edge comes with Windows 10 / 11); if Edge is not found, it uses the default browser. The page is embedded in the program and does not use the network.
+
+- Features: instance cards (with a screen thumbnail when the instance is online), start and stop (with progress), create, settings, delete, PC check, [components and feedback](#components-and-feedback) (since manager 0.3.0), activity panel, screen view (a click is a tap; Back / Home / Recents), logs, install APK, open folder; light / dark / follow system. Since manager 0.4.0 there is also the [per-app proxy](./app-proxy).
+- The manager always starts instances with a window. Headless starts are only on the command line (`start <i>` is headless by default, and so is MCP's `start_instance`), for automation such as AUTO-MAS; the manager has no headless start. A headless instance is marked “headless” on its card and can also be shut down here.
+- One server runs per root folder; double-clicking again only reopens the window. The log is at `<root>\logs\modavd-ui.log`.
+- After you close the window, it waits for the running tasks to finish before it exits. Since manager 0.8.0 the Windows manager stays in the tray instead; see below.
+
+### Boss keys and the tray
+
+Since manager 0.8.0, Windows only.
+
+- **Boss key**: each instance running with a window has a global hot key. Press it once to hide this instance's emulator window, and again to bring it back.
+  - While hidden, the instance keeps rendering and screenshots keep working, so automation is not affected. It has no taskbar button. When it comes back, its position and size are the same as before.
+  - A headless instance has no window, so its boss key does nothing.
+- **Default key**: instances 0–9 use Ctrl+Alt+Shift+number, with the digit row of the main keyboard (for example, `mas_1` is Ctrl+Alt+Shift+1). Instances above 9 have no boss key by default.
+- **Where to change it**: in the instance's settings, next to diagnostic mode.
+  - Click the field and press the combination. It needs at least one of Ctrl, Alt and Shift; combinations with Win are refused.
+  - It can be cleared, which leaves the instance without a boss key.
+  - A change applies at once, without restarting the instance.
+  - On the command line it is `set <i> --boss-key <combination>` (`none` for no key), and `info` shows it.
+  - It is stored as `bossKey` under the instance in `mas-avd.json`; when it is not written, the default applies.
+- **Several instances on one key**: this is not a conflict. A press hides them all if any of them shows its window, and shows them all if all are hidden. It looks at whether the windows show right now, so windows hidden by AUTO-MAS or `window <i> hide` come back too.
+- **Key taken by another program**: the settings page shows a warning icon next to it, and hovering says to pick another key; no dialog pops up. With managers of two root folders open on one computer, their default keys collide, and the one opened later shows the warning.
+- **Tray**:
+  - The manager puts an icon in the tray. After you close the manager window, the manager stays in the tray and the boss keys keep working.
+  - A left click on the icon brings every hidden window back.
+  - The right-click menu has “Open manager” and “Exit”. Exiting first shows the hidden windows, and waits for running tasks to finish.
+  - The manager registers the boss keys, so if you only use AUTO-MAS and never open the manager, there are no boss keys. Open the manager once and leave it in the tray to get them.
+
+## Components and feedback
+
+A note on version numbers: "since manager 0.3.0" below is the version of ModAVDManager itself (the manager and the CLI share one version number). It is a different numbering from the ModAVD package version (such as 0.38.2); the package's release notes say which manager version it contains.
+
+**Settings → Components and problem reports** in the manager puts three jobs in one panel, and the CLI has matching commands:
+
+| In the panel | CLI | What it does |
+| --- | --- | --- |
+| Component status | `components status` | Shows whether adb and the system image are installed, and whether the optional Google Play Store services are present (read-only) |
+| **Fetch components** | `components fetch` | Downloads adb and the system image from the official source: pick a download source, read Google's license, and only after you agree does it download; shows progress and a Cancel button |
+| **Collect problem info** | `collect-info` | Packs logs, configuration and computer info into one zip on the desktop, then shows its path and a privacy note (read-only; no network, no upload) |
+| **Copy configuration info** | `report-config` | Puts the computer's configuration and the games installed in running instances into one block of text, copies it to the clipboard and shows it (read-only) |
+
+- The component status in the panel is display-only. When components are missing, the home page shows a banner with a **Fetch components** button, and the same button is under the failed **Components** item of **System check**. For the full steps, download sources and error handling, see [Install](../guide/install#_2-fetch-the-google-components).
+- For what is collected and what is safe to post publicly, see [Reporting problems](../guide/feedback) and [Privacy](../guide/privacy).
+- In packages 0.38.1 and earlier these three jobs were three `.bat` files in the package root; from 0.38.2 they are gone and the manager and CLI do them.
+
+## The CLI
+
+```
+modavd [--root <dir>] [--json] [--quiet] [--verbose] <command> [args]
+```
+
+| Command | Description |
+| --- | --- |
+| `list` | All instances and their status |
+| `info <i>` / `status <i>` | Detailed information / status of one instance |
+| `create [--index N] [--title T] [--memory 6G] [--cpu N] [--data-gb N] [--fps 30\|60] [--resolution 1080\|720] [--no-bridge]` | Create an instance. It includes the arm64 execution bridge by default, installed on the first boot |
+| `set <i> [--title T] [--memory M] [--cpu N] [--fps F] [--resolution 1080\|720] [--data-gb N] [--boss-key combination\|none]` | Change settings; they take effect on the next start. `--data-gb` can only grow the disk; game data is untouched. `--boss-key` is the [boss key](#boss-keys-and-the-tray) and applies at once |
+| `delete <i> --yes` | Delete a shut-down instance together with its game data |
+| `start <i> [--window \| --headless] [--timeout 300] [--no-bridge]` | Start headless by default; `--window` starts with a window and `--headless` explicitly requests headless mode. Wait until boot and post-boot setup are complete |
+| `stop <i> [--force]`, `stop --all` | Shut down: first ask Android for a clean shutdown; if that fails, sync + kill. `--force` is sync + force-kill |
+| `bridge <i> install\|uninstall\|verify` | Install, uninstall or check the arm64 execution bridge |
+| `proxy <i> [on\|off\|test] [--server URL\|auto] [--add pkg] [--remove pkg] [--apps pkg]` | Since manager 0.4.0: the [per-app proxy](./app-proxy); the listed apps use the proxy, the others go direct |
+| `check [--memory M]` | PC check before starting |
+| `components [status]`, `components source [auto\|googledownloads_cn\|tencent\|google]`, `components fetch [--accept-license] [--keep-downloads]` | Since manager 0.3.0: show component status, choose the download source, fetch the Google components. `fetch` shows the license first and downloads only after you type `y`; with `--json` it requires `--accept-license`. Only Windows has a component list; other systems return `unsupported` |
+| `collect-info [--out-dir D] [--no-explorer]` | Since manager 0.3.0: collect a problem report as a zip, placed on the desktop and selected in File Explorer by default |
+| `report-config [--no-clipboard]` | Since manager 0.3.0: copy the configuration info, to the clipboard by default |
+| `window <i> show\|hide` | Show or hide the window of an instance started with one; headless instances have no window. In the manager, use the [boss key](#boss-keys-and-the-tray) |
+| `install <i> <apk>`, `shell <i> <command>`, `adb <i> -- <args>` | Install an APK, guest command, adb passthrough |
+| `servers`, `version`, `mcp`, `help [command]` | |
+
+- Write `<i>` as `3` or `mas_3` (0–9, except 5). Write memory as `6144`, `6144M` or `6G`; there are only four levels: 3 / 4 / 5 / 6 GB. Cores are 2 / 4 / 6, frame rate 30 / 60.
+- Root folder: `--root`; if it is not given, the environment variable `MODAVD_ROOT`; otherwise the folder containing `modavd.exe` or its parent.
+- Windowed / headless mode cannot change while an instance is running; shut it down, then start it in the desired mode. `--window` and `--headless` are mutually exclusive. Since 0.3.0 there is no `restart` command; use `stop` followed by `start`.
+- adb uses only the root folder's private server (`adbServerPort` in `mas-avd.json`) and never touches the default 5037.
+- Shutdown syncs first and then stops, so it does not leave 0-byte files behind.
+
+For machine-readable output (`--json`), exit codes and the full option reference, see [the ModAVDManager README](https://github.com/ModAVD/ModAVDManager/blob/main/README.en.md#command-line).
+
+Choose the display preset in the manager’s create or instance settings form, with CLI `--resolution 1080|720`, or with MCP `resolution` in `create_instance` and `update_instance`. New instances default to 1080p (1920×1080 / DPI 280). 720p (1280×720 / DPI 240) uses fewer resources. Changing the preset updates width, height and DPI together, preserves orientation, and takes effect at the next boot. Existing landscape or portrait 1920×1080 configurations stay at 1080p; other configurations, including missing dimensions, stay at 720p. DPI is not a separate option. Update your automation tool’s resolution as well.
+
+[AUTO-MAS#1837](https://github.com/AUTO-MAS-Project/AUTO-MAS/pull/1837) adds both presets to creation, instance settings and the Python launch path used when no packaged CLI is present. The selected preset survives restarts. Update AUTO-MAS and the packaged CLI before using 1080p; a CLI without preset support reports that an update is needed before it can change the configuration. Older AUTO-MAS versions still force 720p in the Python launch path.
+
+## MCP
+
+```
+modavd mcp --root D:\ModAVD
+```
+
+Tools: `list_instances`, `get_instance`, `check_host`, `create_instance`, `update_instance`, `delete_instance`, `start_instance` (with progress), `stop_instance`, `set_window_visible`, `shell`, `install_apk`. Since manager 0.4.0 also `get_app_proxy` and `set_app_proxy` (the [per-app proxy](./app-proxy)).
+
+To register it in Claude Code (in PowerShell, `--` must be quoted, or it gets swallowed):
+
+```powershell
+claude mcp add --transport stdio --scope user modavd '--' D:\ModAVD\tools\modavd.exe mcp --root D:\ModAVD
+```
+
+Or in a project's `.mcp.json`:
+
+```json
+{"mcpServers": {"modavd": {"command": "D:\\ModAVD\\tools\\modavd.exe", "args": ["mcp", "--root", "D:\\ModAVD"]}}}
+```
+
+## Downloading separately
+
+The manager has its own version number (from v0.1.0) and is released separately on [ModAVDManager Releases](https://github.com/ModAVD/ModAVDManager/releases).
+
+- Normally just use the copy that comes in the ModAVD package; it is replaced together with the package when you upgrade.
+- A separately downloaded package can go in any folder; point it at the ModAVD root folder with `--root` or `MODAVD_ROOT`. Do not extract it into the ModAVD root folder and overwrite the files from the package.
+- After downloading, check the hash against `SHA256SUMS.txt` in the release.

@@ -26,6 +26,8 @@
 
 1. 先开 issue，写清要改什么、为什么。
 2. 拿源码：在 ModAVD 仓库目录里运行 `python scripts/checks.py patches --work <一个还不存在的目录>`。它从 android.googlesource.com 浅取 AOSP 基准，回放 `patches/` 里当前版本的补丁，每条补丁系列生成一个仓库，如 `qemu-mas36`。
+
+   也可以直接克隆打好补丁的仓库 [ModAVDQemu](https://github.com/ModAVD/ModAVDQemu)、[ModAVDGfxstream](https://github.com/ModAVD/ModAVDGfxstream)、[ModAVDCrashpad](https://github.com/ModAVD/ModAVDCrashpad)，当前版本在 `release/0.36` 分支，源码树和回放出来的一样，比如 `git clone -b release/0.36 https://github.com/ModAVD/ModAVDQemu.git`。完整历史约 400 MB，只要最近的提交可以加 `--depth 100`。
 3. 进要改的仓库，**先把提交身份改成你自己的**，因为脚本给这几个仓库设的是维护者的身份：
 
    ```
@@ -33,7 +35,9 @@
    git config user.email "<你的 GitHub noreply 邮箱>"
    ```
 
-4. 改完提交，用 `git format-patch -<提交数>` 导出。把 `.patch` 附在 issue 里，或者开一个只加 `incoming/<主题>/*.patch` 的 PR。这类 PR 不合并：补丁收进下一版后关闭，并写明是哪一版。
+4. 改完提交，用 `git format-patch -<提交数>` 导出。把 `.patch` 附在 issue 里，或者开一个只加 `incoming/<主题>/*.patch` 的 PR。
+   - 补丁直接就是要收的样子：基于当前系列，作者是你的 noreply 邮箱，没有 `Co-authored-by`；测试脚本别放进补丁本身，写在 PR 说明里或放 `incoming/<主题>/tests/`。CI 会检查这几条。
+   - 要改的地方维护者会在 PR 里说，请你自己更新。审过就合并，合并即收录：维护者用 `git am` 原样收进下一版，署名保留；发版时补丁并进 `patches/` 的新系列，`incoming/` 里的这一份随之删掉。
 5. 不要求你会编译或跑回归。维护者审完会在自己的电脑上编、测。
 
 只回放补丁不需要编译环境；要编出能跑的模拟器，照[从源码构建](./build)。

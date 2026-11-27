@@ -1,6 +1,6 @@
 # AUTO-MAS 对接
 
-**改什么**：[AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 里管理 ModAVD 实例的部分，正在从它自己的 Python 实现改成调用 `modavd` 命令行。
+**改什么**：[AUTO-MAS](https://github.com/AUTO-MAS-Project/AUTO-MAS) 里管理 ModAVD 实例的部分（建实例、开关机、更新整包），计划从它自己的 Python 实现改成调用 `modavd` 命令行。改动提到 AUTO-MAS 仓库，合不合由 AUTO-MAS 的维护者定。
 
 ## 环境
 
